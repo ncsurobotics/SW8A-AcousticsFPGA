@@ -2,14 +2,12 @@
 
 module Controller(
                     input clk,
-                    input reset, 
-
+                    input reset_b, 
                     input triggered,
-                    input buffer_full,
-                    input cross_corrleation_done,
-                    input transmission_done,
-                    input sample_counter,
-                    input data_in,
+                    input cross_correlation_done,
+                    input UART_transmission_done,
+                    input sample_counter_14,
+                    input buffer_full_counter,
 
                     output reg chip_select,
                     output reg[1:0] data_input_sel,
