@@ -38,36 +38,43 @@ module Controller(
         
         S0:         // reset state
             begin
-        
+                if(dut_run) next_state <= S1;
+                else next_state = S0;
+
             end
         
         S1:         // Not triggered data wait
             begin
-
+                if(sample_counter == 14) next_state = S2;
+                esle next_state = S1;
             end
         
         S2:         // Not triggered data ready
             begin
-
+                if(triggered) next_state = S3;
+                else next_state = S2;
             end
                     
         S3:         // Triggered Data wait
             begin
-
+                if(sample_counter == 14) next_state = S4;
+                else next_state = S3;
             end
                     
         S4:         // Triggered data ready
             begin
-
+                if(buffer_full) next_state = S5;
+                else next_state = S4;
             end
-
+            
         S5:         // Cross correlation state
             begin
-
+                if(cross_correltaion_done) next_state = S6;
+                else next_state = S5;
             end
         S6:         //UART dummy state (will neeed expansion)
             begin
-            
+                next_state = S0;
             end
 
         endcase
