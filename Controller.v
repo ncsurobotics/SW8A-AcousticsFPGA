@@ -17,13 +17,20 @@ module Controller(
     reg [2:0] state;    
 
     parameter [2:0]
-            S0  =   3'b000;
-            S1  =   3'b001;
-            S2  =   3'b010;
-            S3  =   3'b011;
-            S4  =   3'b100; 
+            S0  =   4'b0000;
+            S1  =   4'b0001;
+            S2  =   4'b0010;
+            S3  =   4'b0011;
+            S4  =   4'b0100; 
+            S5  =   4'b0101;
+            S6  =   4'b0110;
+            S7  =   4'b0111;
 
-    always @ (posedge clk)
+    always @(posedge clk or negedge reset_b)
+        if(!reset_b) current_state = S0;
+        else current_state = next_state;
+
+    always @ (*)
         begin
         
         // state machine
@@ -31,27 +38,36 @@ module Controller(
         
         S0:         // reset state
             begin
-
+        
             end
         
-        S1:         // start filling buffer, check new data for trigger
+        S1:         // Not triggered data wait
             begin
 
             end
         
-        S2:         // triggered; fill buffer; keep 500 pre-trigger samples
+        S2:         // Not triggered data ready
             begin
 
             end
                     
-        S3:         // cross correlation
+        S3:         // Triggered Data wait
             begin
 
             end
                     
-        S4:         // transfer results of TDOA to computer
+        S4:         // Triggered data ready
             begin
 
+            end
+
+        S5:         // Cross correlation state
+            begin
+
+            end
+        S6:         //UART dummy state (will neeed expansion)
+            begin
+            
             end
 
         endcase
