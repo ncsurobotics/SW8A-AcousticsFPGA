@@ -4,19 +4,23 @@ module Controller(
                     input clk,
                     input reset, 
 
-                    input trig,
-                    input full_buff,
-                    input cc_done,
-                    input trans_done,
+                    input triggered,
+                    input buffer_full,
+                    input cross_corrleation_done,
+                    input transmission_done,
+                    input sample_counter,
 
                     input data_in,
 
-                    output // outputs
+                    output chip_select,
+                    output [1:0] data_input_sel,
+                    output fft_en_sel
                  );
 
-    reg [2:0] state;    
 
-    parameter [2:0]
+    reg [3:0] state;    
+
+    parameter [3:0]
             S0  =   4'b0000;
             S1  =   4'b0001;
             S2  =   4'b0010;
@@ -34,18 +38,22 @@ module Controller(
         begin
         
         // state machine
-        case (state)
+        case (current_state)
         
         S0:         // reset state
             begin
                 if(dut_run) next_state <= S1;
-                else next_state = S0;
+                else next_state <= S0;
+
+                fft_en_sel <= 0;
+                data_input_sel <= 2'b00;
+
 
             end
         
         S1:         // Not triggered data wait
             begin
-                if(sample_counter == 14) next_state = S2;
+                if(sample_counter_14) next_state = S2;
                 esle next_state = S1;
             end
         
@@ -57,13 +65,13 @@ module Controller(
                     
         S3:         // Triggered Data wait
             begin
-                if(sample_counter == 14) next_state = S4;
+                if(sample_counter_14) next_state = S4;
                 else next_state = S3;
             end
                     
         S4:         // Triggered data ready
             begin
-                if(buffer_full) next_state = S5;
+                if(buffer_counter_full) next_state = S5;
                 else next_state = S4;
             end
             
