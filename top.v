@@ -37,7 +37,20 @@ Controller C1(
     .UART_input_sel             (       UART_input_sel              )
 );
 
-Datapath DP1();
+Datapath DP1(
+    .clk                        (       clk                         )
+    .reset_b                    (       reset_b                     )
+    .data_input_sel             (       data_input_sel              )
+    .fft_en_sel                 (       fft_en_sel                  )
+    .cross_correlation_en_sel   (       cross_correlation_en_sel    )
+    .UART_input_sel             (       UART_input_sel              )
+    .triggered                  (       triggered                   )
+    .cross_correlation_done     (       cross_correlation_done      )
+    .UART_transmission_done     (       UART_transmission_done      )
+    .sample_counter_14          (       sample_counter_14           )
+    .buffer_counter_full        (       buffer_counter_full         )
+
+);
 
 
 
