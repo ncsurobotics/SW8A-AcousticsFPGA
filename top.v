@@ -1,57 +1,75 @@
-module top(
-    
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 12/20/2022 01:45:26 AM
+// Design Name: 
+// Module Name: blinky
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
 
-
-);
-/*
-    Outputs of the controller to the datapath
-    ////To define what is what later
-
-*/
-wire chip_select;
-wire fft_en_sel;
-wire cross_correlation_en_sel;
-wire[1:0] data_input_sel;
-wire[1:0] UART_input_sel;
-
-wire triggered;
-wire cross_correltaion_done;
-wire UART_transmission_done;
-wire sample_counter_14;
-wire buffer_counter_full;
-wire data_in;
-
-Controller C1(
-    .clk                        (       clk                         ),
-    .reset_b                    (       reset_b                     ),
-    .triggered                  (       triggered                   ),
-    .cross_correlation_done     (       cross_correlation_done      ),
-    .UART_transmission_done     (       UART_transmission_done      ),
-    .sample_counter_14          (       sample_counter_14           ),
-    .buffer_full_counter        (       buffer_full_counter         ),
-    .chip_select                (       chip_select                 ),
-    .data_input_sel             (       data                        ),
-    .fft_en_sel                 (       fft_en_sel                  ),
-    .cross_correlation_en_sel   (       cross_correlation_en_sel    ),
-    .UART_input_sel             (       UART_input_sel              )
+module top (
+    input clk, btnC, btnU,
+    input [15:0] sw,
+    output led,
+    output [6:0] seg,
+    output [3:0] an
 );
 
-Datapath DP1(
-    .clk                        (       clk                         )
-    .reset_b                    (       reset_b                     )
-    .data_input_sel             (       data_input_sel              )
-    .fft_en_sel                 (       fft_en_sel                  )
-    .cross_correlation_en_sel   (       cross_correlation_en_sel    )
-    .UART_input_sel             (       UART_input_sel              )
-    .triggered                  (       triggered                   )
-    .cross_correlation_done     (       cross_correlation_done      )
-    .UART_transmission_done     (       UART_transmission_done      )
-    .sample_counter_14          (       sample_counter_14           )
-    .buffer_counter_full        (       buffer_counter_full         )
+// blink LED
+reg [24:0] count = 0;
+assign led = count[24];
 
+always @ (posedge clk) count = count + 1;
+
+// BRAM test. address = sw[15:12], data = sw[3:0]
+wire [3:0] ram_out;
+wire [15:0] display;
+
+ram_test ram(   .clk(clk), 
+                .write_en(btnU), 
+                .address(sw[15:12]),
+                .data_in(sw[3:0]),
+                .data_out(ram_out)
 );
 
+assign display = {sw[15:12], 8'h00, ram_out};
 
+seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
+                    .segments(seg), .anode(an));
+
+endmodule
+
+module ram_test (
+    input clk, write_en,
+    input [3:0] address,
+    input [3:0] data_in,
+    output reg [3:0] data_out 
+);
+
+(* ram_style = "block" *) reg [3:0] mem [0:15];
+
+always @ (posedge clk) begin
+    if (write_en) begin // write 
+        mem[address] <= data_in;
+        data_out <= data_in;
+        
+    end
+    else begin // read
+        data_out <= mem[address];
+    end
+end
 
 endmodule
