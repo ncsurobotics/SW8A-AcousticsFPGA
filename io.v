@@ -1,3 +1,62 @@
+module button_handler (
+    input clk, // 7.2 MHz clk to make counter smaller
+    input button, 
+    output button_out
+);
+
+reg [20:0] counter = 21'b0;
+reg [1:0] current_state, next_state;
+reg counter_next;
+
+parameter [1:0]
+    S0 = 2'b00,
+    S1 = 2'b01,
+    S2 = 2'b10;
+
+always @ (posedge clk) begin
+    current_state <= next_state;   
+    counter <= counter_next;
+end
+
+always @ (*) begin
+    case (current_state)
+        S0: begin
+            if (button) next_state = S1;
+            else next_state = S0;
+            counter_next = 21'b0;
+        end
+
+        S1: begin
+            if (button) begin
+                counter_next = counter + 1;
+                if (counter[20] == 1'b1) begin
+                    // counter_next = 21'b0;
+                    next_state = S2;
+                end
+                else next_state = S1;
+            end
+            else begin 
+                counter_next = 21'b0;
+                next_state = S0;
+            end
+        end
+
+        S2: begin
+            counter_next = counter + 1;
+            if (counter[1] == 1'b1) begin
+                next_state = S0;
+            end
+            else next_state = S2;
+        end
+    endcase
+end
+
+assign button_out = (current_state == S2);
+
+endmodule
+
+
+
 module seven_segment (
     input clk, btnC,
     input [15:0] decimal_num,
