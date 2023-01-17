@@ -1,8 +1,10 @@
 module SIPO_controller(
     input clk,
     input control_signal, // button handler out
+    input reset_b,
     output reg data_logging,
-    output reg data_ready
+    output reg data_ready,
+    output [1:0]counter_sel
 );
 
     parameter [3:0]
@@ -25,8 +27,8 @@ module SIPO_controller(
 
     reg [3:0] current_state, next_state;
 
-    always@(posedge clk2)
-        if (control_signal) current_state <= S0;
+    always@(posedge clk2 or negedge reset_b) 
+        if (!reset_b) current_state <= S0;
         else current_state <= next_state;
 
     always@(*)
@@ -34,38 +36,37 @@ module SIPO_controller(
             case(current_state)
                 S0:
                     begin
-                        if(!control_signal) next_state <= S1;
-                        else next_state <= S0;
-                        next_state <= S1;
-                        data_logging <= 1'b0;
-                        data_ready <= 1'b0;
+                       counter_sel <= 2'b00;
+                       data_logging <= 1'b0;
+                       data_ready <= 1'b0;
                     end
                 S1:
                     begin
-                        next_state <= S2;
+                        counter_sel <= 2'b00;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
                     end
                 S2:
                     begin
-                        next_state <= S3;
+                        counter_sel <= 2'b11;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
                     end    
                 S3:
                     begin
-                        next_state <= S4;
-                        data_logging <= 1'b0;
+                        counter_sel <= 2'b11;
+                        data_logging <= 1'b1
                         data_ready <= 1'b0;
                     end    
                 S4:
                     begin
-                        next_state <= S5;
-                        data_logging <= 1'b0;
-                        data_ready <= 1'b0;
+                       counter_sel <= 2'b10;
+                       data_logging <= 1'b0;
+                       data_ready <= 1'b1;
                     end    
                 default:
                     begin
+
                     end
             endcase
         end
