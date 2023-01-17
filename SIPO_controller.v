@@ -1,5 +1,5 @@
 module SIPO_controller(
-    input clk2,
+    input clk,
     input control_signal, // button handler out
     output reg data_logging,
     output reg data_ready
@@ -64,74 +64,47 @@ module SIPO_controller(
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
                     end    
-                S5:
+                default:
                     begin
-                        next_state <= S6;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S6:
-                    begin
-                        next_state <= S7;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S7:
-                    begin
-                        next_state <= S8;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S8:
-                    begin
-                        next_state <= S9;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S9:
-                    begin
-                        next_state <= S10;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S10:
-                    begin
-                        next_state <= S11;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S11:
-                    begin
-                        next_state <= S12;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S12:
-                    begin
-                        next_state <= S13;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S13:
-                    begin
-                        next_state <= S14;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end      
-                S14:
-                    begin
-                        next_state <= S15;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                    end    
-                S15:
-                    begin
-                        next_state <= S15;
-                        data_logging <= 1'b0;
-                        data_ready <= 1'b1;
-                    end    
+                    end
             endcase
         end
+
+
+endmodule
+
+
+
+
+
+
+
+module counter(
+    input counter_sel,
+    input reset_b,
+    input clk,
+    output wire[4:0] counter_value
+);
+
+reg[4:0] counter_reg;
+
+always@(posedge clk or negedge reset_b)
+begin
+    if(!reset_b) counter_reg <= 5'b0;
+    else
+        case(counter_sel)
+            2'b00:
+                counter_reg = 5'b0;
+            2'b01:
+                counter_reg = counter_reg;
+            2'b10:
+                counter_reg = counter_reg;
+            2'b11:
+                counter_reg = counter_reg + 1;
+        endcase
+end
+
+assign counter_value = counter_reg;
 
 
 endmodule
