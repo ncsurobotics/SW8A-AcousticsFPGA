@@ -2,6 +2,7 @@ module SIPO_controller(
     input clk,
     input control_signal, // button handler out
     input reset_b,
+    input [15:0] counter_value,
     output reg data_logging,
     output reg data_ready,
     output [1:0]counter_sel
@@ -39,30 +40,45 @@ module SIPO_controller(
                        counter_sel <= 2'b00;
                        data_logging <= 1'b0;
                        data_ready <= 1'b0;
+                       
+                       if(!control_signal) next_state <= S0;
+                       else next_state< S1;
                     end
                 S1:
                     begin
                         counter_sel <= 2'b00;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
+
+                        if(control_signal) next_state <= S1;
+                        else next_state <= S2;
+
                     end
                 S2:
                     begin
                         counter_sel <= 2'b11;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
+
+                        if(counter_value < 3) next_state <= S2;
+                        else next_state <= S3;
                     end    
                 S3:
                     begin
                         counter_sel <= 2'b11;
                         data_logging <= 1'b1
                         data_ready <= 1'b0;
+
+                        if(counter_value < 14) next_state <= S3;
+                        else next_state <= S4;
                     end    
                 S4:
                     begin
                        counter_sel <= 2'b10;
                        data_logging <= 1'b0;
                        data_ready <= 1'b1;
+
+                       next_state <= S4;
                     end    
                 default:
                     begin
@@ -84,7 +100,7 @@ module counter(
     input counter_sel,
     input reset_b,
     input clk,
-    output wire[4:0] counter_value
+    output wire[15:0] counter_value
 );
 
 reg[4:0] counter_reg;
@@ -109,3 +125,5 @@ assign counter_value = counter_reg;
 
 
 endmodule
+
+
