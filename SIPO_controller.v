@@ -60,8 +60,8 @@ module SIPO_controller(
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
 
-                        if(counter_value < 3) next_state <= S2;
-                        else next_state <= S3;
+                        if(counter_value == 3) next_state <= S3;
+                        else next_state <= S2;
                     end    
                 S3:
                     begin
@@ -69,8 +69,8 @@ module SIPO_controller(
                         data_logging <= 1'b1
                         data_ready <= 1'b0;
 
-                        if(counter_value < 14) next_state <= S3;
-                        else next_state <= S4;
+                        if(counter_value == 14) next_state <= S4;
+                        else next_state <= S3;
                     end    
                 S4:
                     begin
@@ -100,18 +100,18 @@ module counter(
     input counter_sel,
     input reset_b,
     input clk,
-    output wire[15:0] counter_value
+    output wire[19:0] counter_value
 );
 
 reg[4:0] counter_reg;
 
 always@(posedge clk or negedge reset_b)
 begin
-    if(!reset_b) counter_reg <= 5'b0;
+    if(!reset_b) counter_reg <= 20'b0;
     else
         case(counter_sel)
             2'b00:
-                counter_reg = 5'b0;
+                counter_reg = 20'b0;
             2'b01:
                 counter_reg = counter_reg;
             2'b10:

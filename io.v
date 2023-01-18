@@ -1,6 +1,8 @@
 module button_handler (
     input clk, // 7.2 MHz clk to make counter smaller
-    input button, 
+    input button_pressed, 
+    input [19:0]counter_val,
+    output [1:0] counter_sel,
     output button_out
 );
 
@@ -21,37 +23,28 @@ end
 always @ (*) begin
     case (current_state)
         S0: begin
-            if (button) next_state = S1;
-            else next_state = S0;
-            counter_next = 21'b0;
+            if(button_pressed) next_state <= S1;
+            else nexst_state<= S0;
+            counter_sel <= 2'b00
+            button_out <= 1'b0;
         end
 
         S1: begin
-            if (button) begin
-                counter_next = counter + 1;
-                if (counter[20] == 1'b1) begin
-                    // counter_next = 21'b0;
-                    next_state = S2;
-                end
-                else next_state = S1;
+            if(counter_val[1] == 2) next_state <= S2;
+            else next_state <= S1;
+            counter_sel <= 2'b11;
+            button_out <= 1'b1;
             end
-            else begin 
-                counter_next = 21'b0;
-                next_state = S0;
-            end
-        end
+        
 
         S2: begin
-            counter_next = counter + 1;
-            if (counter[1] == 1'b1) begin
-                next_state = S0;
-            end
-            else next_state = S2;
+            if(counter_val[19] == 1) next_state <= S0;
+            else next_state <= S2;
+            counter_sel <= 1'b1;
+            button_out <= 1'b0;
         end
     endcase
 end
-
-assign button_out = (current_state == S2);
 
 endmodule
 
