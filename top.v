@@ -31,25 +31,69 @@ module top (
 
 wire [15:0] display;
 // wire clk2;
+wire reset_button_output, reset_b, control_signal;
 wire data_logging, data_ready, button_out;
-assign cs = button_out;
 wire [9:0] sipo0_out, ram_out;
 
 
 // clock_div sclk(clk, 1'b1, clk2);
-clk_7_2_MHz clk_7_2_MHz_inst(.clk_in1(clk), .spi_clk(spi_clk));
+clk_7_2_MHz clk_7_2_MHz_inst(
+                                .clk_in1(clk), 
+                                .spi_clk(spi_clk)
+                            );
+//button handler to remedy bounce on control signal button
+button_handler control_signal(
+                                .clk(clk), 
+                                .button_pressed(btnU), 
+                                .counter_val(),
+                                .counter_sel(),
+                                .button_out(control_signal)
+                            );
+//button handler to remedy bounce on reset signal button
+button_handler reset_signal(
+                                .clk(clk), 
+                                .button_pressed(btnC), 
+                                .counter_val(),
+                                .counter_sel(),
+                                .button_out(reset_b)
+                            );
+//active low reset
+assign reset_b = ~reset_button_output;
 
-button_handler button(.clk(spi_clk), .button(btnU), .button_out(button_out));
 
-SIPO_controller sipo_controller0(   .clk2(spi_clk),
-                                    .control_signal(button_out),
+wire counter_500_ms_value;
+wire counter_500_ms_sel;
+counter counter_500_ms(
+                        .clk(clk),
+                        .counter_sel(counter_500_ms_sel),
+                        .reset_b(reset_b),
+                        .counter_val(counter_500_ms_value)
+
+                    );
+
+wire counter_SIPO_value;
+wire counter_SIPO_sel;
+counter SIPO_counter(
+                    .clk(clk),
+                    .counter_sel(counter_SIPO_sel),
+                    .reset_b(reset_b),
+                    .counter_val(counter_SIPO_value)
+
+                    );
+
+SIPO_controller sipo_controller0(   
+                                    .clk2(spi_clk),
+                                    .control_signal(control_signal),
+                                    .reset_b(reset_b),
+                                    .counter_value(counter_SIPO_value),
                                     .data_logging(data_logging),
-                                    .data_ready(data_ready)
+                                    .data_ready(data_ready),
+                                    .counter_sel(counter_SIPO_sel)
                                 );
 
 SIPO sipo0( .clk2(spi_clk),
             .data_in(adc1),
-            .control_signal(button_out),
+            .reset_b(reset_b),
             .data_logging(data_logging),
             .data_out(sipo0_out)
             );
