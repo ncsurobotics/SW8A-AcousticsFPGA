@@ -14,6 +14,7 @@ parameter [1:0]
     S0 = 2'b00,
     S1 = 2'b01,
     S2 = 2'b10;
+    S3 = 2'b11;
 
 always @ (posedge clk) begin
     current_state <= next_state;   
@@ -30,16 +31,20 @@ always @ (*) begin
         end
 
         S1: begin
-            if(counter_val[1] == 2) next_state <= S2;
-            else next_state <= S1;
+            next_state <= S2;
             counter_sel <= 2'b11;
             button_out <= 1'b1;
             end
         
-
         S2: begin
+            next_state <=S3;
+            counter_sel <= 2'b11;
+            button_out <= 1'b1;
+            end
+
+        S3: begin
             if(counter_val[19] == 1) next_state <= S0;
-            else next_state <= S2;
+            else next_state <= S3;
             counter_sel <= 1'b1;
             button_out <= 1'b0;
         end
