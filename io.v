@@ -1,7 +1,8 @@
+
 module button_handler (
-    input clk, // 7.2 MHz clk to make counter smaller
+    input clk, 
     input button_pressed, 
-    input [19:0]counter_val,
+    input [19:0] counter_val,
     output [1:0] counter_sel,
     output button_out
 );

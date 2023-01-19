@@ -8,7 +8,7 @@ module SIPO(
 
     reg [9:0]  data_buffer;
 
-    always@(posedge clk2 or posedge control_signal)
+    always@(posedge clk2 or negedge reset_b)
     begin
         if(!reset_b) data_buffer = 10'b0;
         
