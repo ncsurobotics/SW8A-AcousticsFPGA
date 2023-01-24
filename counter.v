@@ -1,5 +1,5 @@
 module counter(
-    input counter_sel,
+    input [1:0] counter_sel,
     input reset_b,
     input clk,
     output wire[19:0] counter_value

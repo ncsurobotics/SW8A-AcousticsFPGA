@@ -3,8 +3,8 @@ module button_handler (
     input clk, 
     input button_pressed, 
     input [19:0] counter_val,
-    output [1:0] counter_sel,
-    output button_out
+    output reg [1:0] counter_sel,
+    output reg button_out
 );
 
 reg [20:0] counter = 21'b0;
@@ -14,20 +14,19 @@ reg counter_next;
 parameter [1:0]
     S0 = 2'b00,
     S1 = 2'b01,
-    S2 = 2'b10;
+    S2 = 2'b10,
     S3 = 2'b11;
 
 always @ (posedge clk) begin
     current_state <= next_state;   
-    counter <= counter_next;
 end
 
 always @ (*) begin
     case (current_state)
         S0: begin
             if(button_pressed) next_state <= S1;
-            else nexst_state<= S0;
-            counter_sel <= 2'b00
+            else next_state <= S0;
+            counter_sel <= 2'b00;
             button_out <= 1'b0;
         end
 

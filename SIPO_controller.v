@@ -2,10 +2,10 @@ module SIPO_controller(
     input clk,
     input control_signal, // button handler out
     input reset_b,
-    input [15:0] counter_value,
+    input [19:0] counter_value,
     output reg data_logging,
     output reg data_ready,
-    output [1:0]counter_sel
+    output reg [1:0]counter_sel
 );
 
     parameter [3:0]
@@ -18,7 +18,7 @@ module SIPO_controller(
 
     reg [3:0] current_state, next_state;
 
-    always@(posedge clk2 or negedge reset_b) 
+    always@(posedge clk or negedge reset_b) 
         if (!reset_b) current_state <= S0;
         else current_state <= next_state;
 
@@ -32,7 +32,7 @@ module SIPO_controller(
                        data_ready <= 1'b0;
                        
                        if(!control_signal) next_state <= S0;
-                       else next_state< S1;
+                       else next_state <= S1;
                     end
                 S1:
                     begin
@@ -56,7 +56,7 @@ module SIPO_controller(
                 S3:
                     begin
                         counter_sel <= 2'b11;
-                        data_logging <= 1'b1
+                        data_logging <= 1'b1;
                         data_ready <= 1'b0;
 
                         if(counter_value == 14) next_state <= S4;
@@ -72,7 +72,11 @@ module SIPO_controller(
                     end    
                 default:
                     begin
+                       counter_sel <= 2'b00;
+                       data_logging <= 1'b0;
+                       data_ready <= 1'b0;
 
+                       next_state <= S0;
                     end
             endcase
         end
