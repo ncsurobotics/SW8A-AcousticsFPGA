@@ -20,17 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module top (
-    input clk, btnU, btnC,
+    input clk, btnC,
     input adc1, 
     output cs,
     output [6:0] seg,
     output [3:0] an,
-    output spi_clk
+    output spi_clk_out
 );
 
 wire [15:0] display;
+wire spi_clk;
 // wire clk2;
-wire reset_button_out, reset_b, cs_button_out;
+wire reset_button_out, reset_b;
 wire data_logging, data_ready, button_out;
 wire [9:0] sipo0_out, ram_out;
 
@@ -52,17 +53,8 @@ clk_7_2_MHz clk_7_2_MHz_inst(
                                 .clk_in1(clk), 
                                 .spi_clk(spi_clk)
                             );
-
-//button handler to remedy bounce on control signal button
-button_handler control_signal_button(
-                                .clk(clk), 
-                                .reset_b(reset_b),
-                                .button_pressed(btnU), 
-                                //.counter_val(counter_cs_value),
-                                //.counter_sel(counter_cs_sel),
-                                .button_out(cs_button_out)
-                            );
-assign cs = cs_button_out; // 
+                            
+assign spi_clk_out = spi_clk;
 
 //button handler to remedy bounce on reset signal button
 button_handler reset_signal(
@@ -99,7 +91,7 @@ counter SIPO_counter(
 
 SIPO_controller sipo_controller0(   
                                     .clk(spi_clk),
-                                    .control_signal(cs_button_out),
+                                    .control_signal(cs),    // SIPO_controller output
                                     .reset_b(reset_b),
                                     .counter_value(counter_SIPO_value),
                                     .data_logging(data_logging),
