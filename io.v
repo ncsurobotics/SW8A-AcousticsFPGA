@@ -1,21 +1,30 @@
 
 module button_handler (
-    input clk, 
-    input button_pressed, 
-    input [19:0] counter_val,
-    output reg [1:0] counter_sel,
+    input clk,
+    input reset_b, 
+    input button_pressed,
+    //input [19:0] counter_val,
+    //output reg [1:0] counter_sel,
     output reg button_out
 );
 
-reg [20:0] counter = 21'b0;
+//reg [19:0] counter_val = 21'b0;
+wire [19:0] counter_val;
 reg [1:0] current_state, next_state;
 reg counter_next;
+reg [1:0] counter_sel;
 
 parameter [1:0]
     S0 = 2'b00,
     S1 = 2'b01,
     S2 = 2'b10,
     S3 = 2'b11;
+
+counter button_counter( .clk(clk),
+                        .reset_b(reset_b),
+                        .counter_sel(counter_sel),
+                        .counter_value(counter_val)
+                        );
 
 always @ (posedge clk) begin
     current_state <= next_state;   

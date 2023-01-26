@@ -27,4 +27,3 @@ assign counter_value = counter_reg;
 
 
 endmodule
-
