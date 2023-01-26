@@ -1,11 +1,11 @@
 module SIPO_controller(
     input clk,
-    input control_signal, // button handler out
     input reset_b,
     input [19:0] counter_value,
     output reg data_logging,
     output reg data_ready,
     output reg [1:0]counter_sel
+    output reg control_signal;
 );
 
     parameter [3:0]
@@ -30,16 +30,17 @@ module SIPO_controller(
                        counter_sel <= 2'b00;
                        data_logging <= 1'b0;
                        data_ready <= 1'b0;
-                       
-                       if(!control_signal) next_state <= S0;
-                       else next_state <= S1;
+                       control_signal = 1'b1;
+
+                       next_state <= S1;
+
                     end
                 S1:
                     begin
                         counter_sel <= 2'b00;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
-
+                        control_signal <= 1'b0;
                         if(control_signal) next_state <= S1;
                         else next_state <= S2;
 
@@ -49,6 +50,7 @@ module SIPO_controller(
                         counter_sel <= 2'b11;
                         data_logging <= 1'b0;
                         data_ready <= 1'b0;
+                        control_signal <= 1'b0;
 
                         if(counter_value == 3) next_state <= S3;
                         else next_state <= S2;
@@ -58,23 +60,26 @@ module SIPO_controller(
                         counter_sel <= 2'b11;
                         data_logging <= 1'b1;
                         data_ready <= 1'b0;
+                        control_signal = 1'b0;
 
                         if(counter_value == 14) next_state <= S4;
                         else next_state <= S3;
                     end    
                 S4:
                     begin
-                       counter_sel <= 2'b10;
-                       data_logging <= 1'b0;
-                       data_ready <= 1'b1;
+                        counter_sel <= 2'b10;
+                        data_logging <= 1'b0;
+                        data_ready <= 1'b1;
+                        control_signal <= 1'b0;
 
-                       next_state <= S4;
+                        next_state <= S4;
                     end    
                 default:
                     begin
                        counter_sel <= 2'b00;
                        data_logging <= 1'b0;
                        data_ready <= 1'b0;
+                        control_signal <= 1'b0;
 
                        next_state <= S0;
                     end
