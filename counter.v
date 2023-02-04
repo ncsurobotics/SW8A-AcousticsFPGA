@@ -5,7 +5,7 @@ module counter(
     output wire[19:0] counter_value
 );
 
-reg[4:0] counter_reg;
+reg[19:0] counter_reg = 4'b0;
 
 always@(posedge clk or negedge reset_b)
 begin
