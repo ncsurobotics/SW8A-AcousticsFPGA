@@ -15,8 +15,8 @@ module SIPO(
         else
             if(data_logging) 
             begin
-                data_buffer = data_buffer >> 1;
-                data_buffer[9] = data_in;
+                data_buffer = data_buffer << 1;
+                data_buffer[0] = data_in;
             end        
             else data_buffer = data_buffer; 
     end

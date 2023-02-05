@@ -87,6 +87,7 @@ counter SIPO_counter(
                     .counter_sel(counter_SIPO_sel),
                     .reset_b(reset_b),
                     .counter_value(counter_SIPO_value)
+                    .enable(1'b1)
                     );
 
 SIPO_controller sipo_controller0(   

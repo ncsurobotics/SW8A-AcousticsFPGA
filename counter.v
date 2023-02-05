@@ -2,14 +2,15 @@ module counter(
     input [1:0] counter_sel,
     input reset_b,
     input clk,
+    input enable,
     output wire[19:0] counter_value
 );
 
 reg[19:0] counter_reg = 4'b0;
 
-always@(posedge clk or negedge reset_b)
+always@(posedge clk or negedge reset_b or negedge enable)
 begin
-    if(!reset_b) counter_reg <= 20'b0;
+    if(!reset_b | !enable) counter_reg <= 20'b0;
     else
         case(counter_sel)
             2'b00:

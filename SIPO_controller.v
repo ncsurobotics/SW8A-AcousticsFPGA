@@ -51,18 +51,27 @@ module SIPO_controller(
                         data_ready <= 1'b0;
                         control_signal <= 1'b0;
 
-                        if(counter_value == 3) next_state <= S3;
+                        if(counter_value == 1) next_state <= S3;
                         else next_state <= S2;
                     end    
                 S3:
                     begin
                         counter_sel <= 2'b11;
-                        data_logging <= 1'b1;
-                        data_ready <= 1'b0;
-                        control_signal <= 1'b0;
 
-                        if(counter_value == 14) next_state <= S4;
-                        else next_state <= S3;
+                        if(counter_value == 12) 
+                        begin 
+                            next_state <= S4;
+                            data_logging <= 1'b0;
+                            data_ready <= 1'b1;
+                        end
+                        else 
+                        begin
+                            next_state <= S3;
+                            data_ready  <= 1'b0;
+                            data_logging <= 1'b1;
+                        end
+
+
                     end    
                 S4:
                     begin
@@ -70,14 +79,13 @@ module SIPO_controller(
                         data_logging <= 1'b0;
                         data_ready <= 1'b1;
                         control_signal <= 1'b0;
-
-                        next_state <= S4;
+                        next_state <= S0;
                     end    
                 default:
                     begin
-                       counter_sel <= 2'b00;
-                       data_logging <= 1'b0;
-                       data_ready <= 1'b0;
+                        counter_sel <= 2'b00;
+                        data_logging <= 1'b0;
+                        data_ready <= 1'b0;
                         control_signal <= 1'b0;
 
                        next_state <= S0;
