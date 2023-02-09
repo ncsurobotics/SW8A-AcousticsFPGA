@@ -23,7 +23,8 @@ parameter [1:0]
 counter button_counter( .clk(clk),
                         .reset_b(reset_b),
                         .counter_sel(counter_sel),
-                        .counter_value(counter_val)
+                        .counter_value(counter_val),
+                        .enable(1'b1)
                         );
 
 always @ (posedge clk) begin

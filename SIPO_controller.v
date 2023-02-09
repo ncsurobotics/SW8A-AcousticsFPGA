@@ -51,14 +51,14 @@ module SIPO_controller(
                         data_ready <= 1'b0;
                         control_signal <= 1'b0;
 
-                        if(counter_value == 1) next_state <= S3;
-                        else next_state <= S2;
+                        next_state <= S3;
                     end    
                 S3:
                     begin
                         counter_sel <= 2'b11;
+                        control_signal <= 1'b0;
 
-                        if(counter_value == 12) 
+                        if(counter_value == 13) 
                         begin 
                             next_state <= S4;
                             data_logging <= 1'b0;

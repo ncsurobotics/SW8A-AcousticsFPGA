@@ -86,7 +86,7 @@ counter SIPO_counter(
                     .clk(spi_clk),
                     .counter_sel(counter_SIPO_sel),
                     .reset_b(reset_b),
-                    .counter_value(counter_SIPO_value)
+                    .counter_value(counter_SIPO_value),
                     .enable(1'b1)
                     );
 
