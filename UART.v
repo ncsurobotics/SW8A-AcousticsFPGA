@@ -1,5 +1,5 @@
 // UART Receiver & Transmitter modules
-// Tested in Sim
+// Tested in sim
 
 //  UART Receiver Module
 //  at instantiation, set param BIT_COUNT to clock frequency / baud rate
@@ -9,7 +9,7 @@
 
 module uart_rx #(   parameter [9:0] BIT_COUNT = 10'd868, parameter DATA_BITS = 8)
                 (   input clk, 
-                    input reset, 
+                    input reset, // active low
                     input rx,   // serial in    
                     output reg [DATA_BITS-1:0] rx_data, 
                     output reg ready   // high for 1 clock cycle when data is ready
@@ -146,6 +146,7 @@ reg [1:0] next_state = S_IDLE;
 reg [9:0] clock_counter;
 reg [3:0] bit_index;
 reg [3:0] bit_index_reg;
+reg [DATA_BITS-1:0] data_to_send;   // stable value while TX'ing 
 reg cc_sel;
 reg tx_reg;
 
@@ -155,6 +156,8 @@ always @ (posedge clk) begin
     tx <= tx_reg;
     clock_counter <= (cc_sel) ? clock_counter + 1 : 10'b0;
     bit_index <= bit_index_reg;
+    if (state == S_IDLE) data_to_send <= data_in;
+    else data_to_send <= data_to_send;
 end
 
 
@@ -185,7 +188,7 @@ always @ (*) begin
         end
 
         S_DATA_BITS: begin
-            tx_reg = data_in[bit_index];
+            tx_reg = data_to_send[bit_index];
             ready = 1'b0;
 
             if (clock_counter >= BIT_COUNT-1) begin
