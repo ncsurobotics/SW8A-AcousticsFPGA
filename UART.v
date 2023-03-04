@@ -88,18 +88,19 @@ always @ (posedge clk) begin
 
         S_STOP_BIT: begin
 
-            if (sample_counter >= BIT_COUNT-1) begin
+            if (sample_counter >= BIT_COUNT-1) begin    // got the stop bit
                 sample_counter <= 10'b0;
-                state <= S_READY;
+                rx_data <= data;        // ** output the new data 1 clock cycle before "ready" goes high
+                state <= S_READY;       //      -- "ready" can be used as tx_send to echo
             end
             else begin
                 sample_counter <= sample_counter + 1;
+                rx_data <= rx_data;
                 state <= S_STOP_BIT;
             end
 
             bit_counter <= 4'b0;
             data <= data;
-            rx_data <= rx_data;
             ready <= 1'b0;
 
         end

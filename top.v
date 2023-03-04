@@ -120,25 +120,25 @@ uart_rx #(10'd868, 8) ( .clk(clk),
                         .ready(rx_ready)
                       );
 
-reg [7:0] word_to_send = 8'h41; // ascii A
+// reg [7:0] word_to_send = 8'h41; // ascii A
 
 uart_tx #(10'd868, 8) tx_inst(  .clk(clk),
-                                .tx_send(tx_send),  // btnU
-                                .data_in(word_to_send),
+                                .tx_send(rx_ready),  // btnU
+                                .data_in(rx_data_out),
                                 .tx(RsTx),
                                 .ready(tx_ready)
                              );
 
 always @ (posedge clk) begin
     if (rx_ready) begin
-        display <= {8'b0, rx_data_out};
-        word_to_send <= rx_data_out;
-        tx_send <= 1'b1;
+        display <= {8'hAA, rx_data_out};
+        // word_to_send <= rx_data_out;
+        // tx_send <= 1'b1;
     end 
     else begin
        display <= display;
-       tx_send <= 1'b0;
-       word_to_send <= word_to_send; 
+       // tx_send <= 1'b0;
+       // word_to_send <= word_to_send; 
     end
 end
 
