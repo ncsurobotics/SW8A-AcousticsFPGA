@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('COM4', 115200, timeout = 1) # open serial port
+ser = serial.Serial('COM6', 115200, timeout = 1) # open serial port
 print(ser.name)
 
 # Send 'A' to the FPGA to tell it to give you data

@@ -67,8 +67,7 @@ module Test_State_Machine (
 
     output reg txing,
     output reg [1:0] word_to_send_sel,
-    output reg [1:0] channel_number,
-    output reg tx_send
+    output reg tx_send 
 );
 
 // PARAMETERS -------------------------------------------------
@@ -87,17 +86,11 @@ parameter [1:0]
     SEND_IDLE = 2'b00,
     SEND_LABEL = 2'b01,
     SEND_LSB = 2'b10,
-    SEND_MSB = 2'b11,
-
-    CHANNEL_A = 2'b00,
-    CHANNEL_B = 2'b01,
-    CHANNEL_C = 2'b10,
-    CHANNEL_D = 2'b11;
+    SEND_MSB = 2'b11;
 
 
 // REGS -------------------------------------------------------
 reg [2:0] state, next_state;
-reg [1:0] channel_number_reg;
 
 
 // STATE MACHINE ----------------------------------------------
@@ -105,7 +98,6 @@ reg [1:0] channel_number_reg;
 always @ (posedge clk or negedge reset_b) begin
     if (!reset_b) state = S_IDLE;
     else state = next_state;
-    channel_number = channel_number_reg;
 end
 
 always @ (*) begin
@@ -114,7 +106,6 @@ always @ (*) begin
         S_IDLE: begin
             txing <= 1'b0;
             word_to_send_sel <= SEND_IDLE;
-            channel_number_reg <= CHANNEL_D;
             tx_send <= 1'b0;
 
             next_state <= (rx_ready) ? S_RX_CHECK : S_IDLE;
@@ -123,23 +114,15 @@ always @ (*) begin
         S_RX_CHECK: begin
             txing <= 1'b0;
             word_to_send_sel <= SEND_IDLE;
-
             tx_send <= 1'b0;
 
-            if (rx_data == 8'h41) begin 
-                next_state <= S_TX_0;
-                channel_number_reg <= CHANNEL_A;
-            end
-            else begin
-                next_state <= S_IDLE;
-                channel_number_reg <= CHANNEL_D;
-            end 
+            if (rx_data == 8'h41) next_state <= S_TX_0;
+            else next_state <= S_IDLE;
         end 
 
         S_TX_0: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_LABEL;
-            channel_number_reg <= channel_number;
             tx_send <= 1'b1;
 
             next_state <= S_WAIT_0;
@@ -148,7 +131,6 @@ always @ (*) begin
         S_WAIT_0: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_LABEL;
-            channel_number_reg <= channel_number;
             tx_send <= 1'b0;
 
             next_state <= (tx_ready) ? S_TX_1 : S_WAIT_0;
@@ -157,7 +139,6 @@ always @ (*) begin
         S_TX_1: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_LSB;
-            channel_number_reg <= channel_number;
             tx_send <= 1'b1;
 
             next_state <= S_WAIT_1;
@@ -166,7 +147,6 @@ always @ (*) begin
         S_WAIT_1: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_LSB;
-            channel_number_reg <= channel_number;
             tx_send <= 1'b0;
 
             next_state <= (tx_ready) ? S_TX_2 : S_WAIT_1;
@@ -175,7 +155,6 @@ always @ (*) begin
         S_TX_2: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_MSB;
-            channel_number_reg <= channel_number;
             tx_send <= 1'b1;
 
             next_state <= S_WAIT_2;
@@ -184,29 +163,14 @@ always @ (*) begin
         S_WAIT_2: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_MSB;
-            
             tx_send <= 1'b0;
 
-            if (tx_ready) begin
-                if (channel_number == 2'b11) begin
-                    next_state <= S_IDLE;
-                    channel_number_reg <= CHANNEL_D;
-                end
-                else begin  // send next channel
-                    next_state <= S_TX_0;
-                    channel_number_reg <= channel_number + 1;
-                end
-            end
-            else begin
-                next_state <= S_WAIT_2;
-                channel_number_reg <= channel_number;
-            end
+            next_state <= (tx_ready) ? S_IDLE : S_WAIT_2;
         end
 
         default: begin
             txing <= 1'b1;
             word_to_send_sel <= SEND_IDLE;
-            channel_number <= CHANNEL_A;
             tx_send <= 1'b0;
             next_state <= S_IDLE;
         end
