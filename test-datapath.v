@@ -73,9 +73,23 @@ SIPO sipo3( .clk(spi_clk),
             .data_out(sipo_out3)
           ); */
 
+wire one_eighth;
+eighth_second eighth_counter_inst(.clk(spi_clk),
+                                    .reset_b(reset_b),
+                                    .eighth_out(one_eighth)
+                                );
 
+reg [5:0] data_reset_timer = 6'd0;
 always @ (posedge clk) begin
-    data_buffer0 <= (data_ready) ? sipo_out0 : data_buffer0;
+    if (one_eighth) data_reset_timer <= data_reset_timer + 1;
+    else if (data_reset_timer == 5) data_reset_timer <= 6'b0;
+    else data_reset_timer <= data_reset_timer;
+
+    if (data_reset_timer == 5) data_buffer0 <= 10'd0;
+    else if (data_ready && (sipo_out0 > data_buffer0)) data_buffer0 <= sipo_out0;
+    else data_buffer0 <= data_buffer0;
+    
+    //data_buffer0 <= (data_ready) ? sipo_out0 : data_buffer0;
     //data_buffer1 <= (data_ready) ? sipo_out1 : data_buffer1;
     //data_buffer2 <= (data_ready) ? sipo_out2 : data_buffer2;
     //data_buffer3 <= (data_ready) ? sipo_out3 : data_buffer3;
