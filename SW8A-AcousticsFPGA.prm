@@ -1,0 +1,11 @@
+===================================
+Configuration Memory information
+===================================
+File Format        BIN
+Interface          SPIX4
+Size               4M
+Start Address      0x00000000
+End Address        0x003FFFFF
+
+Addr1         Addr2         Date                    File(s)
+0x00000000    0x00055007    Mar 22 20:51:54 2023    /home/marcus/Projects/AquaPack/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.runs/impl_1/top.bit
