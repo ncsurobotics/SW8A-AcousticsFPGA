@@ -1,4 +1,0 @@
-module cross correlator();
-
-
-endmodule

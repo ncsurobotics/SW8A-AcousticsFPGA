@@ -1,4 +1,5 @@
-// acoustic data collection with FPGA - Controller
+// first draft for controller module
+
 
 module Controller(
                     input clk,
