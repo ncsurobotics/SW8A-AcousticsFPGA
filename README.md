@@ -2,6 +2,8 @@
 Verilog code to configure FPGA for acoustic data logging and TDOA calculation
 
 INSTRUCTIONS FOR SYNTHESIS
-For now, ONLY use io.v and top.v.
-Copy the xdc file into your vivado project at this path:
-project_name/project_name.srcs/constrs_1/imports/digilent-xdc-master
+https://docs.google.com/document/d/1-pZK4i1RIhVszL3tWbP2dkC2X68aN0BZPzoaV_UujBg/edit?usp=sharing
+I'll automate this with a TCL script at some point.
+
+
+

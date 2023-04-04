@@ -104,3 +104,6 @@
 hw_handoff
 ipshared
 
+# local synthesis/implementation run folders
+SW8A-AcousticsFPGA.runs/synth_ilena/*
+SW8A-AcousticsFPGA.runs/impl_i1/*
