@@ -86,7 +86,7 @@ Test_Datapath test_dp_inst(     .clk(clk),
 
 // DISPLAY
 always @ (posedge clk) begin
-    if (rx_ready) display <= {8'hAA, rx_data};
+    if (rx_ready) display <= {8'hCC, rx_data};
     else display <= display;
 end
 

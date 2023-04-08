@@ -82,10 +82,10 @@ eighth_second eighth_counter_inst(.clk(spi_clk),
 reg [5:0] data_reset_timer = 6'd0;
 always @ (posedge clk) begin
     if (one_eighth) data_reset_timer <= data_reset_timer + 1;
-    else if (data_reset_timer == 40) data_reset_timer <= 6'b0;
+    else if (data_reset_timer >= 40) data_reset_timer <= 6'b0;
     else data_reset_timer <= data_reset_timer;
 
-    if (data_reset_timer == 40) data_buffer0 <= 10'd0;
+    if (data_reset_timer >= 40) data_buffer0 <= 10'd0;
     else if (data_ready && (sipo_out0 > data_buffer0)) data_buffer0 <= sipo_out0;
     else data_buffer0 <= data_buffer0;
     

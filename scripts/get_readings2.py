@@ -1,8 +1,14 @@
-import serial
-#import readline
+#!/usr/bin/env python3
 
-ser = serial.Serial('COM6', 115200, timeout = 5) # open serial port
+import serial
+import time
+
+#port = input("enter port name: ")
+
+ser = serial.Serial('COM6', 115200, timeout = 1) # open serial port
 print(ser.name)
+
+start_time = time.time()
 
 while True:
 
@@ -26,8 +32,9 @@ while True:
 
     volts = (data_int * 5.0) / 1023.0
 
-    print("got raw: " + str(data) + ", voltage = " + str(volts)) 
+    print("[{}] ".format(int((time.time() - start_time) * 1000)) + "got raw: " + str(data) + ", voltage = " + str(volts)) 
 
-    run_again = input("run again? (y/n)")
-    if run_again in ("n", "N"):
-        break
+    # run_again = input("run again? (y/n)")
+    # if run_again in ("n", "N"):
+        # break
+    #time.sleep(0.01)
