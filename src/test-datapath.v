@@ -23,6 +23,7 @@ module Test_Datapath(
 
                         output rx_ready,
                         output [7:0] rx_data,
+                        output [2:0] rx_state_debug,    // **included for debug
                         output tx_ready
 );
 
@@ -128,7 +129,8 @@ uart_rx #(10'd868, 8) rx_inst(  .clk(clk),
                                 .reset(reset_b),
                                 .rx(rx),
                                 .rx_data(rx_data),
-                                .ready(rx_ready)
+                                .ready(rx_ready),
+                                .state(rx_state_debug)  // **included for debug
                              );
 
 uart_tx #(10'd868, 8) tx_inst(  .clk(clk),
