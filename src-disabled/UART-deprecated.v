@@ -12,7 +12,8 @@ module uart_rx #(   parameter [9:0] BIT_COUNT = 10'd868, parameter DATA_BITS = 8
                     input reset, // active low
                     input rx,   // serial in    
                     output reg [DATA_BITS-1:0] rx_data, 
-                    output reg ready   // high for 1 clock cycle when data is ready
+                    output reg [2:0] state,                 // **included for debug
+                    output reg ready   // high for 1 clock cycle when data is ready  
                 );
 
 // states
@@ -27,7 +28,7 @@ reg [9:0] sample_counter;
 reg [3:0] bit_counter;
 reg [DATA_BITS-1:0] data;
 
-reg [2:0] state = S_IDLE;
+// reg [2:0] state = S_IDLE;
 
 always @ (posedge clk) begin
     if (!reset) state <= S_IDLE;
@@ -108,6 +109,12 @@ always @ (posedge clk) begin
         S_READY: begin
             rx_data <= data;
             ready <= 1'b1;
+            state <= S_IDLE;
+        end
+
+        default: begin
+            rx_data <= rx_data;
+            ready <= 1'b0;
             state <= S_IDLE;
         end
 
