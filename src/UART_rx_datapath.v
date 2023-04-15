@@ -34,7 +34,7 @@ module UART_RX_DATAPATH #(
                                 .Baud_Mid_Compare_val(baud_mid_compare_val)
                             );
     
-    BIT_COUNTER  rx_bit_cnt #  (.MAX_COUNT(4.d8)    )
+    BIT_COUNTER  rx_bit_cnt #  (.MAX_COUNT(4'd8)    )
                             (   .Bit_Counter_sel(bit_counter_sel),
                                 .clk(clk),
                                 .reset_b(reset_b),

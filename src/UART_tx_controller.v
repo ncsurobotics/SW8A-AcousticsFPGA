@@ -1,6 +1,6 @@
 
 
-module UART-tx-controller ( input clk,
+module UART_tx_controller ( input clk,
                             input reset, 
                             input tx_en,
                             input baud_compare_val,
@@ -8,7 +8,7 @@ module UART-tx-controller ( input clk,
 
                             output reg [1:0] shift_tx_sel,
                             output reg [1:0] tx_out_sel,
-                            output reg [1:0] UART_bd aud_counter_sel,
+                            output reg [1:0] UART_baud_counter_sel,
                             output reg [1:0] bit_counter_sel,
                             output reg ready_to_send
 );
