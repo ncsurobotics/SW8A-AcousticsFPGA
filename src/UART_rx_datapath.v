@@ -7,9 +7,9 @@ module UART_RX_DATAPATH #(
     input           clk,
     input           UART_rx_in,
     input           shift_rx_sel,
-    input           baud_mid_counter_sel,
-    input           UART_baud_counter_sel,
-    input           bit_counter_sel,
+    input           baud_mid_compare_sel,
+    input   [1:0]   UART_baud_counter_sel,
+    input   [1:0]   bit_counter_sel,
     input           reset_b,
 
     output          baud_mid_compare_val,
@@ -28,7 +28,7 @@ module UART_RX_DATAPATH #(
     BAUD_COMPARE rx_baud_cmp #  (.ONE(11'd868), .ONE_ONE_HALF(11'd1301))
                             (   .Baud_Mid_Compare_val(baud_mid_compare_val),
                                 .UART_Baud_Counter_sel(UART_baud_counter_sel),
-                                .Baud_Mid_Compare_sel(baud_mid_counter_sel),
+                                .Baud_Mid_Compare_sel(baud_mid_compare_sel),
                                 .clk(clk),
                                 .reset_b(reset_b),
                                 .Baud_Mid_Compare_val(baud_mid_compare_val)
