@@ -1,5 +1,7 @@
 // UART tx and rx modules 
 
+
+
 module UART_rx_controller ( input clk,
                             input reset_b,
                             input baud_mid_compare_val,
@@ -21,12 +23,12 @@ parameter [2:0] // states
     S4: 3'b100, // count to middle of next data bit
     S5: 3'b101; // data ready
 
-parameter [1:0]
+parameter [1:0] // macros for counter_sel outputs
     ZERO: 2'b00,
     HOLD: 2'b01,
     COUNT: 2'b11;
 
-reg state, next_state;
+reg [2:0] state, next_state;
 
 always @ (posedge clk or negedge reset_b) begin
     if (!reset_b) state = S0;

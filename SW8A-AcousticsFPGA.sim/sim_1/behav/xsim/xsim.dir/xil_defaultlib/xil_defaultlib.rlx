@@ -1,0 +1,8 @@
+0.7
+2020.2
+Oct 14 2022
+05:20:55
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.sim/sim_1/behav/xsim/glbl.v,1665704903,verilog,,,,glbl,,,,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/SIPO.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/counter.v,,SIPO,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/counter.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-datapath.v,,counter;eighth_second,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-datapath.v,1680987281,verilog,,,,Test_Datapath,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
