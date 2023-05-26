@@ -1,6 +1,6 @@
 
 
-module UART_tx_controller ( input clk,
+module UART_TX_CONTROLLER ( input clk,
                             input reset, 
                             input tx_en,
                             input baud_compare_val,
@@ -15,29 +15,29 @@ module UART_tx_controller ( input clk,
 
 // parameters ---------------------------------------------------------
 parameter [2:0] // states
-    S0: 3'b000, // idle/reset
-    S1: 3'b001, // shift in tx_data_in word to send
-    S2: 3'b010, // send start bit
-    S3: 3'b011, // increment bit counter
-    S4: 3'b100, // send a bit, count to 868
-    S5: 3'b101, // check if 8 bits have been sent
-    S6: 3'b110; // send stop bit
+    S0 = 3'b000, // idle/reset
+    S1 = 3'b001, // shift in tx_data_in word to send
+    S2 = 3'b010, // send start bit
+    S3 = 3'b011, // increment bit counter
+    S4 = 3'b100, // send a bit, count to 868
+    S5 = 3'b101, // check if 8 bits have been sent
+    S6 = 3'b110; // send stop bit
 
 parameter [1:0]
-    ZERO: 2'b00,    // counter select lines
-    HOLD: 2'b01,
-    COUNT: 2'b11,
+    ZERO = 2'b00,    // counter select lines
+    HOLD = 2'b01,
+    COUNT = 2'b11,
 
-    SHIFT: 2'b10,   // shift register select lines -- also uses ZERO and HOLD
-    DATA_IN: 2'b11,
+    SHIFT = 2'b10,   // shift register select lines -- also uses ZERO and HOLD
+    DATA_IN = 2'b11,
 
-    START_BIT: 2'b00,   // tx_out_sel vals
-    STOP_BIT: 2'b10,
-    DATA_BIT: 2'b11;
+    START_BIT = 2'b00,   // tx_out_sel vals
+    STOP_BIT = 2'b10,
+    DATA_BIT = 2'b11;
 
 reg [2:0] state, next_state;
 
-always @ (posedge clk or negedge reset_b) begin
+always @ (posedge clk or negedge reset) begin
     if (!reset) state = S0;
     else state = next_state;
 end

@@ -15,7 +15,7 @@ wire [1:0] UART_baud_counter_sel;
 wire [1:0] bit_counter_sel;
 wire baud_mid_compare_sel;
 
-UART_rx_controller C1(  .clk(clk),
+UART_RX_CONTROLLER C1(  .clk(clk),
                         .reset_b(reset),
                         .baud_mid_compare_val(baud_mid_compare_val),
                         .bit_counter_compare_val(bit_counter_compare_val),

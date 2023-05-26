@@ -125,19 +125,21 @@ always @ (*) begin
     endcase
 end
 
-uart_rx #(10'd868, 8) rx_inst(  .clk(clk),
-                                .reset(reset_b),
-                                .rx(rx),
-                                .rx_data(rx_data),
-                                .ready(rx_ready),
-                                .state(rx_state_debug)  // **included for debug
-                             );
+UART_rx uart_rx_inst(   .clk(clk),
+                        .reset(reset_b),
+                        .rx_in(rx),
+                        .UART_rx_data_out(rx_data),
+                        .rx_ready(rx_ready)
+                    );
 
-uart_tx #(10'd868, 8) tx_inst(  .clk(clk),
-                                .tx_send(tx_send),
-                                .data_in(word_to_send),
-                                .tx(tx),
-                                .ready(tx_ready)
-                             );
+assign rx_state_debug = 1'b0;
+
+UART_tx uart_tx_inst(   .clk(clk),
+                        .reset(reset_b),
+                        .tx_in(word_to_send),
+                        .tx_en(tx_send),
+                        .UART_tx_data_out(tx),
+                        .ready_to_send(tx_ready)
+                    );
 
 endmodule

@@ -11,7 +11,7 @@ module top (
                 input RsRx,
                 output RsTx,
 
-                output [2:0] rx_state_debug // **included for debug
+                output [2:0] rx_state_debug, // **included for debug
 
                 output [6:0] seg,
                 output [3:0] an
@@ -37,9 +37,8 @@ wire rx_ready;
 wire [7:0] rx_data;
 wire tx_ready;
 
-
-
 // SUBMODULES -----------------------------------------------
+
 clk_7_2_MHz clk_7_2_MHz_inst(
                                 .clk_in1(clk), 
                                 .spi_clk(spi_clk)
@@ -83,7 +82,7 @@ Test_Datapath test_dp_inst(     .clk(clk),
                                 .tx_send(tx_send),
                                 .rx_ready(rx_ready),
                                 .rx_data(rx_data),
-                                .rx_state_debug(rx_state_debug) // **included for debug
+                                .rx_state_debug(rx_state_debug), // **included for debug
                                 .tx_ready(tx_ready)
                           );
 
