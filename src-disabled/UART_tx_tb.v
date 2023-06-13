@@ -1,5 +1,4 @@
-// UART transmission testbench using Test_Controller module used in March 2023
-
+// UART transmit testbench using Test_Controller module used in March 2023
 
 module tb_;
 reg clk = 1'b0;

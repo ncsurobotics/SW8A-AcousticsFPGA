@@ -107,3 +107,7 @@ ipshared
 # local synthesis/implementation run folders
 SW8A-AcousticsFPGA.runs/synth_ilena/*
 SW8A-AcousticsFPGA.runs/impl_i1/*
+# *** Note: .sim/... probably needs to go in here
+
+# ModelSim generated files
+srcsim/work/*
