@@ -11,20 +11,14 @@ module Test_Datapath(
                         input data_logging,
                         input data_ready,
 
-                    // UART i/o from top-level module
-                        input rx,
-                        output tx,
-
                     // UART i/o from controller 
                         input txing,
-                        input [1:0] word_to_send_sel,
+                        
+						output reg [7:0] word_to_send,
+						output [1:0] word_to_send_sel,
                         // input [1:0] channel_number,
-                        input tx_send,
-
-                        output rx_ready,
-                        output [7:0] rx_data,
+						
                         output [2:0] rx_state_debug,    // **included for debug
-                        output tx_ready
 );
 
 /* parameter [1:0] 
@@ -43,7 +37,7 @@ reg [9:0] tx_data_buffer0;
                                 // holds a stable value while tx'ing. see always block
 
 //reg [9:0] channel_data;
-reg [7:0] word_to_send;
+//reg [7:0] word_to_send;
 
 SIPO sipo0( .clk(spi_clk),
             .reset_b(reset_b),
@@ -124,22 +118,3 @@ always @ (*) begin
         default: word_to_send <= 8'h00; // idle
     endcase
 end
-
-UART_rx uart_rx_inst(   .clk(clk),
-                        .reset(reset_b),
-                        .rx_in(rx),
-                        .UART_rx_data_out(rx_data),
-                        .rx_ready(rx_ready)
-                    );
-
-assign rx_state_debug = 1'b0;
-
-UART_tx uart_tx_inst(   .clk(clk),
-                        .reset(reset_b),
-                        .tx_in(word_to_send),
-                        .tx_en(tx_send),
-                        .UART_tx_data_out(tx),
-                        .ready_to_send(tx_ready)
-                    );
-
-endmodule

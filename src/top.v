@@ -37,6 +37,8 @@ wire rx_ready;
 wire [7:0] rx_data;
 wire tx_ready;
 
+wire [7:0] word_to_send
+
 // SUBMODULES -----------------------------------------------
 
 clk_7_2_MHz clk_7_2_MHz_inst(
@@ -75,16 +77,24 @@ Test_Datapath test_dp_inst(     .clk(clk),
                                 .adc_in(adc1),
                                 .data_logging(data_logging),
                                 .data_ready(data_ready),
-                                .rx(RsRx),
-                                .tx(RsTx),
                                 .txing(txing),
+								.word_to_send(word_to_send),
                                 .word_to_send_sel(word_to_send_sel),
-                                .tx_send(tx_send),
-                                .rx_ready(rx_ready),
-                                .rx_data(rx_data),
                                 .rx_state_debug(rx_state_debug), // **included for debug
-                                .tx_ready(tx_ready)
                           );
+						  
+
+UART UART_inst(	.clk(clk),
+				.reset_b(reset_b),
+				.TX_Data_in(word_to_send),
+				.TX_en(tx_send),
+				.RX_Data_in(RsRx),
+				
+				.TX_Data_out(RsTx),
+				.TX_Ready_To_Send(tx_ready),
+				.RX_Data_out(rx_data),
+				.RX_Data_Ready(rx_ready)
+			  );
 
 // DISPLAY
 always @ (posedge clk) begin
@@ -94,5 +104,4 @@ end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
                     .segments(seg), .anode(an));
-
 endmodule

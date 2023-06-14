@@ -1,108 +1,83 @@
-// UART tx and rx modules 
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 06/11/2023 04:29:05 PM
+// Design Name: 
+// Module Name: UART_RX_CONTROLLER
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
 
+module UART_RX_CONTROLLER (
 
-module UART_RX_CONTROLLER ( input clk,
-                            input reset_b,
-                            input UART_rx_in,
-                            input baud_mid_compare_val,
-                            input bit_counter_compare_val,
+    input clk,
+    input reset_b,
+    input RX_Data_in,
+    input Bit_Count_Reached,
+    
+    output reg RX_Shift_Register_sel,
+    output reg Bit_Counter_sel,
+    output reg RX_Data_Ready
 
-                            output reg shift_rx_sel,
-                            output reg [1:0] UART_baud_counter_sel,
-                            output reg [1:0] bit_counter_sel,
-                            output reg baud_mid_compare_sel,
-                            output reg data_ready
 );
 
-// parameters ---------------------------------------------------------
-parameter [2:0] // states
-    S0 = 3'b000, // idle/reset
-    S1 = 3'b001, // count to middle of 1st data bit
-    S2 = 3'b010, // shift in new data
-    S3 = 3'b011, // check whether got 8 data bits
-    S4 = 3'b100, // count to middle of next data bit
-    S5 = 3'b101; // data ready
-
-parameter [1:0] // macros for counter_sel outputs
-    ZERO = 2'b00,
-    HOLD = 2'b01,
-    COUNT = 2'b11;
-
-reg [2:0] state, next_state;
-
-always @ (posedge clk or negedge reset_b) begin
-    if (!reset_b) state = S0;
-    else state = next_state;
-end
-
-always @ (*) begin
-    case (state)
-        S0: begin   // idle/reset
-            shift_rx_sel <= 1'b0;
-            UART_baud_counter_sel <= ZERO;
-            bit_counter_sel <= ZERO;
-            baud_mid_compare_sel <= 1'b1;       // 1.5 bits value -- count until middle of 1st bit
-            data_ready <= 1'b0;
-
-            if (!UART_rx_in) next_state <= S1;  // transition to S1 @ start bit
-            else next_state <= S0;
-        end
-
-        S1: begin
-            shift_rx_sel <= 1'b0;
-            UART_baud_counter_sel <= COUNT;
-            bit_counter_sel <= ZERO;
-            baud_mid_compare_sel <= 1'b0;
-            data_ready <= 1'b0;
-
-            if (baud_mid_compare_val) next_state <= S2;
-            else next_state <= S1;
-        end
-
-        S2: begin
-            shift_rx_sel <= 1'b1;
-            UART_baud_counter_sel <= HOLD;
-            bit_counter_sel <= COUNT;
-            baud_mid_compare_sel <= 1'b0;
-            data_ready <= 1'b0;
-
-            next_state <= S3;
-        end
-
-        S3: begin
-            shift_rx_sel <= 1'b0;
-            UART_baud_counter_sel <= HOLD;
-            bit_counter_sel <= HOLD;
-            baud_mid_compare_sel <= 1'b1;
-            data_ready <= 1'b0;
-
-            if (bit_counter_compare_val) next_state <= S5;
-            else next_state <= S4;
-        end
-
-        S4: begin
-            shift_rx_sel <= 1'b0;
-            UART_baud_counter_sel <= COUNT;
-            bit_counter_sel <= HOLD;
-            baud_mid_compare_sel <= 1'b1;
-            data_ready <= 1'b0;
-
-            if (baud_mid_compare_val) next_state <= S2;
-            else next_state <= S4;
-        end
-
-        S5: begin
-            shift_rx_sel <= 1'b0;
-            UART_baud_counter_sel <= ZERO;
-            bit_counter_sel <= ZERO;
-            baud_mid_compare_sel <= 1'b0;
-            data_ready <= 1'b1;
-
-            next_state <= S0;
-        end
-    endcase
-end
+    parameter 
+        ZERO = 1'b0,
+        INCREMENT = 1'b1;
+        
+    parameter 
+        HOLD = 1'b0,
+        SHIFT = 1'b1;
+    parameter 
+        IDLE = 1'b0,
+        DATA_INCOMING = 1'b1;
+    parameter
+        FALSE = 1'b0,
+        TRUE = 1'b1;
+              
+    reg current_state, next_state;
     
-endmodule
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin
+            current_state <= IDLE;
+        end
+        else begin
+            current_state <= next_state;
+        end
+    end
+    
+    always@(*)begin
+        case(current_state)
+            IDLE: begin
+                RX_Shift_Register_sel           <= HOLD;
+                Bit_Counter_sel                 <= ZERO;
+                RX_Data_Ready                   <= TRUE;
+                if(RX_Data_in == 1'b0) next_state    <= DATA_INCOMING;
+                else next_state                 <= IDLE;
+            end
+            DATA_INCOMING: begin
+                RX_Shift_Register_sel           <= SHIFT;
+                Bit_Counter_sel                 <= INCREMENT;
+                RX_Data_Ready                   <= FALSE;
+                if(Bit_Count_Reached)
+                begin
+                    next_state                  <= IDLE;
+                end
+                else next_state                 <= DATA_INCOMING;
+            end
+        endcase
+    end
+    
 
+endmodule

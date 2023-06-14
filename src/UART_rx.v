@@ -1,41 +1,62 @@
-// UART rx top level module
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 06/11/2023 05:28:27 PM
+// Design Name: 
+// Module Name: UART_RX
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
-module UART_rx (    input clk,
-                    input reset,
-                    input rx_in,
 
-                    output [7:0] UART_rx_data_out,
-                    output rx_ready
+module UART_RX #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
+    input clk,
+    input reset_b,
+    input RX_Data_in,
+
+    output wire[WORD_SIZE-1:0] RX_Data_out,
+    output wire RX_Data_Ready
+
 );
+    
+    wire Bit_Count_Reached, RX_Shift_Register_sel, Bit_Counter_sel;
+    
+    
+    UART_RX_DATAPATH #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_DATAPATH_inst (
+        
+        .clk(clk),
+        .reset_b(reset_b),
+        .Bit_Counter_sel(Bit_Counter_sel),
+        .RX_Shift_Register_sel(RX_Shift_Register_sel),
+        .RX_Data_in(RX_Data_in),
+        
+        .RX_Data_out(RX_Data_out),
+        .Bit_Count_Reached(Bit_Count_Reached)               
+        
+    );
+    
+    UART_RX_CONTROLLER UART_RX_CONTROLLER_inst (
 
-wire baud_mid_compare_val;
-wire bit_counter_compare_val;
-wire shift_rx_sel;
-wire [1:0] UART_baud_counter_sel;
-wire [1:0] bit_counter_sel;
-wire baud_mid_compare_sel;
+        .clk(clk),
+        .reset_b(reset_b),
+        .RX_Data_in(RX_Data_in),
+        .Bit_Count_Reached(Bit_Count_Reached),  
 
-UART_RX_CONTROLLER C1(  .clk(clk),
-                        .reset_b(reset),
-                        .baud_mid_compare_val(baud_mid_compare_val),
-                        .bit_counter_compare_val(bit_counter_compare_val),
-                        .shift_rx_sel(shift_rx_sel),
-                        .UART_baud_counter_sel(UART_baud_counter_sel),
-                        .bit_counter_sel(bit_counter_sel),
-                        .baud_mid_compare_sel(baud_mid_compare_sel),
-                        .data_ready(rx_ready)
-                    );
-
-UART_RX_DATAPATH DP1(   .clk(clk),
-                        .reset_b(reset),
-                        .UART_rx_in(rx_in),
-                        .shift_rx_sel(shift_rx_sel),
-                        .baud_mid_compare_sel(baud_mid_compare_sel),
-                        .UART_baud_counter_sel(UART_baud_counter_sel),
-                        .bit_counter_sel(bit_counter_sel),
-                        .baud_mid_compare_val(baud_mid_compare_val),
-                        .bit_counter_compare_val(bit_counter_compare_val),
-                        .UART_rx_data_out(UART_rx_data_out)
-                    );
-
+        .RX_Shift_Register_sel(RX_Shift_Register_sel),
+        .Bit_Counter_sel(Bit_Counter_sel),
+        .RX_Data_Ready(RX_Data_Ready)
+    
+    );
+    
+    
 endmodule
