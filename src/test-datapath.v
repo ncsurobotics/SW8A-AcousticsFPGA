@@ -1,120 +1,86 @@
-// Datapath for March 11 pool test
+// Datapath for June 17 pool test
 
 module Test_Datapath(
+
                         input clk,
-                        input spi_clk,
                         input reset_b,
-
-                    // SIPO inputs
-                        //input [3:0] adc_in,
-                        input adc_in,
-                        input data_logging,
-                        input data_ready,
-
-                    // UART i/o from controller 
-                        input txing,
+                        input [9:0] ADC_Channel_1,
+                        input [9:0] ADC_Channel_2,
+                        input [9:0] ADC_Channel_3,
+                        input [9:0] ADC_Channel_4,
+                        input [7:0] UART_Rx_Data_in,
+                        input Hold_Data_sel,
+                        input Byte_To_Send_sel,
                         
-						output reg [7:0] word_to_send,
-						output [1:0] word_to_send_sel,
-                        // input [1:0] channel_number,
-						
-                        output [2:0] rx_state_debug,    // **included for debug
+                        output [7:0] Word_To_Send
+
 );
 
-/* parameter [1:0] 
-    CHANNEL_A = 2'b00,
-    CHANNEL_B = 2'b01,
-    CHANNEL_C = 2'b10,
-    CHANNEL_D = 2'b11; */
 
-//wire [9:0] sipo_out0, sipo_out1, sipo_out2, sipo_out3; // make 4 bits
-wire [9:0] sipo_out0;
-//reg [9:0] data_buffer0, data_buffer1, data_buffer2, data_buffer3;
-reg [9:0] data_buffer0;
-//reg [9:0] tx_data_buffer0, tx_data_buffer1, tx_data_buffer2, tx_data_buffer3; 
-reg [9:0] tx_data_buffer0;
-                                // SIPOs continue sampling, but tx_data_buffer
-                                // holds a stable value while tx'ing. see always block
-
-//reg [9:0] channel_data;
-//reg [7:0] word_to_send;
-
-SIPO sipo0( .clk(spi_clk),
-            .reset_b(reset_b),
-            //.data_in(adc_in[0]),   
-            .data_in(adc_in),
-            .data_logging(data_logging),
-            .data_out(sipo_out0)
-          );
-
-/* SIPO sipo1( .clk(spi_clk),
-            .reset_b(reset_b),
-            .data_in(adc_in[1]),   // make 4 bits
-            .data_logging(data_logging),
-            .data_out(sipo_out1)
-          );
-
-SIPO sipo2( .clk(spi_clk),
-            .reset_b(reset_b),
-            .data_in(adc_in[2]),   // make 4 bits
-            .data_logging(data_logging),
-            .data_out(sipo_out2)
-          );
-
-SIPO sipo3( .clk(spi_clk),
-            .reset_b(reset_b),
-            .data_in(adc_in[3]),   // make 4 bits
-            .data_logging(data_logging),
-            .data_out(sipo_out3)
-          ); */
-
-wire one_eighth;
-eighth_second eighth_counter_inst(.clk(spi_clk),
-                                    .reset_b(reset_b),
-                                    .eighth_out(one_eighth)
-                                );
-
-reg [5:0] data_reset_timer = 6'd0;
-always @ (posedge clk) begin
-    if (one_eighth) data_reset_timer <= data_reset_timer + 1;
-    else if (data_reset_timer >= 40) data_reset_timer <= 6'b0;
-    else data_reset_timer <= data_reset_timer;
-
-    if (data_reset_timer >= 40) data_buffer0 <= 10'd0;
-    else if (data_ready && (sipo_out0 > data_buffer0)) data_buffer0 <= sipo_out0;
-    else data_buffer0 <= data_buffer0;
+    wire [15:0] Channel_1_Largest, Channel_2_Largest, Channel_3_Largest, Channel_4_Largest;
+    reg [15:0] Channel_1_Largest_reg, Channel_2_Largest_reg, Channel_3_Largest_reg, Channel_4_Largest_reg;
     
-    //data_buffer0 <= (data_ready) ? sipo_out0 : data_buffer0;
-    //data_buffer1 <= (data_ready) ? sipo_out1 : data_buffer1;
-    //data_buffer2 <= (data_ready) ? sipo_out2 : data_buffer2;
-    //data_buffer3 <= (data_ready) ? sipo_out3 : data_buffer3;
+    wire [7:0] Channel_sel;
+    
+    reg [15:0] Channel_Data;
+    
+    reg [15:0] Data_To_Send_reg;
+    wire [15:0] Data_To_Send;
+    
+    
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin
+            Channel_1_Largest_reg <= 16'b0;
+            Channel_2_Largest_reg <= 16'b0;
+            Channel_3_Largest_reg <= 16'b0;
+            Channel_4_Largest_reg <= 16'b0;
+        end
+        else begin
+            Channel_1_Largest_reg <= Channel_1_Largest;
+            Channel_2_Largest_reg <= Channel_2_Largest;
+            Channel_3_Largest_reg <= Channel_3_Largest;
+            Channel_4_Largest_reg <= Channel_4_Largest;
+        end 
+    end
 
-    tx_data_buffer0 <= (txing) ? tx_data_buffer0 : data_buffer0;
-    //tx_data_buffer1 <= (txing) ? tx_data_buffer1 : data_buffer1;
-    //tx_data_buffer2 <= (txing) ? tx_data_buffer2 : data_buffer2;
-    //tx_data_buffer3 <= (txing) ? tx_data_buffer3 : data_buffer3;
+    assign Channel_1_Largest = (Channel_1_Largest > Channel_1_Largest_reg) ? Channel_1_Largest : Channel_1_Largest_reg;
+    assign Channel_2_Largest = (Channel_2_Largest > Channel_2_Largest_reg) ? Channel_2_Largest : Channel_2_Largest_reg;
+    assign Channel_3_Largest = (Channel_3_Largest > Channel_3_Largest_reg) ? Channel_3_Largest : Channel_3_Largest_reg;
+    assign Channel_4_Largest = (Channel_4_Largest > Channel_4_Largest_reg) ? Channel_4_Largest : Channel_4_Largest_reg;
+    
+    always@(*) begin
+        case(Channel_sel) 
+            8'd1:
+                Channel_Data <= Channel_1_Largest_reg;
+            8'd2:
+                Channel_Data <= Channel_2_Largest_reg;
+            8'd3:
+                Channel_Data <= Channel_3_Largest_reg;
+            8'd4:
+                Channel_Data <= Channel_4_Largest_reg;
+            default:
+                Channel_Data <= Channel_1_Largest_reg;
+        
+        endcase 
+    
+    end
+    
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin 
+            Data_To_Send_reg <= 16'b0;
+        end
+        else begin
+            Data_To_Send_reg <= Data_To_Send;
+        end
+    end
+    
+    
+    assign Data_To_Send = Hold_Data_sel ? Data_To_Send_reg : Channel_Data;
+    
+    
+    assign Word_To_Send = Byte_To_Send_sel ? Data_To_Send[15:8] : Data_To_Send[7:0];
+    
+    
+    
 
-end
-
-always @ (*) begin
-    /* case (channel_number)
-        CHANNEL_A: channel_data <= tx_data_buffer0;
-        CHANNEL_B: channel_data <= tx_data_buffer1;
-        CHANNEL_C: channel_data <= tx_data_buffer2;
-        CHANNEL_D: channel_data <= tx_data_buffer3;
-    endcase
-
-    case (word_to_send_sel) 
-        2'b00: word_to_send <= 8'h00;
-        2'b01: word_to_send <= {4'b0100, (4'b0001 + channel_number)}; // A, B, C, or D
-        2'b10: word_to_send <= {3'b100, channel_data[4:0]};
-        2'b11: word_to_send <= {3'b100, channel_data[9:5]};
-        default: word_to_send <= 8'h00;
-    endcase */
-    case (word_to_send_sel)
-        2'b01: word_to_send <= 8'h41;
-        2'b10: word_to_send <= {3'b100, tx_data_buffer0[4:0]};
-        2'b11: word_to_send <= {3'b100, tx_data_buffer0[9:5]};
-        default: word_to_send <= 8'h00; // idle
-    endcase
-end
+endmodule

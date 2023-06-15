@@ -3,6 +3,7 @@
 
 module Test_Controller (
                             input clk,
+<<<<<<< HEAD
                             input reset_b,
 							input Rx_Data_Ready,
 							input Tx_Ready_To_Send,
@@ -10,9 +11,13 @@ module Test_Controller (
 							output reg Byte_To_Send_Sel,
 							output reg Tx_en,
 							output reg Hold_Data_Sel
+=======
+                            input reset_b
+>>>>>>> 2a2602cfb2a57d08c04bea79e5109a265502674a
 );
 	reg [2:0] cstate, nstate;
 
+<<<<<<< HEAD
 	parameter [2:0]
 		IDLE = 3'b000,
 		ENABLE_LSB = 3'b001,
@@ -75,5 +80,7 @@ module Test_Controller (
 		
 		endcase
 	end
+=======
+>>>>>>> 2a2602cfb2a57d08c04bea79e5109a265502674a
 
 endmodule

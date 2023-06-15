@@ -39,50 +39,47 @@ wire tx_ready;
 
 wire [7:0] word_to_send
 
-// SUBMODULES -----------------------------------------------
+
 
 clk_7_2_MHz clk_7_2_MHz_inst(
                                 .clk_in1(clk), 
                                 .spi_clk(spi_clk)
-                            );    
+                            );
+                                
 assign spi_clk_out = spi_clk;
 
 //button handler to remedy bounce on reset signal button
 assign reset_b = 1'b1;
-button_handler reset_signal(    .clk(clk), 
-                                .reset_b(reset_b),
-                                .button_pressed(btnC), 
-                                .button_out(reset_button_out)
-                            );
+button_handler reset_signal(    
+    
+    .clk(clk), 
+    .reset_b(reset_b),
+    .button_pressed(btnC), 
+    .button_out(reset_button_out)
+   
+);
 
-// CONTROLLER -----------------------------------------------
-Test_Controller test_ctrl_inst( .clk(clk),
-                                .spi_clk(spi_clk),
-                                .reset_b(reset_b),
-                                .rx_ready(rx_ready),
-                                .rx_data(rx_data),
-                                .tx_ready(tx_ready),
-                                .txing(txing),
-                                .word_to_send_sel(word_to_send_sel),
-                                .tx_send(tx_send),
-                                .data_logging(data_logging),
-                                .data_ready(data_ready),
-                                .control_signal(cs)
-                              );
+Test_Datapath Test_Datapath_inst(
 
-// DATAPATH -------------------------------------------------
-Test_Datapath test_dp_inst(     .clk(clk),
-                                .spi_clk(spi_clk),
-                                .reset_b(reset_b),
-                                .adc_in(adc1),
-                                .data_logging(data_logging),
-                                .data_ready(data_ready),
-                                .txing(txing),
-								.word_to_send(word_to_send),
-                                .word_to_send_sel(word_to_send_sel),
-                                .rx_state_debug(rx_state_debug), // **included for debug
-                          );
-						  
+    .clk(clk),
+    .reset_b(reset_b),
+    .ADC_Channel_1(),
+    .ADC_Channel_2(),
+    .ADC_Channel_3(),
+    .ADC_Channel_4(),
+    .UART_Rx_Data_in(),
+    .Hold_Data_sel(),
+    .Byte_To_Send_sel(),
+    
+    .Word_To_Send()
+
+);
+
+Test_Controller Test_Controller_inst(
+
+    
+
+);	  
 
 UART UART_inst(	.clk(clk),
 				.reset_b(reset_b),
