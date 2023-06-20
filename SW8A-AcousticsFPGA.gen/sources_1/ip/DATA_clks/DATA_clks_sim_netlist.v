@@ -1,11 +1,11 @@
-// Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+// Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-// Date        : Mon Apr  3 19:59:08 2023
-// Host        : DESKTOP-6KV2NE2 running 64-bit major release  (build 9200)
+// Tool Version: Vivado v.2022.2.2 (lin64) Build 3788238 Tue Feb 21 19:59:23 MST 2023
+// Date        : Sat Jun 17 12:26:02 2023
+// Host        : cpmori-Dell running 64-bit Ubuntu 22.04.2 LTS
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz_sim_netlist.v
-// Design      : clk_7_2_MHz
+//               /home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks_sim_netlist.v
+// Design      : DATA_clks
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
 // Device      : xc7a35tcpg236-1
@@ -13,36 +13,43 @@
 `timescale 1 ps / 1 ps
 
 (* NotValidForBitStream *)
-module clk_7_2_MHz
-   (spi_clk,
+module DATA_clks
+   (SPI_clk,
+    UART_clk,
     clk_in1);
-  output spi_clk;
+  output SPI_clk;
+  output UART_clk;
   input clk_in1;
 
+  wire SPI_clk;
+  wire UART_clk;
   wire clk_in1;
-  wire spi_clk;
 
-  clk_7_2_MHz_clk_wiz inst
-       (.clk_in1(clk_in1),
-        .spi_clk(spi_clk));
+  DATA_clks_clk_wiz inst
+       (.SPI_clk(SPI_clk),
+        .UART_clk(UART_clk),
+        .clk_in1(clk_in1));
 endmodule
 
-module clk_7_2_MHz_clk_wiz
-   (spi_clk,
+module DATA_clks_clk_wiz
+   (SPI_clk,
+    UART_clk,
     clk_in1);
-  output spi_clk;
+  output SPI_clk;
+  output UART_clk;
   input clk_in1;
 
+  wire SPI_clk;
+  wire SPI_clk_DATA_clks;
+  wire UART_clk;
+  wire UART_clk_DATA_clks;
   wire clk_in1;
-  wire clkfbout_buf_clk_7_2_MHz;
-  wire clkfbout_clk_7_2_MHz;
-  wire spi_clk;
-  wire spi_clk_clk_7_2_MHz;
+  wire clkfbout_DATA_clks;
+  wire clkfbout_buf_DATA_clks;
   wire NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED;
-  wire NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED;
@@ -58,25 +65,29 @@ module clk_7_2_MHz_clk_wiz
 
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkf_buf
-       (.I(clkfbout_clk_7_2_MHz),
-        .O(clkfbout_buf_clk_7_2_MHz));
+       (.I(clkfbout_DATA_clks),
+        .O(clkfbout_buf_DATA_clks));
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkout1_buf
-       (.I(spi_clk_clk_7_2_MHz),
-        .O(spi_clk));
+       (.I(SPI_clk_DATA_clks),
+        .O(SPI_clk));
+  (* BOX_TYPE = "PRIMITIVE" *) 
+  BUFG clkout2_buf
+       (.I(UART_clk_DATA_clks),
+        .O(UART_clk));
   (* BOX_TYPE = "PRIMITIVE" *) 
   MMCME2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT_F(52.875000),
+    .CLKFBOUT_MULT_F(50.000000),
     .CLKFBOUT_PHASE(0.000000),
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(10.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(105.750000),
+    .CLKOUT0_DIVIDE_F(100.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),
-    .CLKOUT1_DIVIDE(1),
+    .CLKOUT1_DIVIDE(124),
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
     .CLKOUT1_USE_FINE_PS("FALSE"),
@@ -115,17 +126,17 @@ module clk_7_2_MHz_clk_wiz
     .SS_MOD_PERIOD(10000),
     .STARTUP_WAIT("FALSE")) 
     mmcm_adv_inst
-       (.CLKFBIN(clkfbout_buf_clk_7_2_MHz),
-        .CLKFBOUT(clkfbout_clk_7_2_MHz),
+       (.CLKFBIN(clkfbout_buf_DATA_clks),
+        .CLKFBOUT(clkfbout_DATA_clks),
         .CLKFBOUTB(NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED),
         .CLKFBSTOPPED(NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED),
         .CLKIN1(clk_in1),
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKINSTOPPED(NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED),
-        .CLKOUT0(spi_clk_clk_7_2_MHz),
+        .CLKOUT0(SPI_clk_DATA_clks),
         .CLKOUT0B(NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED),
-        .CLKOUT1(NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED),
+        .CLKOUT1(UART_clk_DATA_clks),
         .CLKOUT1B(NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED),
         .CLKOUT2(NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED),
         .CLKOUT2B(NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED),

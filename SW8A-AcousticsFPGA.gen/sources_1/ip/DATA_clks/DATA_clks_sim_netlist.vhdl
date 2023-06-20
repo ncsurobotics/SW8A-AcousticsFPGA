@@ -1,11 +1,11 @@
--- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
--- Date        : Mon Apr  3 19:59:08 2023
--- Host        : DESKTOP-6KV2NE2 running 64-bit major release  (build 9200)
+-- Tool Version: Vivado v.2022.2.2 (lin64) Build 3788238 Tue Feb 21 19:59:23 MST 2023
+-- Date        : Sat Jun 17 12:26:02 2023
+-- Host        : cpmori-Dell running 64-bit Ubuntu 22.04.2 LTS
 -- Command     : write_vhdl -force -mode funcsim
---               c:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz_sim_netlist.vhdl
--- Design      : clk_7_2_MHz
+--               /home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks_sim_netlist.vhdl
+-- Design      : DATA_clks
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
 -- Device      : xc7a35tcpg236-1
@@ -14,22 +14,23 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity clk_7_2_MHz_clk_wiz is
+entity DATA_clks_clk_wiz is
   port (
-    spi_clk : out STD_LOGIC;
+    SPI_clk : out STD_LOGIC;
+    UART_clk : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-end clk_7_2_MHz_clk_wiz;
+end DATA_clks_clk_wiz;
 
-architecture STRUCTURE of clk_7_2_MHz_clk_wiz is
-  signal clkfbout_buf_clk_7_2_MHz : STD_LOGIC;
-  signal clkfbout_clk_7_2_MHz : STD_LOGIC;
-  signal spi_clk_clk_7_2_MHz : STD_LOGIC;
+architecture STRUCTURE of DATA_clks_clk_wiz is
+  signal SPI_clk_DATA_clks : STD_LOGIC;
+  signal UART_clk_DATA_clks : STD_LOGIC;
+  signal clkfbout_DATA_clks : STD_LOGIC;
+  signal clkfbout_buf_DATA_clks : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED : STD_LOGIC;
-  signal NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED : STD_LOGIC;
@@ -45,31 +46,37 @@ architecture STRUCTURE of clk_7_2_MHz_clk_wiz is
   attribute BOX_TYPE : string;
   attribute BOX_TYPE of clkf_buf : label is "PRIMITIVE";
   attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
+  attribute BOX_TYPE of clkout2_buf : label is "PRIMITIVE";
   attribute BOX_TYPE of mmcm_adv_inst : label is "PRIMITIVE";
 begin
 clkf_buf: unisim.vcomponents.BUFG
      port map (
-      I => clkfbout_clk_7_2_MHz,
-      O => clkfbout_buf_clk_7_2_MHz
+      I => clkfbout_DATA_clks,
+      O => clkfbout_buf_DATA_clks
     );
 clkout1_buf: unisim.vcomponents.BUFG
      port map (
-      I => spi_clk_clk_7_2_MHz,
-      O => spi_clk
+      I => SPI_clk_DATA_clks,
+      O => SPI_clk
+    );
+clkout2_buf: unisim.vcomponents.BUFG
+     port map (
+      I => UART_clk_DATA_clks,
+      O => UART_clk
     );
 mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
     generic map(
       BANDWIDTH => "OPTIMIZED",
-      CLKFBOUT_MULT_F => 52.875000,
+      CLKFBOUT_MULT_F => 50.000000,
       CLKFBOUT_PHASE => 0.000000,
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 10.000000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 105.750000,
+      CLKOUT0_DIVIDE_F => 100.000000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,
-      CLKOUT1_DIVIDE => 1,
+      CLKOUT1_DIVIDE => 124,
       CLKOUT1_DUTY_CYCLE => 0.500000,
       CLKOUT1_PHASE => 0.000000,
       CLKOUT1_USE_FINE_PS => false,
@@ -109,17 +116,17 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       STARTUP_WAIT => false
     )
         port map (
-      CLKFBIN => clkfbout_buf_clk_7_2_MHz,
-      CLKFBOUT => clkfbout_clk_7_2_MHz,
+      CLKFBIN => clkfbout_buf_DATA_clks,
+      CLKFBOUT => clkfbout_DATA_clks,
       CLKFBOUTB => NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED,
       CLKFBSTOPPED => NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED,
       CLKIN1 => clk_in1,
       CLKIN2 => '0',
       CLKINSEL => '1',
       CLKINSTOPPED => NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED,
-      CLKOUT0 => spi_clk_clk_7_2_MHz,
+      CLKOUT0 => SPI_clk_DATA_clks,
       CLKOUT0B => NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED,
-      CLKOUT1 => NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED,
+      CLKOUT1 => UART_clk_DATA_clks,
       CLKOUT1B => NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED,
       CLKOUT2 => NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED,
       CLKOUT2B => NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED,
@@ -148,20 +155,22 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity clk_7_2_MHz is
+entity DATA_clks is
   port (
-    spi_clk : out STD_LOGIC;
+    SPI_clk : out STD_LOGIC;
+    UART_clk : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
-  attribute NotValidForBitStream of clk_7_2_MHz : entity is true;
-end clk_7_2_MHz;
+  attribute NotValidForBitStream of DATA_clks : entity is true;
+end DATA_clks;
 
-architecture STRUCTURE of clk_7_2_MHz is
+architecture STRUCTURE of DATA_clks is
 begin
-inst: entity work.clk_7_2_MHz_clk_wiz
+inst: entity work.DATA_clks_clk_wiz
      port map (
-      clk_in1 => clk_in1,
-      spi_clk => spi_clk
+      SPI_clk => SPI_clk,
+      UART_clk => UART_clk,
+      clk_in1 => clk_in1
     );
 end STRUCTURE;

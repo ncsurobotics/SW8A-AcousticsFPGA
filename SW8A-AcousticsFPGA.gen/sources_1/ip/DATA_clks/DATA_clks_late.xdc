@@ -1,5 +1,5 @@
 
-# file: clk_7_2_MHz_ooc.xdc
+# file: DATA_clks_late.xdc
 # 
 # (c) Copyright 2008 - 2013 Xilinx, Inc. All rights reserved.
 # 
@@ -48,12 +48,6 @@
 # PART OF THIS FILE AT ALL TIMES.
 # 
 
-#################
-#DEFAULT CLOCK CONSTRAINTS
 
-############################################################
-# Clock Period Constraints                                 #
-############################################################
-create_clock -period 10.000 [get_ports clk_in1]
-#set_property HD.CLK_SRC BUFGCTRL_X0Y0 [get_ports clk_in1]
+
 

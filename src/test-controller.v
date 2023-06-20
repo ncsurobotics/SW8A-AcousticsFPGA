@@ -10,9 +10,11 @@ module Test_Controller (
 							output reg Byte_To_Send_Sel,
 							output reg Tx_en,
 							output reg Hold_Data_Sel
+
 );
 	reg [2:0] cstate, nstate;
-
+    reg counter_current_state, counter_next_state;
+    
 	parameter [2:0]
 		IDLE = 3'b000,
 		ENABLE_LSB = 3'b001,
@@ -75,5 +77,9 @@ module Test_Controller (
 		
 		endcase
 	end
+
+
+   
+
 
 endmodule

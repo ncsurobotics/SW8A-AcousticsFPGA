@@ -1,5 +1,5 @@
 
-// file: clk_7_2_MHz.v
+// file: DATA_clks.v
 // 
 // (c) Copyright 2008 - 2013 Xilinx, Inc. All rights reserved.
 // 
@@ -56,7 +56,8 @@
 //  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
-// _spi_clk___7.14286______0.000______50.0______580.363____472.405
+// _SPI_clk___7.14286______0.000______50.0______621.062____480.876
+// UART_clk___5.76037______0.000______50.0______641.480____480.876
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -65,18 +66,19 @@
 
 `timescale 1ps/1ps
 
-module clk_7_2_MHz_clk_wiz 
+module DATA_clks_clk_wiz 
 
  (// Clock in ports
   // Clock out ports
-  output        spi_clk,
+  output        SPI_clk,
+  output        UART_clk,
   input         clk_in1
  );
   // Input buffering
   //------------------------------------
-wire clk_in1_clk_7_2_MHz;
-wire clk_in2_clk_7_2_MHz;
-  assign clk_in1_clk_7_2_MHz = clk_in1;
+wire clk_in1_DATA_clks;
+wire clk_in2_DATA_clks;
+  assign clk_in1_DATA_clks = clk_in1;
 
 
 
@@ -88,23 +90,22 @@ wire clk_in2_clk_7_2_MHz;
   //    * Unused inputs are tied off
   //    * Unused outputs are labeled unused
 
-  wire        spi_clk_clk_7_2_MHz;
-  wire        clk_out2_clk_7_2_MHz;
-  wire        clk_out3_clk_7_2_MHz;
-  wire        clk_out4_clk_7_2_MHz;
-  wire        clk_out5_clk_7_2_MHz;
-  wire        clk_out6_clk_7_2_MHz;
-  wire        clk_out7_clk_7_2_MHz;
+  wire        SPI_clk_DATA_clks;
+  wire        UART_clk_DATA_clks;
+  wire        clk_out3_DATA_clks;
+  wire        clk_out4_DATA_clks;
+  wire        clk_out5_DATA_clks;
+  wire        clk_out6_DATA_clks;
+  wire        clk_out7_DATA_clks;
 
   wire [15:0] do_unused;
   wire        drdy_unused;
   wire        psdone_unused;
   wire        locked_int;
-  wire        clkfbout_clk_7_2_MHz;
-  wire        clkfbout_buf_clk_7_2_MHz;
+  wire        clkfbout_DATA_clks;
+  wire        clkfbout_buf_DATA_clks;
   wire        clkfboutb_unused;
     wire clkout0b_unused;
-   wire clkout1_unused;
    wire clkout1b_unused;
    wire clkout2_unused;
    wire clkout2b_unused;
@@ -122,22 +123,26 @@ wire clk_in2_clk_7_2_MHz;
     .COMPENSATION         ("ZHOLD"),
     .STARTUP_WAIT         ("FALSE"),
     .DIVCLK_DIVIDE        (7),
-    .CLKFBOUT_MULT_F      (52.875),
+    .CLKFBOUT_MULT_F      (50.000),
     .CLKFBOUT_PHASE       (0.000),
     .CLKFBOUT_USE_FINE_PS ("FALSE"),
-    .CLKOUT0_DIVIDE_F     (105.750),
+    .CLKOUT0_DIVIDE_F     (100.000),
     .CLKOUT0_PHASE        (0.000),
     .CLKOUT0_DUTY_CYCLE   (0.500),
     .CLKOUT0_USE_FINE_PS  ("FALSE"),
+    .CLKOUT1_DIVIDE       (124),
+    .CLKOUT1_PHASE        (0.000),
+    .CLKOUT1_DUTY_CYCLE   (0.500),
+    .CLKOUT1_USE_FINE_PS  ("FALSE"),
     .CLKIN1_PERIOD        (10.000))
   mmcm_adv_inst
     // Output clocks
    (
-    .CLKFBOUT            (clkfbout_clk_7_2_MHz),
+    .CLKFBOUT            (clkfbout_DATA_clks),
     .CLKFBOUTB           (clkfboutb_unused),
-    .CLKOUT0             (spi_clk_clk_7_2_MHz),
+    .CLKOUT0             (SPI_clk_DATA_clks),
     .CLKOUT0B            (clkout0b_unused),
-    .CLKOUT1             (clkout1_unused),
+    .CLKOUT1             (UART_clk_DATA_clks),
     .CLKOUT1B            (clkout1b_unused),
     .CLKOUT2             (clkout2_unused),
     .CLKOUT2B            (clkout2b_unused),
@@ -147,8 +152,8 @@ wire clk_in2_clk_7_2_MHz;
     .CLKOUT5             (clkout5_unused),
     .CLKOUT6             (clkout6_unused),
      // Input clock control
-    .CLKFBIN             (clkfbout_buf_clk_7_2_MHz),
-    .CLKIN1              (clk_in1_clk_7_2_MHz),
+    .CLKFBIN             (clkfbout_buf_DATA_clks),
+    .CLKIN1              (clk_in1_DATA_clks),
     .CLKIN2              (1'b0),
      // Tied to always select the primary input clock
     .CLKINSEL            (1'b1),
@@ -178,8 +183,8 @@ wire clk_in2_clk_7_2_MHz;
   //-----------------------------------
 
   BUFG clkf_buf
-   (.O (clkfbout_buf_clk_7_2_MHz),
-    .I (clkfbout_clk_7_2_MHz));
+   (.O (clkfbout_buf_DATA_clks),
+    .I (clkfbout_DATA_clks));
 
 
 
@@ -187,9 +192,13 @@ wire clk_in2_clk_7_2_MHz;
 
 
   BUFG clkout1_buf
-   (.O   (spi_clk),
-    .I   (spi_clk_clk_7_2_MHz));
+   (.O   (SPI_clk),
+    .I   (SPI_clk_DATA_clks));
 
+
+  BUFG clkout2_buf
+   (.O   (UART_clk),
+    .I   (UART_clk_DATA_clks));
 
 
 
