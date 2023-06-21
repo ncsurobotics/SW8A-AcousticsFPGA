@@ -46,66 +46,17 @@ DATA_clks DATA_clks_inst(
     .UART_clk(UART_clk_No_Div)
 
 ); 
-       
-UART_IP UART_inst(
 
-    .s_axi_aclk(clk),
-    .s_axi_aresetn(reset_b),
-    .s_axi_awaddr(0),
-    .s_axi_awvalid(1),
-    .s_axi_wdata(),
-    .s_axi_wstrb(),
-    .s_axi_wvalid(),
-    .s_axi_bready(),
-    .s_axi_araddr(),
-    .s_axi_arvalid(),
-    .s_axi_rready(),
-    .rx(RsRx),
-    
-    .interrupt(),
-    .s_axi_awready(),
-    .s_axi_wready(),
-    .s_axi_bresp(),
-    .s_axi_bvalid(),
-    .s_axi_arready(),
-    .s_axi_rdata(),
-    .s_axi_rresp(),
-    .s_axi_rvalid(),
-    .tx(RsTx)
-    
-);      
-       
-       
-       
-       
-       
-       
-       
-       
-  
-                       
-FOUR_CHANNEL_SPI FOUR_CHANNEL_SPI_inst(
+UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
-    .clk(clk),
-    .SPI_clk(SPI_clk),
+    .UART_clk_in(UART_clk_No_Div),
     .reset_b(reset_b),
-    .SPI_en(1'b1),
-    .adc1(adc1),
-    .adc2(adc2),
-    .adc3(adc3),
-    .adc4(adc4),
     
-    .ADC_Channel_1(ADC_Channel_1),
-    .ADC_Channel_2(ADC_Channel_2),
-    .ADC_Channel_3(ADC_Channel_3),
-    .ADC_Channel_4(ADC_Channel_4),
-    .ADC_CH1_Ready(ADC_CH1_Ready),
-    .ADC_CH2_Ready(ADC_CH2_Ready),
-    .ADC_CH3_Ready(ADC_CH3_Ready),
-    .ADC_CH4_Ready(ADC_CH4_Ready),
-    .cs(cs)
+    .UART_clk_out(UART_clk)    
 
-);                               
+);               
+                       
+                                
 
 //button handler to remedy bounce on reset signal button
 button_handler reset_signal(    
@@ -118,27 +69,130 @@ button_handler reset_signal(
 
 assign reset_b = ~reset_button_out;
 
+always@(posedge clk or negedge reset_b) begin
+
+    if(!reset_b) begin
+        ADC_Channel_1_reg <= 10'b0;
+        ADC_Channel_2_reg <= 10'b0;
+        ADC_Channel_3_reg <= 10'b0;
+        ADC_Channel_4_reg <= 10'b0;
+    end
+    else begin
+        ADC_Channel_1_reg <= ADC_Channel_1_next;
+        ADC_Channel_2_reg <= ADC_Channel_2_next;
+        ADC_Channel_3_reg <= ADC_Channel_3_next;
+        ADC_Channel_4_reg <= ADC_Channel_4_next;
+    end
+
+end
+
+assign ADC_Channel_1_next = ADC_CH1_Ready ? ADC_Channel_1 : ADC_Channel_1_reg;
+assign ADC_Channel_2_next = ADC_CH2_Ready ? ADC_Channel_2 : ADC_Channel_2_reg;
+assign ADC_Channel_3_next = ADC_CH3_Ready ? ADC_Channel_3 : ADC_Channel_3_reg;
+assign ADC_Channel_4_next = ADC_CH4_Ready ? ADC_Channel_4 : ADC_Channel_4_reg;
 
 
+SPI Channel_1_SPI (
+
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .SPI_Data_in(adc1),
+    .SPI_en(1'b1),
+    
+    .SPI_Data_out(ADC_Channel_1),
+    .Data_Ready(ADC_CH1_Ready),
+    .CS(cs)
+    
+);
+
+SPI Channel_2_SPI (
+
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .SPI_Data_in(adc2),
+    .SPI_en(1'b1),
+    
+    .SPI_Data_out(ADC_Channel_2),
+    .Data_Ready(ADC_CH2_Ready)
+    
+
+);
+
+SPI Channel_3_SPI (
+
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .SPI_Data_in(adc3),
+    .SPI_en(1'b1),
+    
+    .SPI_Data_out(ADC_Channel_3),
+    .Data_Ready(ADC_CH3_Ready)
+    
+
+);
+
+SPI Channel_4_SPI (
+
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .SPI_Data_in(adc4),
+    .SPI_en(1'b1),
+    
+    .SPI_Data_out(ADC_Channel_4),
+    .Data_Ready(ADC_CH4_Ready)
+    
+
+);
 
 
+Test_Datapath Test_Datapath_inst(
 
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .ADC_Channel_1(ADC_Channel_1_reg),
+    .ADC_Channel_2(ADC_Channel_2_reg),
+    .ADC_Channel_3(ADC_Channel_3_reg),
+    .ADC_Channel_4(ADC_Channel_4_reg),
+    .UART_Rx_Data_in(rx_data),
+    .Hold_Data_sel(Hold_Data_sel),
+    .Byte_To_Send_sel(Byte_To_Send_sel),
+    
+    .Word_To_Send(Word_To_Send)
 
+);
 
+Test_Controller Test_Controller_inst(
 
+    .clk(clk),
+    .reset_b(reset_b),
+    .Rx_Data_Ready(rx_ready),
+    .Tx_Ready_To_Send(tx_ready),
+    
+    .Byte_To_Send_Sel(Byte_To_Send_sel),
+    .Tx_en(tx_send),
+    .Hold_Data_Sel(Hold_Data_sel)
 
+);	  
 
+UART UART_inst(	
 
-
-
-
-
-
-
-
-
-
-
+    .clk(UART_clk),
+    .reset_b(reset_b),
+	.TX_Data_in(Word_To_Send),
+	.TX_en(tx_send),
+	.RX_Data_in(RsRx),
+				
+	.TX_Data_out(RsTx),
+	.TX_Ready_To_Send(tx_ready),
+	.RX_Data_out(rx_data),
+	.RX_Data_Ready(rx_ready)
+	
+);
 
 
 
