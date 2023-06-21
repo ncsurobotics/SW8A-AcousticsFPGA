@@ -39,9 +39,10 @@ module UART_RX_CONTROLLER (
     parameter 
         HOLD = 1'b0,
         SHIFT = 1'b1;
-    parameter 
-        IDLE = 1'b0,
-        DATA_INCOMING = 1'b1;
+    parameter [1:0]
+        IDLE = 2'b00,
+        DATA_INCOMING = 2'b01,
+        DATA_READY = 2'b11;
     parameter
         FALSE = 1'b0,
         TRUE = 1'b1;
@@ -62,7 +63,7 @@ module UART_RX_CONTROLLER (
             IDLE: begin
                 RX_Shift_Register_sel           <= HOLD;
                 Bit_Counter_sel                 <= ZERO;
-                RX_Data_Ready                   <= TRUE;
+                RX_Data_Ready                   <= FALSE;
                 if(RX_Data_in == 1'b0) next_state    <= DATA_INCOMING;
                 else next_state                 <= IDLE;
             end
@@ -72,10 +73,23 @@ module UART_RX_CONTROLLER (
                 RX_Data_Ready                   <= FALSE;
                 if(Bit_Count_Reached)
                 begin
-                    next_state                  <= IDLE;
+                    next_state                  <= DATA_READY;
                 end
                 else next_state                 <= DATA_INCOMING;
             end
+            DATA_READY: begin
+                RX_Shift_Register_sel           <= HOLD;
+                Bit_Counter_sel                 <= ZERO;
+                RX_Data_Ready                   <= TRUE;
+                next_state                      <= IDLE;
+            end
+            default: begin
+                RX_Shift_Register_sel           <= HOLD;
+                Bit_Counter_sel                 <= ZERO;
+                RX_Data_Ready                   <= FALSE;
+                next_state                      <= IDLE;
+            end
+            
         endcase
     end
     

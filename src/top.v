@@ -37,7 +37,7 @@ wire Hold_Data_sel, Byte_To_Send_sel;
 
 wire ADC_CH1_Ready,ADC_CH2_Ready,ADC_CH3_Ready,ADC_CH4_Ready;
 
-wire [7:0] Word_To_Send;
+wire [7:0] Word_To_Send, rx_data;
 
 DATA_clks DATA_clks_inst(
 
@@ -162,7 +162,7 @@ Test_Datapath Test_Datapath_inst(
     .Hold_Data_sel(Hold_Data_sel),
     .Byte_To_Send_sel(Byte_To_Send_sel),
     
-    .Word_To_Send(Word_To_Send)
+    .Word_To_Send()
 
 );
 
@@ -189,7 +189,7 @@ UART UART_inst(
 				
 	.TX_Data_out(RsTx),
 	.TX_Ready_To_Send(tx_ready),
-	.RX_Data_out(rx_data),
+	.RX_Data_out(Word_To_Send),
 	.RX_Data_Ready(rx_ready)
 	
 );
@@ -198,7 +198,7 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    if (rx_ready) display <= {24'h000, rx_data};
+    if (rx_ready) display <= {24'h000};
     else display <= display;
 end
 
