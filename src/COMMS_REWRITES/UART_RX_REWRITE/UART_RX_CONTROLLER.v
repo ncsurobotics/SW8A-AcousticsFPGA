@@ -25,6 +25,10 @@ parameter [1:0] // counter to 55 localparams
     ZERO = 2'b00;
 
 parameter
+    HOLD = 1'b0,
+    SHIFT = 1'b1;
+
+parameter
     FALSE =  1'b0,
     TRUE =  1'b1;
 
