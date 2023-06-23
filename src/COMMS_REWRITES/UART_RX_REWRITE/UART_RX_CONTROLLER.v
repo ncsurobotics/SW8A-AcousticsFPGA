@@ -1,5 +1,5 @@
 module UART_RX_CONTROLLER #(
-    parameters
+    
 ) (
     input clk,
     input reset_b,
@@ -13,20 +13,20 @@ module UART_RX_CONTROLLER #(
     output reg RX_Data_Ready
 );
 
-localparam [1:0] // state localparams
-    IDLE: 2'b00,
-    COUNT_TO_54: 2'b01,
-    SAMPLE: 2'b10,
-    WAIT_FOR_STOP_BIT: 2'b11;
+parameter [1:0] // state localparams
+    IDLE = 2'b00,
+    COUNT_TO_54 = 2'b01,
+    SAMPLE = 2'b10,
+    WAIT_FOR_STOP_BIT = 2'b11;
 
-localparam [1:0] // counter to 55 localparams
-    HOLD_CTR:2'b10
-    INCREMENT_CTR:2'b11 
-    ZERO_CTR:2'b00;
+parameter [1:0] // counter to 55 localparams
+    HOLD_CTR = 2'b10,
+    COUNT = 2'b11 ,
+    ZERO = 2'b00;
 
-localparam
-    FALSE: 1'b0,
-    TRUE: 1'b1;
+parameter
+    FALSE =  1'b0,
+    TRUE =  1'b1;
 
 reg [1:0] current_state, next_state;
 
@@ -41,9 +41,9 @@ always @ (*) begin
     case (current_state)
         IDLE: begin
             RX_Shift_Register_sel   <= HOLD;
-            Bit_Counter_sel         <= ZERO_CTR;
+            Bit_Counter_sel         <= ZERO;
             RX_Data_Ready           <= FALSE;
-            Baud_Counter_sel        <= ZERO_CTR;
+            Baud_Counter_sel        <= ZERO;
 
             if (!RX_Data_in) next_state <= COUNT_TO_54;
             else next_state             <= IDLE;
