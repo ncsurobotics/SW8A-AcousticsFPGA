@@ -24,9 +24,9 @@ module GENERAL_COUNTER #(COUNT_VAL=0, COUNT_BIT_WIDTH=0)(
 
     input clk,
     input reset_b,
-    input [1:0] count_sel,
+    input [1:0] Count_sel,
     
-    output count_reached
+    output Count_Reached
 
 );
 
@@ -47,7 +47,7 @@ module GENERAL_COUNTER #(COUNT_VAL=0, COUNT_BIT_WIDTH=0)(
     end
 
     always@(*) begin
-        case(count_sel) 
+        case(Count_sel) 
             ZERO: begin
                 Counter_Value_Next <= 0;
             end
@@ -63,7 +63,7 @@ module GENERAL_COUNTER #(COUNT_VAL=0, COUNT_BIT_WIDTH=0)(
         endcase 
     end
     
-    assign count_reached = (Counter_Value_reg == COUNT_VAL);
+    assign Count_Reached = (Counter_Value_reg == COUNT_VAL);
     
 
 endmodule
