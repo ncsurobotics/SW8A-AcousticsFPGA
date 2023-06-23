@@ -23,7 +23,7 @@ module UART_RX_DATAPATH #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
     
     );
     
-    GENERAL_COUNT #(.COUNT_VAL(54), . COUNT_VAL_WIDTH(6)) BAUD_COUNTER (
+    GENERAL_COUNTER #(.COUNT_VAL(54), . COUNT_BIT_WIDTH(6)) BAUD_COUNTER (
     
         .clk(clk),
         .reset_b(reset_b),
@@ -33,7 +33,7 @@ module UART_RX_DATAPATH #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
     
     );
     
-    GENERAL_COUNT #(.COUNT_VAL(8), . COUNT_VAL_WIDTH(4)) BIT_COUNTER (
+    GENERAL_COUNTER #(.COUNT_VAL(8), . COUNT_BIT_WIDTH(4)) BIT_COUNTER (
     
         .clk(clk),
         .reset_b(reset_b),

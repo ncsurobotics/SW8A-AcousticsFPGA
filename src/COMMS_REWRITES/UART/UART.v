@@ -71,10 +71,8 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     UART_RX #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_inst(
     
         .clk(clk),
-        .UART_clk(UART_clk),
         .reset_b(reset_b),
         .RX_Data_in(RX_Data_in),
-        .RX_Logged_Data(RX_Data_out),
         
         .RX_Data_out(RX_Data_Captured),
         .RX_Data_Ready(RX_Data_Ready)

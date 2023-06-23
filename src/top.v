@@ -184,8 +184,9 @@ UART UART_inst(
     .UART_clk(UART_clk),
     .clk(clk),
     .reset_b(reset_b),
-	.TX_Data_in(Word_To_Send),
-	.TX_en(tx_send),
+	.TX_Data_in(rx_data),
+	.TX_en(1'b0),
+	.TX_Write_en(1'b0),
 	.RX_Data_in(RsRx),
 				
 	.TX_Data_out(RsTx),
@@ -199,7 +200,7 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    display <= {16'h00, rx_data};
+    if(rx_ready) display <= {16'h00, rx_data};
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
