@@ -58,19 +58,25 @@ always @ (*) begin
             Bit_Counter_sel         <= HOLD_CTR;
             RX_Data_Ready           <= FALSE;
             Baud_Counter_sel        <= COUNT;
-
+            if(Bit_Count_Reached) next_state <= WAIT_FOR_STOP_BIT;
             if (Baud_Count_Reached) next_state <= SAMPLE;
             else next_state             <= COUNT_TO_54;
         end
 
         SAMPLE: begin
-            RX_Shift_Register_sel   <= SHIFT;
+            
             Bit_Counter_sel         <= COUNT;
             RX_Data_Ready           <= FALSE;
             Baud_Counter_sel        <= ZERO;
 
-            if (Bit_Count_Reached) next_state <= WAIT_FOR_STOP_BIT;
-            else next_state <= COUNT_TO_54;
+            if (Bit_Count_Reached) begin 
+                next_state <= WAIT_FOR_STOP_BIT;
+                RX_Shift_Register_sel   <= HOLD; 
+            end
+            else begin
+                next_state <= COUNT_TO_54;
+                RX_Shift_Register_sel   <= SHIFT;
+            end
         end
 
         WAIT_FOR_STOP_BIT: begin

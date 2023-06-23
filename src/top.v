@@ -2,7 +2,7 @@
 `timescale 1ns / 1ps
 
 module top (
-                input clk, btnC,
+                input clk, btnC, /*SPI_clk, UART_clk_No_Div,*/
 
                 input adc1,
                 input adc2,
@@ -40,6 +40,8 @@ wire ADC_CH1_Ready,ADC_CH2_Ready,ADC_CH3_Ready,ADC_CH4_Ready;
 
 reg [7:0] Word_To_Send;
 wire [7:0] rx_data;
+
+
 
 DATA_clks DATA_clks_inst(
 
@@ -183,8 +185,8 @@ UART UART_inst(
     .Slow_clk(UART_clk_No_Div),
     .reset_b(reset_b),
 	.TX_Data_in(rx_data),
-	.TX_en(1'b0),
-	.TX_Write_en(1'b0),
+	.TX_en(TX_en),
+	.TX_Write_en(TX_Write_en),
 	.RX_Data_in(RsRx),
 				
 	.TX_Data_out(RsTx),
@@ -198,7 +200,10 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    display <= {15'b0, rx_ready};
+    if(rx_ready)
+        display <= {8'b0, rx_data};
+    else 
+        display<= display;
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),

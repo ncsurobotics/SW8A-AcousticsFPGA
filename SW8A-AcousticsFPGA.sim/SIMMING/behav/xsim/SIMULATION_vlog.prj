@@ -1,8 +1,7 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  --include "../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks" \
-"../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks_clk_wiz.v" \
-"../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks.v" \
 "../../../../src/COMMS_REWRITES/BIT_COUNTER.v" \
+"../../../../src/GENERAL_COUNTER.v" \
 "../../../../src/COMMS_REWRITES/RX_SHIFT_REGISTER.v" \
 "../../../../src/COMMS_REWRITES/SPI/SPI.v" \
 "../../../../src/COMMS_REWRITES/SPI/SPI_CONTROLLER.v" \
@@ -10,14 +9,15 @@ verilog xil_defaultlib  --include "../../../../SW8A-AcousticsFPGA.gen/sources_1/
 "../../../../src/COMMS_REWRITES/UART/TX_SHIFT_REGISTER.v" \
 "../../../../src/COMMS_REWRITES/UART/UART.v" \
 "../../../../SW8A-AcousticsFPGA.srcs/sources_1/new/UART_CLK_DIVIDER.v" \
-"../../../../src/UART_rx.v" \
-"../../../../src/UART_rx_controller.v" \
-"../../../../src/UART_rx_datapath.v" \
-"../../../../src/UART_tx.v" \
-"../../../../src/UART_tx_controller.v" \
-"../../../../src/UART_tx_datapath.v" \
+"../../../../src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX.v" \
+"../../../../src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX_CONTROLLER.v" \
+"../../../../src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX_DATAPATH.v" \
+"../../../../src/COMMS_REWRITES/UART/UART_TX.v" \
+"../../../../src/COMMS_REWRITES/UART/UART_TX_CONTROLLER.v" \
+"../../../../src/COMMS_REWRITES/UART/UART_TX_DATAPATH.v" \
 "../../../../src/io.v" \
 "../../../../src/top.v" \
+"../../../../SW8A-AcousticsFPGA.srcs/SIMMING/new/SIMULATION.v" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"
