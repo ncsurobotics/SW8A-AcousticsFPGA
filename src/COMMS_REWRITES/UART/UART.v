@@ -23,6 +23,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
 
     input clk,
     input UART_clk,
+    input Slow_clk,
     input reset_b,
     input [WORD_SIZE-1:0] TX_Data_in,
     input TX_en,
@@ -70,7 +71,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     
     UART_RX #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_inst(
     
-        .clk(clk),
+        .clk(Slow_clk),
         .reset_b(reset_b),
         .RX_Data_in(RX_Data_in),
         

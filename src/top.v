@@ -34,10 +34,12 @@ wire [9:0] ADC_Channel_1,ADC_Channel_2,ADC_Channel_3, ADC_Channel_4;
 reg [9:0] ADC_Channel_1_reg,ADC_Channel_2_reg,ADC_Channel_3_reg, ADC_Channel_4_reg;
 
 wire Hold_Data_sel, Byte_To_Send_sel;
+reg TX_Write_en, TX_en;
 
 wire ADC_CH1_Ready,ADC_CH2_Ready,ADC_CH3_Ready,ADC_CH4_Ready;
 
-wire [7:0] Word_To_Send, rx_data;
+reg [7:0] Word_To_Send;
+wire [7:0] rx_data;
 
 DATA_clks DATA_clks_inst(
 
@@ -68,28 +70,6 @@ button_handler reset_signal(
 );
 
 assign reset_b = ~reset_button_out;
-
-always@(posedge clk or negedge reset_b) begin
-
-    if(!reset_b) begin
-        ADC_Channel_1_reg <= 10'b0;
-        ADC_Channel_2_reg <= 10'b0;
-        ADC_Channel_3_reg <= 10'b0;
-        ADC_Channel_4_reg <= 10'b0;
-    end
-    else begin
-        ADC_Channel_1_reg <= ADC_Channel_1_next;
-        ADC_Channel_2_reg <= ADC_Channel_2_next;
-        ADC_Channel_3_reg <= ADC_Channel_3_next;
-        ADC_Channel_4_reg <= ADC_Channel_4_next;
-    end
-
-end
-
-assign ADC_Channel_1_next = ADC_CH1_Ready ? ADC_Channel_1 : ADC_Channel_1_reg;
-assign ADC_Channel_2_next = ADC_CH2_Ready ? ADC_Channel_2 : ADC_Channel_2_reg;
-assign ADC_Channel_3_next = ADC_CH3_Ready ? ADC_Channel_3 : ADC_Channel_3_reg;
-assign ADC_Channel_4_next = ADC_CH4_Ready ? ADC_Channel_4 : ADC_Channel_4_reg;
 
 
 SPI Channel_1_SPI (
@@ -149,40 +129,58 @@ SPI Channel_4_SPI (
 );
 
 
-Test_Datapath Test_Datapath_inst(
+reg [1:0] current_state, next_state;
+always@(posedge clk or negedge reset_b) begin
+    if(!reset_b) begin
+        current_state <= 2'b00;
+    end
+    else begin
+        current_state <= next_state;
+    end
 
-    .clk(clk),
-    .SPI_clk(SPI_clk),
-    .reset_b(reset_b),
-    .ADC_Channel_1(ADC_Channel_1_reg),
-    .ADC_Channel_2(ADC_Channel_2_reg),
-    .ADC_Channel_3(ADC_Channel_3_reg),
-    .ADC_Channel_4(ADC_Channel_4_reg),
-    .UART_Rx_Data_in(rx_data),
-    .Hold_Data_sel(Hold_Data_sel),
-    .Byte_To_Send_sel(Byte_To_Send_sel),
-    
-    .Word_To_Send()
+end
 
-);
+always@(*) begin
+    case(current_state)
+        2'b00:begin
+            if(rx_ready) begin
+                next_state <= 2'b10;
+            end
+            else next_state <= 2'b00;
+            Word_To_Send <= 0;
+            TX_en <= 0;
+            TX_Write_en <= 0;
+        end
+        2'b10:begin
+            Word_To_Send <= rx_data;
+            TX_en <= 1'b1;
+            TX_Write_en <= 1'b1;
+            if(!RsTx) next_state <= 2'b11;
+            else next_state <= 2'b10;
+        end
+        2'b11:begin
+            Word_To_Send <= rx_data;
+            TX_en <= 1'b0;
+            TX_Write_en <= 1'b0;
+            if(tx_ready) next_state <= 2'b00;
+            else next_state <= 2'b11;
+        end
+        default: begin
+            Word_To_Send <= 0;
+            TX_en <= 0;
+            TX_Write_en <= 0;
+            next_state <= 2'b00;
+        end
+    endcase
+end
 
-Test_Controller Test_Controller_inst(
 
-    .clk(clk),
-    .reset_b(reset_b),
-    .Rx_Data_Ready(rx_ready),
-    .Tx_Ready_To_Send(tx_ready),
-    
-    .Byte_To_Send_Sel(Byte_To_Send_sel),
-    .Tx_en(tx_send),
-    .Hold_Data_Sel(Hold_Data_sel)
-
-);	  
 
 UART UART_inst(	
 
     .UART_clk(UART_clk),
     .clk(clk),
+    .Slow_clk(UART_clk_No_Div),
     .reset_b(reset_b),
 	.TX_Data_in(rx_data),
 	.TX_en(1'b0),
@@ -200,7 +198,7 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    if(rx_ready) display <= {16'h00, rx_data};
+    display <= {15'b0, rx_ready};
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
