@@ -11,7 +11,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
     input[9:0] SPI_Data_4,
     input[2:0] Max_Value_Channel_sel,
 
-    output[9:0] Max_Value
+    output reg [9:0] Max_Value
 );
     parameter[2:0]
         CHANNEL_1=3'b001,
@@ -37,7 +37,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_1),
-        .Bit_Count_Reached(Bit_Count_Reached),
+        .Bit_Counter_Sel(Bit_Counter_Sel),
         
         .Channel_Max_Value(SPI_Max_1)
     );
@@ -46,7 +46,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_2),
-        .Bit_Count_Reached(Bit_Count_Reached),
+        .Bit_Counter_Sel(Bit_Counter_Sel),
         
         .Channel_Max_Value(SPI_Max_2)
     );
@@ -55,7 +55,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_3),
-        .Bit_Count_Reached(Bit_Count_Reached),
+        .Bit_Counter_Sel(Bit_Counter_Sel),
         
         .Channel_Max_Value(SPI_Max_3)
     );
@@ -64,7 +64,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_4),
-        .Bit_Count_Reached(Bit_Count_Reached),
+        .Bit_Counter_Sel(Bit_Counter_Sel),
         
         .Channel_Max_Value(SPI_Max_4)
     );

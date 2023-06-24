@@ -97,7 +97,7 @@ SPI Channel_2_SPI (
     
     .SPI_Data_out(ADC_Channel_2),
     .Data_Ready(ADC_CH2_Ready)
-    
+    //.CS() CS is an FPGA output driven by SPI 1
 
 );
 
@@ -111,6 +111,7 @@ SPI Channel_3_SPI (
     
     .SPI_Data_out(ADC_Channel_3),
     .Data_Ready(ADC_CH3_Ready)
+    //.CS() CS is an FPGA output driven by SPI 1
     
 
 );
@@ -125,12 +126,13 @@ SPI Channel_4_SPI (
     
     .SPI_Data_out(ADC_Channel_4),
     .Data_Ready(ADC_CH4_Ready)
+    //.CS() CS is an FPGA output driven by SPI 1
     
 
 );
 
 
-/*parameter[1:0]
+parameter[1:0]
     IDLE=2'b00,
     TX_EN=2'b01,
     SENDING=2'b10;
@@ -144,7 +146,7 @@ parameter[7:0]
     CHANNEL_2_OP_CODE =8'b01000010,
     CHANNEL_3_OP_CODE =8'b01000011,
     CHANNEL_4_OP_CODE =8'b01000100;
-    
+
 wire[2:0] Max_Value_Channel_sel;
 wire[9:0] Max_Value;
 reg[7:0] OP_Code;
@@ -179,7 +181,7 @@ always @ (*) begin
         FOUR: OP_Code <= CHANNEL_4_OP_CODE;
         default: OP_Code <= 8'b00000000;
     endcase
-end*/
+end
 
 
 reg [1:0] current_state, next_state;
@@ -206,14 +208,14 @@ always@(*) begin
             TX_Write_en <= 0;
         end
         2'b10:begin
-            Word_To_Send <= rx_data;
+            Word_To_Send <= Max_Value[7:0];
             TX_en <= 1'b1;
             TX_Write_en <= 1'b1;
             if(!RsTx) next_state <= 2'b11;
             else next_state <= 2'b10;
         end
         2'b11:begin
-            Word_To_Send <= rx_data;
+            Word_To_Send <= Max_Value[7:0];
             TX_en <= 1'b0;
             TX_Write_en <= 1'b0;
             if(tx_ready) next_state <= 2'b00;
@@ -289,7 +291,7 @@ UART UART_inst(
 // DISPLAY
 always @ (posedge clk) begin
     if(rx_ready)
-        display <= {8'b0, rx_data};
+        display <= {Max_Value[9:2], rx_data};
     else 
         display<= display;
 end
