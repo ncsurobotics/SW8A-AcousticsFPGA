@@ -24,8 +24,8 @@ module UART_TX #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     input UART_clk,
     input reset_b,
     input [WORD_SIZE-1:0] TX_Data_in,
-    input TX_en,
-    input TX_Write_en,
+    input TX_en, // Lets us control when a word is sent from the TX
+    input TX_Write_en, // Lets us control when a word is sent to the TX
 
     output wire TX_Data_out,
     output wire TX_Ready_To_Send,

@@ -3,15 +3,15 @@ module SPI_MAX_VALUE_CACHE_datapath #(
     parameter WORD_SIZE_WIDTH=25
 ) (
     input clk,
-    input Slow_clk,
+    input Slow_clk, // UART Clock
     input reset_b,
-    input[WORD_SIZE-1:0] SPI_Data_1,
-    input[WORD_SIZE-1:0] SPI_Data_2,
-    input[WORD_SIZE-1:0] SPI_Data_3,
-    input[WORD_SIZE-1:0] SPI_Data_4,
+    input[9:0] SPI_Data_1,
+    input[9:0] SPI_Data_2,
+    input[9:0] SPI_Data_3,
+    input[9:0] SPI_Data_4,
     input[2:0] Max_Value_Channel_sel,
 
-    output[WORD_SIZE-1:0] Max_Value
+    output[9:0] Max_Value
 );
     parameter[2:0]
         CHANNEL_1=3'b001,
@@ -19,7 +19,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         CHANNEL_3=3'b011,
         CHANNEL_4=3'b100;
 
-    wire [WORD_SIZE-1:0] SPI_Max_1, SPI_Max_2, SPI_Max_3, SPI_Max_4;
+    wire [9:0] SPI_Max_1, SPI_Max_2, SPI_Max_3, SPI_Max_4;
     wire Bit_Count_Reached;
     wire Bit_Counter_sel;
 

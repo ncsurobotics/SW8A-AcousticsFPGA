@@ -23,6 +23,16 @@ module SPI_MAX_VALUE_CACHE_controller(
 
     reg[2:0] current_state, next_state;
 
+    always @ (*) begin
+        case(Op_Code)
+                    CHANNEL_1_OP_CODE: Max_Value_Channel_sel <= CHANNEL_1;
+                    CHANNEL_2_OP_CODE: Max_Value_Channel_sel <= CHANNEL_2;
+                    CHANNEL_3_OP_CODE: Max_Value_Channel_sel <= CHANNEL_3;
+                    CHANNEL_4_OP_CODE: Max_Value_Channel_sel <= CHANNEL_4;
+                    default: Max_Value_Channel_sel <= ZERO;
+        endcase
+    end
+
     always @ (posedge clk) begin
         if(!reset_b) begin
             current_state_state <= IDLE;
@@ -35,7 +45,7 @@ module SPI_MAX_VALUE_CACHE_controller(
     always @ (*) begin
         case(current_state)
             IDLE: begin
-                Max_Value_Channel_sel <= IDLE;
+                Max_Value_Channel_sel <= ZERO;
                 case(OP_Code)
                     CHANNEL_1_OP_CODE: next_state <= CHANNEL_1;
                     CHANNEL_2_OP_CODE: next_state <= CHANNEL_2;

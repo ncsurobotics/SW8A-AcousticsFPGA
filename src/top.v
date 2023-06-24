@@ -42,7 +42,6 @@ reg [7:0] Word_To_Send;
 wire [7:0] rx_data;
 
 
-
 DATA_clks DATA_clks_inst(
 
     .clk_in1(clk),
@@ -131,6 +130,58 @@ SPI Channel_4_SPI (
 );
 
 
+/*parameter[1:0]
+    IDLE=2'b00,
+    TX_EN=2'b01,
+    SENDING=2'b10;
+
+parameter[7:0]
+    ONE=8'b00110001,
+    TWO=8'b00110010,
+    THREE=8'b00110011,
+    FOUR=8'b00110100,
+    CHANNEL_1_OP_CODE =8'b01000001,
+    CHANNEL_2_OP_CODE =8'b01000010,
+    CHANNEL_3_OP_CODE =8'b01000011,
+    CHANNEL_4_OP_CODE =8'b01000100;
+    
+wire[2:0] Max_Value_Channel_sel;
+wire[9:0] Max_Value;
+reg[7:0] OP_Code;
+
+SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
+    .clk(clk),
+    .Slow_clk(UART_clk),
+    .reset_b(reset_b),
+    .SPI_Data_1(ADC_Channel_1),
+    .SPI_Data_2(ADC_Channel_2),
+    .SPI_Data_3(ADC_Channel_3),
+    .SPI_Data_4(ADC_Channel_4),
+    .Max_Value_Channel_sel(Max_Value_Channel_sel),
+
+    .Max_Value(Max_Value)
+);
+
+SPI_MAX_VALUE_CACHE_controller CACHE_ctrl_inst(
+    .clk(clk),
+    .reset_b(reset_b),
+    .OP_Code(OP_Code),
+    .TX_READY(tx_ready),
+
+    .Max_Value_Channel_sel(Max_Value_Channel_sel)
+);
+
+always @ (*) begin
+    case(rx_data)
+        ONE: OP_Code <= CHANNEL_1_OP_CODE;
+        TWO: OP_Code <= CHANNEL_2_OP_CODE;
+        THREE: OP_Code <= CHANNEL_3_OP_CODE;
+        FOUR: OP_Code <= CHANNEL_4_OP_CODE;
+        default: OP_Code <= 8'b00000000;
+    endcase
+end*/
+
+
 reg [1:0] current_state, next_state;
 always@(posedge clk or negedge reset_b) begin
     if(!reset_b) begin
@@ -139,8 +190,9 @@ always@(posedge clk or negedge reset_b) begin
     else begin
         current_state <= next_state;
     end
-
 end
+
+
 
 always@(*) begin
     case(current_state)
@@ -176,6 +228,42 @@ always@(*) begin
     endcase
 end
 
+/*
+always @ (posedge clk) begin
+    if (rx_ready) Word_To_Send <= rx_data;
+    else Word_To_Send <= Word_To_Send;
+end
+
+always @ (*) begin
+    
+    case(current_state)
+        IDLE: begin
+            next_state <= rx_ready ? TX_EN : IDLE;
+            TX_en <= 1'b0;
+            TX_Write_en <= 1'b0;
+            //Word_To_Send <= 8'h41;
+        end
+        TX_EN: begin
+            next_state <= tx_ready ? TX_EN : SENDING;
+            TX_en <= 1'b1;
+            TX_Write_en <= 1'b1;
+            //Word_To_Send <= rx_data;
+        end
+        SENDING: begin
+            next_state <= (tx_ready && ~rx_ready) ? IDLE : SENDING;
+            TX_en <= 1'b0;
+            TX_Write_en <= 1'b1;
+            //Word_To_Send <= rx_data;
+        end
+        default: begin
+            next_state <= IDLE;
+            TX_en <= 1'b0;
+            TX_Write_en <= 1'b0;
+            //Word_To_Send <= 8'h41;
+        end
+    endcase
+end */
+
 
 
 UART UART_inst(	
@@ -184,7 +272,7 @@ UART UART_inst(
     .clk(clk),
     .Slow_clk(UART_clk_No_Div),
     .reset_b(reset_b),
-	.TX_Data_in(rx_data),
+	.TX_Data_in(Word_To_Send),
 	.TX_en(TX_en),
 	.TX_Write_en(TX_Write_en),
 	.RX_Data_in(RsRx),
