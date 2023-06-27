@@ -9,8 +9,8 @@ module top (
                 input adc3,
                 input adc4,
                 
-                output cs,
-                output spi_clk_out,
+                output cs1, cs2, cs3, cs4,
+                output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
 
                 input RsRx,
                 output RsTx,
@@ -22,9 +22,18 @@ module top (
 );
 
 // 7.2 MHz clock for SPI
-wire SPI_clk; assign spi_clk_out = SPI_clk;
+wire SPI_clk; 
+assign spi_clk_out1 = SPI_clk;
+assign spi_clk_out2 = SPI_clk;
+assign spi_clk_out3 = SPI_clk;
+assign spi_clk_out4 = SPI_clk;
 wire UART_clk_No_Div;
 wire UART_clk;
+wire cs;
+assign cs1 = cs;
+assign cs2 = cs;
+assign cs3 = cs;
+assign cs4 = cs;
 
 // peripherals
 wire reset_button_out, reset_b;
