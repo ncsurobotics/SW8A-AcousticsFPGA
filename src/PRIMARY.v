@@ -9,17 +9,12 @@ module PRIMARY (
                 input adc3,
                 input adc4,
                 
-<<<<<<< HEAD:src/PRIMARY.v
-<<<<<<< HEAD:src/PRIMARY.v
                 output cs1,cs2,cs3,cs4,
-=======
                 output cs1, cs2, cs3, cs4,
                 output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
->>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
-=======
+
                 output cs1, cs2, cs3, cs4,
                 output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
->>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
 
                 input RsRx,
                 output RsTx,
@@ -28,8 +23,7 @@ module PRIMARY (
                 output [3:0] an
 );
 
-<<<<<<< HEAD:src/PRIMARY.v
-=======
+
 // 7.2 MHz clock for SPI
 wire SPI_clk; 
 assign spi_clk_out1 = SPI_clk;
@@ -37,7 +31,7 @@ assign spi_clk_out2 = SPI_clk;
 assign spi_clk_out3 = SPI_clk;
 assign spi_clk_out4 = SPI_clk;
 wire UART_clk_No_Div;
->>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
+
 wire UART_clk;
 wire cs;
 assign cs1 = cs;
