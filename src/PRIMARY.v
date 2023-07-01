@@ -10,7 +10,12 @@ module PRIMARY (
                 input adc4,
                 
 <<<<<<< HEAD:src/PRIMARY.v
+<<<<<<< HEAD:src/PRIMARY.v
                 output cs1,cs2,cs3,cs4,
+=======
+                output cs1, cs2, cs3, cs4,
+                output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
+>>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
 =======
                 output cs1, cs2, cs3, cs4,
                 output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
