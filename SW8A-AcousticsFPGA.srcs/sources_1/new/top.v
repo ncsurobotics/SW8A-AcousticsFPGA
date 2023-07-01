@@ -30,10 +30,10 @@ module top(
                 
                 output cs1,cs2,cs3,cs4,
                 output spi_clk_out1,spi_clk_out2,spi_clk_out3,spi_clk_out4,
-
+                output data_ready, 
+                
                 input RsRx,
                 output RsTx,
-                output adc1monitor,
                 output [6:0] seg,
                 output [3:0] an
     );
@@ -41,7 +41,6 @@ module top(
     
 wire SPI_clk, UART_clk_No_Div;
 
-assign adc1monitor = adc1;
     
 DATA_clks DATA_clks_inst(
 
@@ -62,6 +61,7 @@ PRIMARY main_level (
     .adc2(adc2),
     .adc3(adc3),
     .adc4(adc4),
+    .data_ready(data_ready),
     .cs1(cs1),
     .cs2(cs2),
     .cs3(cs3),

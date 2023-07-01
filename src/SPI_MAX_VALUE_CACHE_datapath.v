@@ -1,6 +1,6 @@
 module SPI_MAX_VALUE_CACHE_datapath #(
-    parameter WORD_SIZE=28000000,
-    parameter WORD_SIZE_WIDTH=25
+    parameter WORD_SIZE=16777215,
+    parameter WORD_SIZE_WIDTH=24
 ) (
     input clk,
     input Slow_clk, // UART Clock
@@ -23,12 +23,11 @@ module SPI_MAX_VALUE_CACHE_datapath #(
     wire Bit_Count_Reached;
     wire Bit_Counter_sel;
 
-    assign Bit_Counter_sel = ~Bit_Count_Reached;
 
     BIT_COUNTER #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) BIT_COUNTER_inst(
         .clk(Slow_clk),
         .reset_b(reset_b),
-        .Bit_Counter_sel(Bit_Counter_sel),
+        .Bit_Counter_sel(1'b1),//always counting, count will overflow back to 0
 
         .Bit_Count_Reached(Bit_Count_Reached)
     );
@@ -37,7 +36,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_1),
-        .Bit_Counter_Sel(Bit_Counter_Sel),
+        .Bit_Count_Reached(Bit_Count_Reached),
         
         .Channel_Max_Value(SPI_Max_1)
     );
@@ -46,7 +45,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_2),
-        .Bit_Counter_Sel(Bit_Counter_Sel),
+        .Bit_Count_Reached(Bit_Count_Reached),
         
         .Channel_Max_Value(SPI_Max_2)
     );
@@ -55,7 +54,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_3),
-        .Bit_Counter_Sel(Bit_Counter_Sel),
+        .Bit_Count_Reached(Bit_Count_Reached),
         
         .Channel_Max_Value(SPI_Max_3)
     );
@@ -64,7 +63,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
         .clk(clk),
         .reset_b(reset_b),
         .SPI_Data(SPI_Data_4),
-        .Bit_Counter_Sel(Bit_Counter_Sel),
+        .Bit_Count_Reached(Bit_Count_Reached),
         
         .Channel_Max_Value(SPI_Max_4)
     );
@@ -75,7 +74,7 @@ module SPI_MAX_VALUE_CACHE_datapath #(
             CHANNEL_2: Max_Value <= SPI_Max_2;
             CHANNEL_3: Max_Value <= SPI_Max_3;
             CHANNEL_4: Max_Value <= SPI_Max_4;
-            default: Max_Value <= 10'd0;
+            default: Max_Value <= 10'b1111111111;
         endcase
     end
 
