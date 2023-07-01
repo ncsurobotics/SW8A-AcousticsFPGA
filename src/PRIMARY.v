@@ -9,13 +9,11 @@ module PRIMARY (
                 input adc3,
                 input adc4,
                 
+                output data_ready,
                 output cs1,cs2,cs3,cs4,
                 output cs1, cs2, cs3, cs4,
                 output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
-
-                output cs1, cs2, cs3, cs4,
-                output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
-
+                
                 input RsRx,
                 output RsTx,
 
