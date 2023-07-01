@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks" \
+"../../../../src/COMMS_REWRITES/BIT_COUNTER.v" \
+"../../../../SW8A-AcousticsFPGA.srcs/sources_1/new/UART_CLK_DIVIDER.v" \
+"../../../../SW8A-AcousticsFPGA.srcs/SIMMING/new/FULL_SIM.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

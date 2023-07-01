@@ -1,30 +1,44 @@
 // March 4 top-level module with controller & datapath
 `timescale 1ns / 1ps
 
-module top (
-                input clk, btnC, /*SPI_clk, UART_clk_No_Div,*/
+module PRIMARY (
+                input clk, btnU,btnC, SPI_clk, UART_clk_No_Div,
 
                 input adc1,
                 input adc2,
                 input adc3,
                 input adc4,
                 
-                output cs,
-                output spi_clk_out,
+<<<<<<< HEAD:src/PRIMARY.v
+                output cs1,cs2,cs3,cs4,
+=======
+                output cs1, cs2, cs3, cs4,
+                output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
+>>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
 
                 input RsRx,
                 output RsTx,
-
-                output [2:0] rx_state_debug, // **included for debug
 
                 output [6:0] seg,
                 output [3:0] an
 );
 
+<<<<<<< HEAD:src/PRIMARY.v
+=======
 // 7.2 MHz clock for SPI
-wire SPI_clk; assign spi_clk_out = SPI_clk;
+wire SPI_clk; 
+assign spi_clk_out1 = SPI_clk;
+assign spi_clk_out2 = SPI_clk;
+assign spi_clk_out3 = SPI_clk;
+assign spi_clk_out4 = SPI_clk;
 wire UART_clk_No_Div;
+>>>>>>> c9b73cda15acf76027a1df29701ecbb280515dbe:src/top.v
 wire UART_clk;
+wire cs;
+assign cs1 = cs;
+assign cs2 = cs;
+assign cs3 = cs;
+assign cs4 = cs;
 
 // peripherals
 wire reset_button_out, reset_b;
@@ -42,14 +56,6 @@ reg [7:0] Word_To_Send;
 wire [7:0] rx_data;
 
 
-DATA_clks DATA_clks_inst(
-
-    .clk_in1(clk),
-    .SPI_clk(SPI_clk),
-    .UART_clk(UART_clk_No_Div)
-
-); 
-
 UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
     .UART_clk_in(UART_clk_No_Div),
@@ -65,7 +71,7 @@ UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 button_handler reset_signal(    
     
     .clk(clk), 
-    .button_pressed(btnC), 
+    .button_pressed(btnU), 
     .button_out(reset_button_out)
    
 );
@@ -83,7 +89,7 @@ SPI Channel_1_SPI (
     
     .SPI_Data_out(ADC_Channel_1),
     .Data_Ready(ADC_CH1_Ready),
-    .CS(cs)
+    .CS(cs1)
     
 );
 
@@ -96,8 +102,8 @@ SPI Channel_2_SPI (
     .SPI_en(1'b1),
     
     .SPI_Data_out(ADC_Channel_2),
-    .Data_Ready(ADC_CH2_Ready)
-    //.CS() CS is an FPGA output driven by SPI 1
+    .Data_Ready(ADC_CH2_Ready),
+    .CS(cs2)
 
 );
 
@@ -110,8 +116,8 @@ SPI Channel_3_SPI (
     .SPI_en(1'b1),
     
     .SPI_Data_out(ADC_Channel_3),
-    .Data_Ready(ADC_CH3_Ready)
-    //.CS() CS is an FPGA output driven by SPI 1
+    .Data_Ready(ADC_CH3_Ready),
+    .CS(cs3)
     
 
 );
@@ -125,8 +131,8 @@ SPI Channel_4_SPI (
     .SPI_en(1'b1),
     
     .SPI_Data_out(ADC_Channel_4),
-    .Data_Ready(ADC_CH4_Ready)
-    //.CS() CS is an FPGA output driven by SPI 1
+    .Data_Ready(ADC_CH4_Ready),
+    .CS(cs4)
     
 
 );
@@ -173,6 +179,32 @@ SPI_MAX_VALUE_CACHE_controller CACHE_ctrl_inst(
     .Max_Value_Channel_sel(Max_Value_Channel_sel)
 );
 
+wire two_second_timer;
+
+BIT_COUNTER #(.WORD_SIZE(1048576), .WORD_SIZE_WIDTH(20)) (
+
+    .clk(UART_clk),
+    .reset_b(reset_b),
+    .Bit_Counter_sel(1'b1),
+    .Bit_Count_Reached(two_second_timer)
+
+);
+
+reg [7:0] SPI_Data;
+
+always@(posedge clk or negedge reset_b) begin
+    if(!reset_b) begin
+        SPI_Data <= 8'b0;
+    end
+    else begin
+        if(two_second_timer) SPI_Data <= ADC_Channel_1[9:2];
+        else SPI_Data <= SPI_Data;
+            
+    end
+end
+
+
+/*
 always @ (*) begin
     case(rx_data)
         ONE: OP_Code <= CHANNEL_1_OP_CODE;
@@ -182,7 +214,7 @@ always @ (*) begin
         default: OP_Code <= 8'b00000000;
     endcase
 end
-
+*/
 
 reg [1:0] current_state, next_state;
 always@(posedge clk or negedge reset_b) begin
@@ -290,8 +322,8 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    if(rx_ready)
-        display <= {Max_Value[9:2], rx_data};
+    if(two_second_timer)
+        display <= {SPI_Data, rx_data};
     else 
         display<= display;
 end

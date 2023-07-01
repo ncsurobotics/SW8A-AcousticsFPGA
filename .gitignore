@@ -108,6 +108,6 @@ ipshared
 SW8A-AcousticsFPGA.runs/synth_ilena/*
 SW8A-AcousticsFPGA.runs/impl_i1/*
 # *** Note: .sim/... probably needs to go in here
-
+SW8A-AcousticsFPGA.sim/*
 # ModelSim generated files
 srcsim/work/*
