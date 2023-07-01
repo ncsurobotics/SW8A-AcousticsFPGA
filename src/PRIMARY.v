@@ -11,9 +11,6 @@ module PRIMARY (
                 
                 output data_ready,
                 output cs1,cs2,cs3,cs4,
-                output cs1, cs2, cs3, cs4,
-                output spi_clk_out1, spi_clk_out2, spi_clk_out3, spi_clk_out4,
-                
                 input RsRx,
                 output RsTx,
 
@@ -24,18 +21,9 @@ module PRIMARY (
 
 // 7.2 MHz clock for SPI
 wire SPI_clk; 
-assign spi_clk_out1 = SPI_clk;
-assign spi_clk_out2 = SPI_clk;
-assign spi_clk_out3 = SPI_clk;
-assign spi_clk_out4 = SPI_clk;
 wire UART_clk_No_Div;
 
 wire UART_clk;
-wire cs;
-assign cs1 = cs;
-assign cs2 = cs;
-assign cs3 = cs;
-assign cs4 = cs;
 
 // peripherals
 wire reset_button_out, reset_b;
@@ -73,8 +61,9 @@ button_handler reset_signal(
    
 );
 
-assign reset_b = ~reset_button_out;
+assign reset_b = 1'b1;
 
+assign data_ready = ADC_CH1_Ready;
 
 SPI Channel_1_SPI (
 
@@ -319,8 +308,8 @@ UART UART_inst(
 
 // DISPLAY
 always @ (posedge clk) begin
-    if(two_second_timer)
-        display <= {SPI_Data, rx_data};
+    if(rx_ready)
+        display <= {8'h00, rx_data};
     else 
         display<= display;
 end
