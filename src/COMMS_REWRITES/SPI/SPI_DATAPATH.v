@@ -38,16 +38,16 @@ module SPI_DATAPATH #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     reg [WIDTH-1:0] SPI_Data_out_next;
     wire [WIDTH-1:0] SPI_Shift_Register_out;     
 
-    RX_SHIFT_REGISTER #(.WORD_SIZE(WIDTH)) SPI_SHIFT_REGISTER (
+    SIPO SPI_SHIFT_REG(
     
         .clk(SPI_clk),
+        .data_in(SPI_Data_in),
         .reset_b(reset_b),
-        .RX_Shift_Register_sel(RX_Shift_Register_sel),
-        .RX_Data_in(SPI_Data_in),
-        
-        .RX_Data_out(SPI_Shift_Register_out)
-       
-    );    
+        .data_logging(RX_Shift_Register_sel),
+        .data_out(SPI_Shift_Register_out)
+    
+    );
+    
     
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
