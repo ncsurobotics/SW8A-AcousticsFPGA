@@ -1,0 +1,14 @@
+0.7
+2020.2
+Oct 14 2022
+05:20:55
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz.v,1680566251,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/SIPO.v,,clk_7_2_MHz,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz_clk_wiz.v,1680566251,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz.v,,clk_7_2_MHz_clk_wiz,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.sim/sim_1/behav/xsim/glbl.v,1665704903,verilog,,,,glbl,,,,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/SIPO.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/SIPO_controller.v,,SIPO,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/SIPO_controller.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/counter.v,,SIPO_controller,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/counter.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/io.v,,counter;eighth_second,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/io.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-controller.v,,button_handler;seven_segment,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-controller.v,1680133785,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-datapath.v,,Test_Controller;Test_State_Machine,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/test-datapath.v,1680987281,verilog,,C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/top.v,,Test_Datapath,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,
+C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/src/top.v,1685055130,verilog,,,,top,,,../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1,,,,,

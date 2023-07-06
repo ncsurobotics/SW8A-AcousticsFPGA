@@ -1,7 +1,7 @@
 import serial
-import readline
+#import readline
 
-ser = serial.Serial('COM6', 115200, timeout = 1) # open serial port
+ser = serial.Serial('COM6', 115200, timeout = 5) # open serial port
 print(ser.name)
 
 while True:

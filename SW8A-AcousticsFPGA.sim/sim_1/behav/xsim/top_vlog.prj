@@ -1,0 +1,17 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1" \
+"../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz_clk_wiz.v" \
+"../../../../SW8A-AcousticsFPGA.gen/sources_1/ip/clk_7_2_MHz_1/clk_7_2_MHz.v" \
+"../../../../src/SIPO.v" \
+"../../../../src/SIPO_controller.v" \
+"../../../../src/counter.v" \
+"../../../../src/io.v" \
+"../../../../src/test-controller.v" \
+"../../../../src/test-datapath.v" \
+"../../../../src/top.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

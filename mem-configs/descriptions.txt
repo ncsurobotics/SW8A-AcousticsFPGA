@@ -1,0 +1,7 @@
+Memory Configuration Files
+    This folder is for important memory configuration files (.bin).
+    Put files that are currently flashed on one of the FPGAs here, as well as
+    old .bin files that might be nice to revert to. 
+
+Descriptions
+    4-3-2023-no1.bin -- max value cache hotfix test 1

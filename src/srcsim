@@ -1,0 +1,42 @@
+// UART testbench
+
+module uart_tb();
+
+reg clk = 1'b0;
+reg reset = 1'b1;
+reg tx_en;
+reg [7:0] data_to_send;
+
+wire tx_out, tx_ready;
+wire [7:0] rx_out;
+wire rx_ready;
+
+UART_tx tx(   .clk(clk),
+            .reset(reset),
+            .tx_in(data_to_send),
+            .tx_en(tx_en),
+
+            .UART_tx_data_out(tx_out),
+            .tx_ready(ready_to_send)
+        );
+
+UART_rx rx(   .clk(clk),
+            .reset(reset),
+            .rx_in(tx_out),
+            
+            .UART_rx_data_out(rx_out),
+            .rx_ready(rx_ready)
+        );
+
+always #(2) clk = ~clk;
+
+initial begin
+
+    #2  reset = 0;
+    #3  reset = 1;
+    #5  data_to_send = 8'b00110011;
+        tx_en = 1;
+
+end
+
+endmodule

@@ -1,31 +1,31 @@
 
 module button_handler (
-    input clk,
-    input reset_b, 
+    input clk, 
     input button_pressed,
-    //input [19:0] counter_val,
-    //output reg [1:0] counter_sel,
+    
     output reg button_out
 );
 
 //reg [19:0] counter_val = 21'b0;
 wire [19:0] counter_val;
-reg [1:0] current_state, next_state;
+reg current_state, next_state;
 reg counter_next;
-reg [1:0] counter_sel;
+reg counter_sel;
 
-parameter [1:0]
-    S0 = 2'b00,
-    S1 = 2'b01,
-    S2 = 2'b10,
-    S3 = 2'b11;
+parameter
+    PRESSED = 1'b1,
+    NOT_PRESSED = 1'b0;
+    
+wire Bit_Count_Reached;
 
-counter button_counter( .clk(clk),
-                        .reset_b(reset_b),
-                        .counter_sel(counter_sel),
-                        .counter_value(counter_val),
-                        .enable(1'b1)
-                        );
+BIT_COUNTER #(.WORD_SIZE(10000000), .WORD_SIZE_WIDTH(24)) button_counter( 
+
+                        .clk(clk),
+                        .reset_b(1'b1),
+                        .Bit_Counter_sel(counter_sel),
+                        .Bit_Count_Reached(Bit_Count_Reached)
+                        
+);
 
 always @ (posedge clk) begin
     current_state <= next_state;   
@@ -33,30 +33,17 @@ end
 
 always @ (*) begin
     case (current_state)
-        S0: begin
-            if(button_pressed) next_state <= S1;
-            else next_state <= S0;
-            counter_sel <= 2'b00;
+        NOT_PRESSED: begin
+            if(button_pressed) next_state <= PRESSED;
+            else next_state <= NOT_PRESSED;
+            counter_sel <= 1'b0;
             button_out <= 1'b0;
         end
-
-        S1: begin
-            next_state <= S2;
-            counter_sel <= 2'b11;
-            button_out <= 1'b1;
-            end
-        
-        S2: begin
-            next_state <=S3;
-            counter_sel <= 2'b11;
-            button_out <= 1'b1;
-            end
-
-        S3: begin
-            if(counter_val[19] == 1) next_state <= S0;
-            else next_state <= S3;
+        PRESSED: begin
+            if(Bit_Count_Reached) next_state <= NOT_PRESSED;
+            else next_state <= PRESSED;
             counter_sel <= 1'b1;
-            button_out <= 1'b0;
+            button_out <= 1'b1;
         end
     endcase
 end
