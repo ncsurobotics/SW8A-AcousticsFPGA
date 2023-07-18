@@ -89,7 +89,7 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/BIT_COUNTER.v">
+      <File Path="$PPRDIR/src/BIT_COUNTER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -117,35 +117,35 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/RX_SHIFT_REGISTER.v">
+      <File Path="$PPRDIR/src/UART/RX_SHIFT_REGISTER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/SPI/SIPO.v">
+      <File Path="$PPRDIR/src/SPI/SIPO.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/SPI/SPI.v">
+      <File Path="$PPRDIR/src/SPI/SPI.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/SPI/SPI_CONTROLLER.v">
+      <File Path="$PPRDIR/src/SPI/SPI_CONTROLLER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/SPI/SPI_DATAPATH.v">
+      <File Path="$PPRDIR/src/SPI/SPI_DATAPATH.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -166,63 +166,63 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART/TX_SHIFT_REGISTER.v">
+      <File Path="$PPRDIR/src/UART/TX_SHIFT_REGISTER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART/UART.v">
+      <File Path="$PPRDIR/src/UART/UART.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART_CLK_DIVIDER.v">
+      <File Path="$PPRDIR/src/UART/UART_CLK_DIVIDER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX.v">
+      <File Path="$PPRDIR/src/UART/UART_RX.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX_CONTROLLER.v">
+      <File Path="$PPRDIR/src/UART/UART_RX_CONTROLLER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART_RX_REWRITE/UART_RX_DATAPATH.v">
+      <File Path="$PPRDIR/src/UART/UART_RX_DATAPATH.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART/UART_TX.v">
+      <File Path="$PPRDIR/src/UART/UART_TX.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART/UART_TX_CONTROLLER.v">
+      <File Path="$PPRDIR/src/UART/UART_TX_CONTROLLER.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/src/COMMS_REWRITES/UART/UART_TX_DATAPATH.v">
+      <File Path="$PPRDIR/src/UART/UART_TX_DATAPATH.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
