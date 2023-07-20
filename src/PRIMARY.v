@@ -154,6 +154,8 @@ SPI_MAX_VALUE_CACHE_controller CACHE_ctrl_inst(
     .Max_Value_Channel_sel(Max_Value_Channel_sel)
 );
 
+TRIGGER_FFT trigger_fft_inst(
+);
 
 UART UART_inst(	
 
