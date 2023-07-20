@@ -46,7 +46,8 @@ UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
     .UART_clk_out(UART_clk)    
 
 );               
-                       
+                    
+RING_BUFFER RING_BUFFER_inst();
                                 
 
 //button handler to remedy bounce on reset signal button
