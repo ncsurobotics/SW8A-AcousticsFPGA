@@ -213,7 +213,7 @@ BEGIN
       C_OUTPUT_WIDTH => 11,
       C_HAS_SCALING => 1,
       C_HAS_BFP => 0,
-      C_HAS_ROUNDING => 1,
+      C_HAS_ROUNDING => 0,
       C_HAS_ACLKEN => 0,
       C_HAS_ARESETN => 1,
       C_HAS_OVFLO => 1,
