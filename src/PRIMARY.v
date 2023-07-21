@@ -38,6 +38,7 @@ reg [7:0] Word_To_Send;
 wire [7:0] rx_data;
 
 
+
 UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
     .UART_clk_in(UART_clk_No_Div),
@@ -47,8 +48,74 @@ UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
 );               
                     
-RING_BUFFER RING_BUFFER_inst();
-                                
+RING_BUFFER RING_BUFFER_channel_1_inst(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .Input_Data(ADC_Channel_1),
+    .Input_Data_Ready(ADC_CH1_Ready),
+    .Send_Frame(Send_Frame),
+    .RAM_Overflow(),
+    .Output_Data(fft_real_data_in)
+
+);
+
+RING_BUFFER RING_BUFFER_channel_2_inst(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .Input_Data(ADC_Channel_2),
+    .Input_Data_Ready(ADC_CH2_Ready),
+    .Send_Frame(),
+    .RAM_Overflow(),
+    .Output_Data()
+
+);
+
+RING_BUFFER RING_BUFFER_channel_3_inst(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .Input_Data(ADC_Channel_3),
+    .Input_Data_Ready(ADC_CH3_Ready),
+    .Send_Frame(),
+    .RAM_Overflow(),
+    .Output_Data()
+
+);
+
+RING_BUFFER RING_BUFFER_channel_4_inst(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .Input_Data(ADC_Channel_4),
+    .Input_Data_Ready(ADC_CH4_Ready),
+    .Send_Frame(),
+    .RAM_Overflow(),
+    .Output_Data()
+
+);
+                    
+                    
+wire Send_Frame;
+wire [9:0]fft_output_RAM_data;
+wire [9:0] fft_real_data_in;
+wire fft_output_RAM_ready;                    
+wire [5:0] fft_output_RAM_addr;                          
+                          
+TRIGGER_FFT trigger_fft_inst(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .trigger_fft_enable(1'b1),
+    .data_ready(data_ready),
+    .fft_real_data_in(fft_real_data_in),
+    .fft_output_RAM_addr(fft_output_RAM_addr),
+    .send_frame(Send_Frame),
+    .fft_output_RAM_data(fft_output_RAM_data),
+    .fft_output_RAM_ready(fft_output_RAM_ready)
+
+);      
 
 //button handler to remedy bounce on reset signal button
 button_handler reset_signal(    
@@ -122,10 +189,6 @@ SPI Channel_4_SPI (
 );
 
 
-parameter[1:0]
-    IDLE=2'b00,
-    TX_EN=2'b01,
-    SENDING=2'b10;
 
 
 
@@ -155,8 +218,7 @@ SPI_MAX_VALUE_CACHE_controller CACHE_ctrl_inst(
     .Max_Value_Channel_sel(Max_Value_Channel_sel)
 );
 
-TRIGGER_FFT trigger_fft_inst(
-);
+
 
 UART UART_inst(	
 
@@ -176,6 +238,10 @@ UART UART_inst(
 	
 );
 
+parameter[1:0]
+    IDLE=2'b00,
+    TX_EN=2'b01,
+    SENDING=2'b10;
 
 
 reg [1:0] current_state, next_state;

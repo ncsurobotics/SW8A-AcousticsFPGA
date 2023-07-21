@@ -9,7 +9,7 @@ module TRIGGER_FFT( input clk,
                     input trigger_fft_enable,
 
                     input data_ready, // from SPI
-                    input fft_real_data_in, // from RAM --> FFT
+                    input [9:0] fft_real_data_in, // from RAM --> FFT
 
                     input [5:0] fft_output_RAM_addr,
 
@@ -144,10 +144,11 @@ dual_port_ram_10x64 fft_output_RAM (
   .clkb(clk),    // input wire clkb
   .enb(1'b1),      // input wire enb
   .web(1'b0),      // input wire [0 : 0] web
-  .addrb(addrb),  // input wire [5 : 0] addrb
+  .addrb(fft_output_RAM_addr),  // input wire [5 : 0] addrb
   .dinb(dinb),    // input wire [9 : 0] dinb
-  .doutb(doutb)  // output wire [9 : 0] doutb
+  .doutb(fft_output_RAM_data)  // output wire [9 : 0] doutb
 );
+
 
 
 endmodule
