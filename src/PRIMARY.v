@@ -16,6 +16,7 @@ module PRIMARY (
 
                 output [6:0] seg,
                 output [3:0] an
+
 );
 
 
@@ -30,12 +31,62 @@ wire [9:0] ADC_Channel_1,ADC_Channel_2,ADC_Channel_3, ADC_Channel_4;
 reg [9:0] ADC_Channel_1_reg,ADC_Channel_2_reg,ADC_Channel_3_reg, ADC_Channel_4_reg;
 
 wire Hold_Data_sel, Byte_To_Send_sel;
-reg TX_Write_en, TX_en;
+wire TX_Write_en, TX_en;
 
 wire ADC_CH1_Ready,ADC_CH2_Ready,ADC_CH3_Ready,ADC_CH4_Ready;
 
-reg [7:0] Word_To_Send;
+wire [7:0] Word_To_Send;
 wire [7:0] rx_data;
+
+
+COMMAND_READER cmd(
+
+    .clk(clk),
+    .reset_b(reset_b),
+    .slow_clk(UART_clk_No_Div),
+    .Command(rx_data),
+    .Rx_Ready(rx_ready),
+    .RsTx(RsTx),
+    .Tx_Ready(tx_ready),
+    .Trigger(),
+    .FFT_Data_Ready(),
+    .Max_Value(Max_Value),
+    .Set_Threshold_sel(Set_Threshold_sel),
+    .Set_Frequency_sel(Set_Frequency_sel),
+    .RAM_Read_Offset(),
+    .Word_To_Send(Word_To_Send),
+    .Channel_sel(Max_Value_Channel_sel),
+    .TX_en(TX_en),
+    .TX_Write_en(TX_Write_en)
+
+
+);
+reg[3:0] Threshold;
+reg[3:0] Frequency;
+wire[3:0] Next_Threshold;
+wire[3:0] Next_Frequency;
+wire Set_Threshold_sel;
+wire Set_Frequency_sel;
+
+assign Next_Frequency = Set_Frequency_sel ? rx_data[3:0] : Frequency;
+always@(posedge clk or negedge reset_b)begin
+    if(!reset_b) begin
+        Frequency <= 4'b0;
+    end
+    else begin
+        Frequency <= Next_Frequency;
+    end
+end
+
+assign Next_Threshold = Set_Threshold_sel ? rx_data[3:0] : Threshold;
+always@(posedge clk or negedge reset_b)begin
+    if(!reset_b) begin
+        Threshold <= 4'b0;
+    end
+    else begin
+        Threshold <= Next_Threshold;
+    end
+end
 
 
 
@@ -238,12 +289,25 @@ UART UART_inst(
 	
 );
 
-parameter[1:0]
-    IDLE=2'b00,
-    TX_EN=2'b01,
-    SENDING=2'b10;
 
 
+
+
+
+// DISPLAY
+always @ (posedge clk) begin
+    if(rx_ready)
+        display <= {Max_Value[9:2], rx_data};
+    else 
+        display<= display;
+end
+
+seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
+                    .segments(seg), .anode(an));
+endmodule
+
+
+/*
 reg [1:0] current_state, next_state;
 always@(posedge clk or negedge reset_b) begin
     if(!reset_b) begin
@@ -254,8 +318,12 @@ always@(posedge clk or negedge reset_b) begin
     end
 end
 
+*/
 
 
+
+
+/*
 always@(*) begin
     case(current_state)
         2'b00:begin
@@ -290,19 +358,4 @@ always@(*) begin
     endcase
 end
 
-
-
-
-
-
-// DISPLAY
-always @ (posedge clk) begin
-    if(rx_ready)
-        display <= {Max_Value[9:2], rx_data};
-    else 
-        display<= display;
-end
-
-seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),
-                    .segments(seg), .anode(an));
-endmodule
+*/
