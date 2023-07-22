@@ -26,13 +26,15 @@ module AXI_MASTER(
     input reset_b,
     input [9:0] Input_Data,
     input T_READY,
-    output reg Send_Frame,
-    output reg T_VALID,
+    input Fourth_Sample_Ready,
+    output Send_Frame,
+    output T_VALID,
     output [9:0] T_DATA
 
 );
 
     wire Data_sel;
+    wire Count_Reached;
 
     AXI_MASTER_DATAPATH AXI_MASTER_DATAPATH_inst(
     
@@ -40,7 +42,8 @@ module AXI_MASTER(
         .reset_b(reset_b),
         .Input_Data(Input_Data),
         .Data_sel(Data_sel),
-        .Output_Data(T_DATA)
+        .Output_Data(T_DATA),
+        .Count_Reached(Count_Reached)
     
     );
     
@@ -49,9 +52,11 @@ module AXI_MASTER(
         .clk(clk),
         .reset_b(reset_b),
         .T_READY(T_READY),
+        .Fourth_Sample_Ready(Fourth_Sample_Ready),
         .Send_Frame(Send_Frame),
         .T_VALID(T_VALID),
-        .Data_sel(Data_sel)
+        .Data_sel(Data_sel),
+        .Count_Reached(Count_Reached)
         
     );
 
@@ -63,7 +68,8 @@ module AXI_MASTER_DATAPATH(
     input reset_b,
     input [9:0] Input_Data,
     input Data_sel,
-    output [9:0] Output_Data
+    output [9:0] Output_Data,
+    output Count_Reached
 
 );
 
@@ -94,6 +100,14 @@ module AXI_MASTER_DATAPATH(
         NEW = 1'b1;
     assign Output_Data = Data_sel ? New_Data : Old_Data;
     
+    GENERAL_COUNTER #(.COUNT_VAL(63), . COUNT_BIT_WIDTH(6)) SAMPLE_COUNTER(
+    
+        .clk(clk),
+        .reset_b(reset_b),
+        .Count_sel({1'b1,Data_sel}),
+        .Count_Reached(Count_Reached)
+    
+    );
     
 
 endmodule
@@ -104,6 +118,8 @@ module AXI_MASTER_CONTROLLER(
     input clk,
     input reset_b,
     input T_READY,
+    input Fourth_Sample_Ready,
+    input Count_Reached,
     
     output reg Send_Frame,
     output reg T_VALID,
@@ -145,20 +161,28 @@ module AXI_MASTER_CONTROLLER(
                 Send_Frame = NO;
                 T_VALID = FALSE;
                 Data_sel = NEW;
-                if(T_READY) next_state <= SEND;
+                if(T_READY && Fourth_Sample_Ready) next_state <= SEND;
                 else next_state <= IDLE;
             end
             SEND: begin
                 Send_Frame = YES;
                 T_VALID = TRUE;
                 Data_sel = NEW;
-                if(T_READY) next_state <= SEND;
-                else next_state <= SEND;
+                if(Count_Reached) next_state <= IDLE;
+                else begin
+                    if(T_READY) next_state <= SEND;
+                    else next_state <= HOLD;          
+                end
             end
             HOLD: begin
                 Send_Frame = NO;
                 T_VALID = TRUE;
                 Data_sel = OLD;           
+            end
+            default: begin
+                Send_Frame = NO;
+                T_VALID = FALSE;
+                Data_sel = OLD; 
             end
         endcase
     

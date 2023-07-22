@@ -500,7 +500,15 @@
       </Config>
     </FileSet>
     <FileSet Name="FFT_Simulations" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/FFT_Simulations" RelGenDir="$PGENDIR/FFT_Simulations">
+      <Filter Type="Srcs"/>
       <File Path="$PPRDIR/srcsim/TRIGGER_FFT_tb.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/srcsim/Full_Sys_tb.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -621,9 +629,7 @@
     </Run>
     <Run Id="BLOCK_RAM_32x64_synth_1" Type="Ft3:Synth" SrcSet="BLOCK_RAM_32x64" Part="xc7a35tcpg236-1" ConstrsSet="BLOCK_RAM_32x64" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/BLOCK_RAM_32x64_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/BLOCK_RAM_32x64_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/BLOCK_RAM_32x64_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -738,9 +744,7 @@
     </Run>
     <Run Id="BLOCK_RAM_32x64_impl_1" Type="Ft2:EntireDesign" Part="xc7a35tcpg236-1" ConstrsSet="BLOCK_RAM_32x64" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="BLOCK_RAM_32x64_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/BLOCK_RAM_32x64_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/BLOCK_RAM_32x64_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

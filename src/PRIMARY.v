@@ -38,9 +38,12 @@ wire ADC_CH1_Ready,ADC_CH2_Ready,ADC_CH3_Ready,ADC_CH4_Ready;
 wire [7:0] Word_To_Send;
 wire [7:0] rx_data;
 
+wire Trigger;
 
-TRIGGER_DETECT TRIGGER_DETECT_inst();
-
+wire [1:0] offset;
+wire FFT_Data_Ready;
+wire fourth_sample_reached;
+reg[3:0] Frequency, Threshold;
 
 COMMAND_READER cmd(
 
@@ -51,12 +54,12 @@ COMMAND_READER cmd(
     .Rx_Ready(rx_ready),
     .RsTx(RsTx),
     .Tx_Ready(tx_ready),
-    .Trigger(),
-    .FFT_Data_Ready(),
+    .Trigger(Trigger),
+    .FFT_Data_Ready(FFT_Data_Ready),
     .Max_Value(Max_Value),
     .Set_Threshold_sel(Set_Threshold_sel),
     .Set_Frequency_sel(Set_Frequency_sel),
-    .RAM_Read_Offset(),
+    .RAM_Read_Offset(offset),
     .Word_To_Send(Word_To_Send),
     .Channel_sel(Max_Value_Channel_sel),
     .TX_en(TX_en),
@@ -65,7 +68,23 @@ COMMAND_READER cmd(
 
 );
 
+always@(posedge clk or negedge reset_b) begin
+    if(!reset_b) begin
+        Frequency<=0;
+    end
+    else begin
+        Frequency <= Set_Frequency_sel ? rx_data[3:0] : Frequency;
+    end
+end
 
+always@(posedge clk or negedge reset_b)begin 
+    if(!reset_b) begin
+        Threshold <= 0;
+    end
+    else begin
+        Threshold <= Set_Threshold_sel ? rx_data[3:0] : Threshold;
+    end
+end 
 
 
 UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
@@ -132,18 +151,19 @@ wire [9:0] fft_real_data_in;
 wire fft_output_RAM_ready;                    
 wire [5:0] fft_output_RAM_addr;                          
                           
-TRIGGER_FFT trigger_fft_inst(
+TRIGGER_FFT_v2 trigger_fft_inst(
 
     .clk(clk),
+    .SPI_CLK(SPI_clk),
     .reset_b(reset_b),
-    .trigger_fft_enable(1'b1),
-    .data_ready(data_ready),
-    .fft_real_data_in(fft_real_data_in),
-    .fft_output_RAM_addr(fft_output_RAM_addr),
-    .send_frame(Send_Frame),
-    .fft_output_RAM_data(fft_output_RAM_data),
-    .fft_output_RAM_ready(fft_output_RAM_ready)
-
+    .data_ready(ADC_CH1_Ready),
+    .Input_Data(fft_real_data_in),
+    .Offset(offset),
+    .Frequency(Frequency),
+    .Threshold(Threshold),
+    .Send_Frame(Send_Frame),
+    .FFT_Data_Ready(FFT_Data_Ready),
+    .Trigger(Trigger)
 );      
 
 //button handler to remedy bounce on reset signal button

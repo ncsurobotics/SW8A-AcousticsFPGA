@@ -1,4 +1,4 @@
-module FFT_CONTROLLER ( input clk,
+/*module FFT_CONTROLLER ( input clk,
                         input reset_b,
                         
                         input data_ready, // for fourth_sample_counter_sel
@@ -23,7 +23,7 @@ module FFT_CONTROLLER ( input clk,
 localparam [2:0] // states
     START       = 3'b000,
     CONFIG_FFT  = 3'b001,
-    WAIT        = 3'b010,
+    EXECUTE     = 3'b010,
     START_FRAME = 3'b011,
     SENDING     = 3'b100,
     END_FRAME   = 3'b101;
@@ -47,8 +47,6 @@ always @ (*) begin
             s_axis_data_tvalid       <= 1'b0;
             s_axis_data_tlast        <= 1'b0;
             samples_sent_counter_sel <= ZERO;
-            //start_frame              = 1'b0;
-            //end_frame                = 1'b0;
             send_frame               <= 1'b0;
 
             if (s_axis_config_tready) next_state <= CONFIG_FFT;
@@ -59,21 +57,15 @@ always @ (*) begin
             s_axis_config_tvalid     <= 1'b1;
             s_axis_data_tvalid       <= 1'b0;
             s_axis_data_tlast        <= 1'b0;
-            samples_sent_counter_sel <= ZERO;
-            //start_frame              <= 1'b0;
-            //end_frame                <= 1'b0;
-            send_frame               <= 1'b0;
-            
+            samples_sent_counter_sel <= ZERO;    
             next_state <= WAIT;
         end
 
-        WAIT: begin                    // wait for enable
+        EXECUTE: begin                    // wait for enable
             s_axis_config_tvalid     <= 1'b0;
             s_axis_data_tvalid       <= 1'b0;
             s_axis_data_tlast        <= 1'b0;
             samples_sent_counter_sel <= ZERO;
-            //start_frame              = 1'b0;
-            //end_frame                = 1'b0;
             send_frame               <= 1'b0;
 
             if (enable) next_state <= START_FRAME;
@@ -85,8 +77,6 @@ always @ (*) begin
             s_axis_data_tvalid       <= 1'b0;
             s_axis_data_tlast        <= 1'b0;
             samples_sent_counter_sel <= ZERO;
-            //start_frame              = 1'b1;
-            //end_frame                = 1'b0;
             send_frame               <= 1'b1;
 
             next_state <= SENDING;
@@ -97,8 +87,6 @@ always @ (*) begin
             s_axis_data_tvalid       <= 1'b1;
             s_axis_data_tlast        <= 1'b0;
             samples_sent_counter_sel <= COUNT;
-            //start_frame              = 1'b0;
-            //end_frame                = 1'b0;
             send_frame               <= 1'b1;
 
             if (samples_sent_count_reached) next_state <= END_FRAME;
@@ -110,8 +98,6 @@ always @ (*) begin
             s_axis_data_tvalid       <= 1'b1;
             s_axis_data_tlast        <= 1'b1;
             samples_sent_counter_sel <= ZERO;
-            //start_frame              = 1'b0;
-            //end_frame                = 1'b1;
             send_frame               <= 1'b0;
 
             next_state <= WAIT;
@@ -122,8 +108,6 @@ always @ (*) begin
             s_axis_data_tvalid       <= 1'b0;
             s_axis_data_tlast        <= 1'b0;
             samples_sent_counter_sel <= ZERO;
-            //start_frame              = 1'b0;
-            //end_frame                = 1'b0;
             send_frame               <= 1'b0;
 
             next_state <= START;
@@ -201,3 +185,116 @@ always @ (*) begin
 end
 
 endmodule
+*/
+
+
+
+module TRIGGER_FFT_CONTROLLER(
+
+    input clk,
+    input reset_b,
+    input Config_T_Ready,
+    
+    output reg FFT_Configure_tvalid,
+    output reg FFT_Configure_Complete
+
+);
+
+    parameter [1:0]
+        IDLE = 2'b00,
+        CONFIG = 2'b01,
+        EXECUTE = 2'b10;
+  
+    
+    reg [1:0] current_state, next_state;
+    
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin
+            current_state <= IDLE;
+        end
+        else begin
+            current_state <= next_state;
+        end
+    end
+    
+    always@(*) begin
+        case(current_state)
+            IDLE:begin
+                FFT_Configure_tvalid <= 1'b0;
+                FFT_Configure_Complete <= 1'b0;
+                if(Config_T_Ready) next_state <= CONFIG;
+                else next_state <= IDLE;
+            end
+            CONFIG:begin
+                FFT_Configure_tvalid <= 1'b1;
+                FFT_Configure_Complete <= 1'b0;
+                next_state <= EXECUTE;
+            end
+            EXECUTE:begin
+                FFT_Configure_tvalid <= 1'b0;
+                FFT_Configure_Complete <= 1'b1;
+                next_state <= EXECUTE;            
+            end
+            default:begin
+                FFT_Configure_tvalid <= 1'b0;
+                FFT_Configure_Complete <= 1'b0;
+                next_state <= IDLE;    
+            end
+        
+        endcase 
+    
+    end
+
+
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

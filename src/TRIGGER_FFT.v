@@ -63,13 +63,7 @@ GENERAL_COUNTER #(.COUNT_VAL(3), .COUNT_BIT_WIDTH(2)) fourth_sample_counter (
     .Count_Reached(fourth_sample_reached)
 );
 
-// Samples sent counter -- counts to 62 samples sent into FFT
-GENERAL_COUNTER #(.COUNT_VAL(61), .COUNT_BIT_WIDTH(6)) samples_sent_counter(
-    .clk(clk),
-    .reset_b(reset_b),
-    .Count_sel(samples_sent_counter_sel),
-    .Count_Reached(samples_sent_count_reached)
-);
+
 
 wire ok_to_start_frame;
 assign ok_to_start_frame = trigger_fft_enable & fourth_sample_reached;
@@ -150,3 +144,229 @@ dual_port_ram_10x64 fft_output_RAM (
 wire [9:0] douta;
 
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module TRIGGER_FFT_v2(
+
+    input clk,
+    input SPI_CLK,
+    input reset_b,
+    input data_ready,
+    input [9:0] Input_Data,
+    input [1:0] Offset,
+    input [3:0] Frequency,
+    input [3:0] Threshold,
+
+    output Send_Frame,
+    output FFT_Data_Ready,
+    output Trigger
+
+);
+
+
+
+    
+    wire fft_s_axis_config_tready;
+    wire fft_s_axis_config_tvalid;
+    wire fft_configure_complete;
+    wire [31:0] fft_s_axis_data_tdata;
+    wire fft_s_axis_data_tvalid;
+    wire fft_s_axis_data_tready;
+    wire fft_s_axis_data_tlast;
+    wire fft_m_axis_data_tvalid;                // FFT Master Axis Data Channel
+    wire [31:0] fft_m_axis_data_tdata;
+    wire fft_m_axis_data_tlast;
+    wire fft_m_axis_data_tready;
+    wire [15:0] fft_m_axis_data_tuser;
+
+
+// PARAMETERS -------------------------------------------------------------------------------------
+    localparam [1:0]                        // Counter Sel
+        ZERO = 2'b00,
+        HOLD = 2'b10,
+        COUNT = 2'b11;
+    
+    localparam CONFIG_ZERO_PAD = 1'b0;      // FFT Config Data
+    localparam [5:0] SCALE_SCHEDULE = 6'b101011;
+    localparam FWD = 1'b1;
+
+
+    GENERAL_COUNTER #(.COUNT_VAL(0), .COUNT_BIT_WIDTH(2)) fourth_sample_counter (
+        
+        .clk(SPI_CLK),
+        .reset_b(reset_b),
+        .Count_sel({1'b1,data_ready}),
+        .Count_Reached(fourth_sample_reached)
+    
+    );
+    
+    wire [9:0] FFT_Input_Data;
+    
+    AXI_MASTER RAM_to_FFT_DRIVER(
+    
+        .clk(clk),
+        .reset_b(reset_b),
+        .Input_Data(Input_Data),
+        .T_READY(fft_s_axis_data_tready),
+        .Fourth_Sample_Ready(fourth_sample_reached),
+        .Send_Frame(Send_Frame),
+        .T_VALID(fft_s_axis_data_tvalid),
+        .T_DATA(FFT_Input_Data)
+    
+    );
+
+    
+    TRIGGER_FFT_CONTROLLER TRIGGER_FFT_CONTROLLER_inst(
+    
+        .clk(clk),
+        .reset_b(reset_b),
+        .Config_T_Ready(s_axis_config_tready),
+        .FFT_Configure_tvalid(fft_s_axis_config_tvalid),
+        .FFT_Configure_Complete(fft_configure_complete)
+    );
+    
+    
+
+    xfft_trigger trigger_fft (
+    
+        .aclk(clk),                                                             // input wire aclk
+        .aresetn(reset_b),                                                      // input wire aresetn
+        .s_axis_config_tdata({CONFIG_ZERO_PAD, SCALE_SCHEDULE, FWD}),           // input wire [7 : 0] s_axis_config_tdata
+        .s_axis_config_tvalid(fft_s_axis_config_tvalid),                        // input wire s_axis_config_tvalid
+        .s_axis_config_tready(s_axis_config_tready),                                                          // output wire s_axis_config_tready
+        .s_axis_data_tdata(FFT_Input_Data),                                                                      // input wire [31 : 0] s_axis_data_tdata
+        .s_axis_data_tvalid(fft_s_axis_data_tvalid),                                                                      // input wire s_axis_data_tvalid
+        .s_axis_data_tready(fft_s_axis_data_tready),                                                                      // output wire s_axis_data_tready
+        .s_axis_data_tlast(fft_s_axis_data_tlast),                              // input wire s_axis_data_tlast
+        .m_axis_data_tdata(fft_m_axis_data_tdata),                                                                      // output wire [31 : 0] m_axis_data_tdata
+        .m_axis_data_tuser(),                                                   // output wire [15 : 0] m_axis_data_tuser
+        .m_axis_data_tvalid(fft_m_axis_data_tvalid),                                                                  // output wire m_axis_data_tvalid
+        .m_axis_data_tready(fft_m_axis_data_tready),                                                                      // input wire m_axis_data_tready
+        .m_axis_data_tlast(fft_m_axis_data_tlast),                              // output wire m_axis_data_tlast
+        .m_axis_status_tdata(),                                                 // output wire [7 : 0] m_axis_status_tdata
+        .m_axis_status_tvalid(),                                                // output wire m_axis_status_tvalid
+        .m_axis_status_tready()                                                 // input wire m_axis_status_tready
+      
+    );
+    
+    
+    TRIGGER_DETECT TRIGGER_DETECT_inst(
+    
+        .clk(clk),
+        .reset_b(reset_b),
+        .T_DATA(fft_m_axis_data_tdata),
+        .T_VALID(fft_m_axis_data_tvalid),
+        .Threshold(Threshold),
+        .Frequency(Frequency),
+        .Offset(Offset),
+        .T_READY(fft_m_axis_data_tready),
+        .Trigger(Trigger),
+        .FFT_Data_Ready(FFT_Data_Ready)
+    
+    );
+    
+    
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

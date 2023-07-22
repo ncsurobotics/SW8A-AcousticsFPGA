@@ -43,8 +43,8 @@ module TRIGGER_DETECT(
     wire [31:0] FFT_Data;
     
     
-    assign Read_Address_With_Offset = (Frequency-1) + Offset;
-    assign Read_Address_BR = Read_Address_With_Offset[0:5];
+    assign Read_Address_With_Offset = (Frequency + 9) + Offset;
+    assign Read_Address_BR = {Read_Address_With_Offset[0],Read_Address_With_Offset[01],Read_Address_With_Offset[2],Read_Address_With_Offset[3],Read_Address_With_Offset[4],Read_Address_With_Offset[5]};
     
 
     BLOCK_RAM_32x64 FFT_TRIGGER_RAM(
@@ -60,6 +60,11 @@ module TRIGGER_DETECT(
     
     );
     
+    wire [20:0] magnitude;
+    
+    assign magnitude = (FFT_Data[31:16] + FFT_Data[15:0] ) * (FFT_Data[15:0] - FFT_Data[31:16]);
+    assign Trigger = magnitude > Threshold *  11000;
+    
     AXI_SLAVE AXI_SLAVE_inst(
     
         .clk(clk),
@@ -73,7 +78,7 @@ module TRIGGER_DETECT(
     
     );
     
-    GENERAL_COUNTER #(.COUNT_VAL(63), . COUNT_BIT_WIDTH(5)) SAMPLE_COUNTER(
+    GENERAL_COUNTER #(.COUNT_VAL(63), . COUNT_BIT_WIDTH(6)) SAMPLE_COUNTER(
     
         .clk(clk),
         .reset_b(reset_b),
