@@ -126,7 +126,7 @@ module AXI_MASTER_CONTROLLER(
     output reg Data_sel
     
 );
-    parameter
+    parameter [1:0]
         IDLE = 2'b00,
         SEND = 2'b01,
         HOLD = 2'b10;
@@ -144,7 +144,7 @@ module AXI_MASTER_CONTROLLER(
         
         
         
-    reg current_state, next_state;
+    reg [1:0] current_state, next_state;
  
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
@@ -177,12 +177,14 @@ module AXI_MASTER_CONTROLLER(
             HOLD: begin
                 Send_Frame = NO;
                 T_VALID = TRUE;
-                Data_sel = OLD;           
+                Data_sel = OLD; 
+                next_state <= T_READY ? SEND : HOLD; 
             end
             default: begin
                 Send_Frame = NO;
                 T_VALID = FALSE;
                 Data_sel = OLD; 
+                next_state <= IDLE;
             end
         endcase
     
