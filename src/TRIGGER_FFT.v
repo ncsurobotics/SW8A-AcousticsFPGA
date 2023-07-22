@@ -4,7 +4,7 @@
 
 
 
-module TRIGGER_FFT( input clk,
+/*module TRIGGER_FFT( input clk,
                     input reset_b,
                     input trigger_fft_enable,
 
@@ -143,7 +143,7 @@ dual_port_ram_10x64 fft_output_RAM (
 // unused RAM wires
 wire [9:0] douta;
 
-endmodule
+endmodule */
 
 
 
