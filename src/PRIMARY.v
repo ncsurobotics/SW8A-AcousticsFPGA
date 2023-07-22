@@ -39,6 +39,9 @@ wire [7:0] Word_To_Send;
 wire [7:0] rx_data;
 
 
+TRIGGER_DETECT TRIGGER_DETECT_inst();
+
+
 COMMAND_READER cmd(
 
     .clk(clk),
@@ -61,32 +64,7 @@ COMMAND_READER cmd(
 
 
 );
-reg[3:0] Threshold;
-reg[3:0] Frequency;
-wire[3:0] Next_Threshold;
-wire[3:0] Next_Frequency;
-wire Set_Threshold_sel;
-wire Set_Frequency_sel;
 
-assign Next_Frequency = Set_Frequency_sel ? rx_data[3:0] : Frequency;
-always@(posedge clk or negedge reset_b)begin
-    if(!reset_b) begin
-        Frequency <= 4'b0;
-    end
-    else begin
-        Frequency <= Next_Frequency;
-    end
-end
-
-assign Next_Threshold = Set_Threshold_sel ? rx_data[3:0] : Threshold;
-always@(posedge clk or negedge reset_b)begin
-    if(!reset_b) begin
-        Threshold <= 4'b0;
-    end
-    else begin
-        Threshold <= Next_Threshold;
-    end
-end
 
 
 
@@ -260,15 +238,6 @@ SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .Max_Value(Max_Value)
 );
 
-SPI_MAX_VALUE_CACHE_controller CACHE_ctrl_inst(
-    .clk(clk),
-    .reset_b(reset_b),
-    .OP_Code(rx_data),
-    .TX_READY(tx_ready),
-
-    .Max_Value_Channel_sel(Max_Value_Channel_sel)
-);
-
 
 
 UART UART_inst(	
@@ -297,7 +266,7 @@ UART UART_inst(
 // DISPLAY
 always @ (posedge clk) begin
     if(rx_ready)
-        display <= {Max_Value[9:2], rx_data};
+        display <= {1};
     else 
         display<= display;
 end

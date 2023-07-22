@@ -22,6 +22,10 @@ wire [9:0] output_data;
 integer index = 0;
 event assert_data_ready;
 
+initial
+$readmemh("/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
+
+
 always begin // assert_data_ready
     @(assert_data_ready);
     data_ready = 1'b1;
@@ -48,13 +52,12 @@ TRIGGER_FFT dut2(   .clk(clk),
                 .trigger_fft_enable(1'b1),
                 .data_ready(data_ready), // from SPI
                 .fft_real_data_in(output_data), // from RAM --> FFT
-                //.fft_output_RAM_addr(),
+                .fft_output_RAM_addr(),
                 .send_frame(send_frame),
-                //.fft_output_RAM_data,
+                .fft_output_RAM_data(output_data),
                 .fft_output_RAM_ready(fft_output_RAM_ready)
 );
-initial
-$readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
+
 
 initial begin
 #30 reset_b = 1'b0;

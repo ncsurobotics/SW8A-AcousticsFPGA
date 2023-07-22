@@ -43,10 +43,10 @@ module COMMAND_READER_DATA_PATH(
         FALSE = 2'b11;
     
 
-    assign Channel_sel = Command[3:0];
     
     reg [7:0] Next_Word_To_Send;
-   
+    
+    assign Channel_sel = Command[3:0];
     
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b)begin

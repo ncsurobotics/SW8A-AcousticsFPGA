@@ -88,7 +88,7 @@ FFT_CONTROLLER trigger_fft_controller(  .clk(clk),
                                         .samples_sent_counter_sel(samples_sent_counter_sel),
                                         .fourth_sample_counter_sel(fourth_sample_counter_sel),
                                         //.start_frame(start_frame),
-                                        //.end_frame(end_frame)
+                                        //.end_frame(end_frame),
                                         .send_frame(send_frame)
 );
 
@@ -98,19 +98,8 @@ assign s_axis_data_tdata = {16'b0, 6'b0, fft_real_data_in}; // {imaginary data, 
 assign m_axis_data_tready = 1'b1;
 assign fft_real_data_out = m_axis_data_tdata[9:0];
 
-// unused FFT wires
-wire m_axis_data_tlast;
-wire [7:0] m_axis_status_tdata;
-wire m_axis_status_tvalid;
-wire event_frame_started;
-wire event_tlast_unexpected;
-wire event_tlast_missing;
-wire event_fft_overflow;
-wire event_status_channel_halt;
-wire event_data_in_channel_halt;
-wire event_data_out_channel_halt;
-
 xfft_trigger trigger_fft (
+
   .aclk(clk),                                                // input wire aclk
   .aresetn(reset_b),                                          // input wire aresetn
   .s_axis_config_tdata(s_axis_config_tdata),                  // input wire [7 : 0] s_axis_config_tdata
@@ -127,14 +116,8 @@ xfft_trigger trigger_fft (
   .m_axis_data_tlast(m_axis_data_tlast),                      // output wire m_axis_data_tlast
   .m_axis_status_tdata(m_axis_status_tdata),                  // output wire [7 : 0] m_axis_status_tdata
   .m_axis_status_tvalid(m_axis_status_tvalid),                // output wire m_axis_status_tvalid
-  .m_axis_status_tready(1'b1),                                // input wire m_axis_status_tready
-  .event_frame_started(event_frame_started),                  // output wire event_frame_started
-  .event_tlast_unexpected(event_tlast_unexpected),            // output wire event_tlast_unexpected
-  .event_tlast_missing(event_tlast_missing),                  // output wire event_tlast_missing
-  .event_fft_overflow(event_fft_overflow),                    // output wire event_fft_overflow
-  .event_status_channel_halt(event_status_channel_halt),      // output wire event_status_channel_halt
-  .event_data_in_channel_halt(event_data_in_channel_halt),    // output wire event_data_in_channel_halt
-  .event_data_out_channel_halt(event_data_out_channel_halt)   // output wire event_data_out_channel_halt
+  .m_axis_status_tready(1'b1)                                 // input wire m_axis_status_tready
+  
 );
 
 // Write FFT output to RAM

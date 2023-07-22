@@ -29,7 +29,7 @@ module COMMAND_READER_CONTROLLER(
     input Tx_Ready,
     input Trigger,
     input FFT_Data_Ready,
-    input [3:0]Command,
+    input [7:0]Command,
     input Timeout,
     
     output reg [1:0] Timer_sel,
@@ -69,7 +69,8 @@ module COMMAND_READER_CONTROLLER(
         READ_1 = 4'b1001,
         READ_2 = 4'b1010,
         WRITE_TRUE = 4'b1011,
-        WRITE_FALSE = 4'b1100;
+        WRITE_FALSE = 4'b1100,
+        LOAD_0 = 4'b1101;
     
     reg [3:0] current_state, next_state;
     
@@ -111,7 +112,7 @@ module COMMAND_READER_CONTROLLER(
                 TX_Write_en <= 0;  
             end
             INTERPERET_OP:begin
-                case(Command)
+                case(Command[3:0])
                     4'hf:begin
                         next_state <= SET_FREQUENCY;
                     end
@@ -177,6 +178,17 @@ module COMMAND_READER_CONTROLLER(
                 TX_en <= 0;
                 TX_Write_en <= 0; 
             end
+            LOAD_0: begin
+                next_state <= READ_0;
+                Timer_sel <= COUNT;
+                Word_To_Send_sel <= HOLD_VALUE;
+                Set_Threshold_sel <= HOLD;
+                Set_Frequency_sel <= HOLD; 
+                RAM_Read_Offset <= 2'b00; 
+                TX_en <= 0;
+                TX_Write_en <= 0; 
+            
+            end
             READ_0:begin
                 if(!Trigger) next_state <= READ_1;
                 else next_state <= WRITE_TRUE;
@@ -184,7 +196,7 @@ module COMMAND_READER_CONTROLLER(
                 Word_To_Send_sel <= HOLD_VALUE;
                 Set_Threshold_sel <= HOLD;
                 Set_Frequency_sel <= HOLD; 
-                RAM_Read_Offset <= 2'b01; 
+                RAM_Read_Offset <= 2'b00; 
                 TX_en <= 0;
                 TX_Write_en <= 0; 
             end
@@ -195,7 +207,7 @@ module COMMAND_READER_CONTROLLER(
                 Word_To_Send_sel <= HOLD_VALUE;
                 Set_Threshold_sel <= HOLD;
                 Set_Frequency_sel <= HOLD; 
-                RAM_Read_Offset <= 2'b10;  
+                RAM_Read_Offset <= 2'b01;  
                 TX_en <= 0;
                 TX_Write_en <= 0; 
             end
@@ -206,7 +218,7 @@ module COMMAND_READER_CONTROLLER(
                 Word_To_Send_sel <= HOLD_VALUE;
                 Set_Threshold_sel <= HOLD;
                 Set_Frequency_sel <= HOLD; 
-                RAM_Read_Offset <= 2'b00;  
+                RAM_Read_Offset <= 2'b10;  
                 TX_en <= 0;
                 TX_Write_en <= 0; 
             end
