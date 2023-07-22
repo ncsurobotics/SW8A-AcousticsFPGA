@@ -44,7 +44,7 @@
     <Option Name="SimulatorGccVersionActiveHdl" Val="9.3.0"/>
     <Option Name="BoardPart" Val="digilentinc.com:basys3:part0:1.2"/>
     <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
-    <Option Name="ActiveSimSet" Val="new_FFT_Simulation"/>
+    <Option Name="ActiveSimSet" Val="new_FFT_sim"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -59,7 +59,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="basys3"/>
-    <Option Name="WTXSimLaunchSim" Val="69"/>
+    <Option Name="WTXSimLaunchSim" Val="71"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -501,13 +501,6 @@
     </FileSet>
     <FileSet Name="FFT_Simulations" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/FFT_Simulations" RelGenDir="$PGENDIR/FFT_Simulations">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/srcsim/TRIGGER_FFT_tb.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/srcsim/Full_Sys_tb.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -543,9 +536,11 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="new_FFT_Simulation" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/new_FFT_Simulation" RelGenDir="$PGENDIR/new_FFT_Simulation">
+    <FileSet Name="new_FFT_sim" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/new_FFT_sim" RelGenDir="$PGENDIR/new_FFT_sim">
       <File Path="$PPRDIR/srcsim/new_fft_sim/new_TRIGGER_FFT_tb.v">
         <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
