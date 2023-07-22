@@ -198,6 +198,7 @@ module TRIGGER_FFT_v2(
     input [1:0] Offset,
     input [3:0] Frequency,
     input [3:0] Threshold,
+    input fft_s_axis_data_tlast,
 
     output Send_Frame,
     output FFT_Data_Ready,
@@ -214,7 +215,6 @@ module TRIGGER_FFT_v2(
     wire [31:0] fft_s_axis_data_tdata;
     wire fft_s_axis_data_tvalid;
     wire fft_s_axis_data_tready;
-    wire fft_s_axis_data_tlast;
     wire fft_m_axis_data_tvalid;                // FFT Master Axis Data Channel
     wire [31:0] fft_m_axis_data_tdata;
     wire fft_m_axis_data_tlast;
@@ -267,7 +267,9 @@ module TRIGGER_FFT_v2(
         .FFT_Configure_Complete(fft_configure_complete)
     );
     
-    
+    wire m_axis_status_tdata;
+    wire m_axis_status_tvalid;
+    wire m_axis_status_tready;
 
     xfft_trigger trigger_fft (
     
@@ -285,9 +287,9 @@ module TRIGGER_FFT_v2(
         .m_axis_data_tvalid(fft_m_axis_data_tvalid),                                                                  // output wire m_axis_data_tvalid
         .m_axis_data_tready(fft_m_axis_data_tready),                                                                      // input wire m_axis_data_tready
         .m_axis_data_tlast(fft_m_axis_data_tlast),                              // output wire m_axis_data_tlast
-        .m_axis_status_tdata(),                                                 // output wire [7 : 0] m_axis_status_tdata
-        .m_axis_status_tvalid(),                                                // output wire m_axis_status_tvalid
-        .m_axis_status_tready()                                                 // input wire m_axis_status_tready
+        .m_axis_status_tdata(m_axis_status_tdata),                                                 // output wire [7 : 0] m_axis_status_tdata
+        .m_axis_status_tvalid(m_axis_status_tvalid),                                                // output wire m_axis_status_tvalid
+        .m_axis_status_tready(1'b1)                                                 // input wire m_axis_status_tready
       
     );
     

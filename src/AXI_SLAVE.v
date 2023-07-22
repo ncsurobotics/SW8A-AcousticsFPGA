@@ -32,6 +32,8 @@ module AXI_SLAVE(
     output [5:0] Write_Address
   
 );
+
+    assign T_READY = 1'b1;
     
     AXI_SLAVE_CONTROLLER AXI_SLAVE_CONTROLLER_inst(
         
