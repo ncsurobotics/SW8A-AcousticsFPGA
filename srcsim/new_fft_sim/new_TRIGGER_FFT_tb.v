@@ -22,7 +22,7 @@ reg [31:0] input_data = 0;
 wire send_frame;
 wire fft_output_RAM_ready;
 wire RAM_overflow;
-wire [9:0] output_data;
+wire [31:0] output_data;
 
 wire fft_data_ready;
 wire trigger;
