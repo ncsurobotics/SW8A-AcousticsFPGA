@@ -16,7 +16,7 @@ reg [1:0] offset = 2'b0;
 
 reg data_ready = 1'b0;
 reg [9:0] data_array [0:255];
-reg [9:0] input_data;
+reg [9:0] input_data = 0;
 
 //reg send_frame = 1'b0;
 wire send_frame;
@@ -31,8 +31,8 @@ integer index = 0;
 event assert_data_ready;
 
 initial
-//$readmemh("/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
-$readmemh("C:/Users/ilena/Documents/apr-private/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
+$readmemh("/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
+//$readmemh("C:/Users/ilena/Documents/apr-private/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
 
 always begin // assert_data_ready
     @(assert_data_ready);
