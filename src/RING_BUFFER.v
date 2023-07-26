@@ -25,12 +25,12 @@ module RING_BUFFER(
     input clk,
     input reset_b,
     
-    input [9:0] Input_Data,
+    input [31:0] Input_Data,
     input Input_Data_Ready,
     input Send_Frame,
     
     output RAM_Overflow,
-    output [9:0] Output_Data
+    output [31:0] Output_Data
 
 );
 
@@ -71,7 +71,7 @@ module RING_BUFFER_DATAPATH(
 
     input clk,
     input reset_b,
-    input [9:0] Input_Data,
+    input [31:0] Input_Data,
     input Data_Ready,
     
     input RAM_Write_Address_sel,
@@ -79,7 +79,7 @@ module RING_BUFFER_DATAPATH(
     input RAM_Read_Address_sel,
     
     output RAM_Overflow,
-    output [9:0] Output_Data
+    output [31:0] Output_Data
 
 );
     
@@ -237,7 +237,7 @@ module HEAD_CONTROLLER(
             end
             HOLDANDWAIT: begin
                 Head_Counter_sel <= 1'b1;
-                if(!data_ready) next_state <= HOLDANDWAIT;
+                if(data_ready) next_state <= HOLDANDWAIT;
                 else next_state <= HOLD; 
             end
             HOLD: begin
