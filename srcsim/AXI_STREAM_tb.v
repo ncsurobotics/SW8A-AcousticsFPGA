@@ -22,7 +22,7 @@
 
 module AXI_STREAM_tb;
 
-reg clk = 1'b0;
+reg clk = 1'b1;
 reg reset_b = 1'b1;
 wire RAM_overflow;
 reg [31:0] data_array [0:255];
@@ -83,7 +83,13 @@ AXI_MASTER dut_axi(
 
 );
 
-
+initial begin
+#30 reset_b = 1'b0;
+#30 reset_b = 1'b1;
+#5 data_ready = 1'b0;
+//#510000 send_frame = 1;
+//#630 send_frame = 0;
+end
 
 
 
