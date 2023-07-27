@@ -60,6 +60,8 @@ module TRIGGER_DETECT(
     
     );
     
+    wire [5:0] Write_Address;
+    
     wire [20:0] magnitude;
     
     assign magnitude = (FFT_Data[31:16] + FFT_Data[15:0] ) * (FFT_Data[15:0] - FFT_Data[31:16]);

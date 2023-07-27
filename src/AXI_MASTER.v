@@ -108,7 +108,7 @@ module AXI_MASTER_DATAPATH(
         NEW = 1'b1;
     assign Output_Data = Data_sel ? New_Data : Old_Data;
     
-    GENERAL_COUNTER #(.COUNT_VAL(64), . COUNT_BIT_WIDTH(7)) SAMPLE_COUNTER(
+    GENERAL_COUNTER #(.COUNT_VAL(63), . COUNT_BIT_WIDTH(7)) SAMPLE_COUNTER(
     
         .clk(clk),
         .reset_b(reset_b),
