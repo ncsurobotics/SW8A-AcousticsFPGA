@@ -75,6 +75,8 @@ PRIMARY main_level (
 
 );
 
+FFT_DOWNSTREAM();
+
 assign spi_clk_out1 = SPI_clk;
 assign spi_clk_out2 = SPI_clk;
 assign spi_clk_out3 = SPI_clk;
