@@ -189,7 +189,7 @@ endmodule
 
 
 
-module TRIGGER_FFT_CONTROLLER(
+module FFT_CONTROLLER(
 
     input clk,
     input reset_b,

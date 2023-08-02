@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="cc_to_ifft_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="cc_to_ifft_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="30,212.839 ns"></ZoomStartTime>
+      <ZoomEndTime time="30,431.433 ns"></ZoomEndTime>
+      <Cursor1Time time="30,395.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="480"></NameColumnWidth>
+      <ValueColumnWidth column_width="171"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="40" />
+   <wvobject fp_name="/cc_to_ifft_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_data_array" type="array">
+      <obj_property name="ElementShortName">x_data_array[255:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">x_data_array[255:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_data_array" type="array">
+      <obj_property name="ElementShortName">y_data_array[255:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">y_data_array[255:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">x_s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">x_s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">y_s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">y_s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">x_s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">x_s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">y_s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">y_s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_m_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">x_m_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">x_m_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_m_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">y_m_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">y_m_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">x_m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">x_m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">y_m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">y_m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_m_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">x_m_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">x_m_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_m_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">y_m_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">y_m_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_m_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">x_m_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">x_m_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_m_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">y_m_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">y_m_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/x_m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">x_m_axis_data_tuser[15:0]</obj_property>
+      <obj_property name="ObjectShortName">x_m_axis_data_tuser[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/y_m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">y_m_axis_data_tuser[15:0]</obj_property>
+      <obj_property name="ObjectShortName">y_m_axis_data_tuser[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_event_frame_started" type="logic">
+      <obj_property name="ElementShortName">ifft_event_frame_started</obj_property>
+      <obj_property name="ObjectShortName">ifft_event_frame_started</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_event_tlast_unexpected" type="logic">
+      <obj_property name="ElementShortName">ifft_event_tlast_unexpected</obj_property>
+      <obj_property name="ObjectShortName">ifft_event_tlast_unexpected</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_event_tlast_missing" type="logic">
+      <obj_property name="ElementShortName">ifft_event_tlast_missing</obj_property>
+      <obj_property name="ObjectShortName">ifft_event_tlast_missing</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_event_status_channel_halt" type="logic">
+      <obj_property name="ElementShortName">ifft_event_status_channel_halt</obj_property>
+      <obj_property name="ObjectShortName">ifft_event_status_channel_halt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_event_fft_overflow" type="logic">
+      <obj_property name="ElementShortName">ifft_event_fft_overflow</obj_property>
+      <obj_property name="ObjectShortName">ifft_event_fft_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/mult_m_axis_dout_tvalid" type="logic">
+      <obj_property name="ElementShortName">mult_m_axis_dout_tvalid</obj_property>
+      <obj_property name="ObjectShortName">mult_m_axis_dout_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/mult_m_axis_dout_tready" type="logic">
+      <obj_property name="ElementShortName">mult_m_axis_dout_tready</obj_property>
+      <obj_property name="ObjectShortName">mult_m_axis_dout_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/mult_m_axis_dout_tlast" type="logic">
+      <obj_property name="ElementShortName">mult_m_axis_dout_tlast</obj_property>
+      <obj_property name="ObjectShortName">mult_m_axis_dout_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/mult_m_axis_dout_tdata" type="array">
+      <obj_property name="ElementShortName">mult_m_axis_dout_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_m_axis_dout_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_m_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">ifft_m_axis_data_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">ifft_m_axis_data_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">ifft_m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">ifft_m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_m_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">ifft_m_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">ifft_m_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/ifft_m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">ifft_m_axis_data_tuser[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ifft_m_axis_data_tuser[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/argmax_index_in" type="array">
+      <obj_property name="ElementShortName">argmax_index_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">argmax_index_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/argmax_value_in" type="array">
+      <obj_property name="ElementShortName">argmax_value_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">argmax_value_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/max_index" type="array">
+      <obj_property name="ElementShortName">max_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">max_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/sync_err" type="array">
+      <obj_property name="ElementShortName">sync_err[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sync_err[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/argmax/max_value_next" type="array">
+      <obj_property name="ElementShortName">max_value_next[31:0]</obj_property>
+      <obj_property name="ObjectShortName">max_value_next[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/argmax/max_value_reg" type="array">
+      <obj_property name="ElementShortName">max_value_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">max_value_reg[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_to_ifft_tb/argmax/max_index_next" type="array">
+      <obj_property name="ElementShortName">max_index_next[7:0]</obj_property>
+      <obj_property name="ObjectShortName">max_index_next[7:0]</obj_property>
+   </wvobject>
+</wave_config>

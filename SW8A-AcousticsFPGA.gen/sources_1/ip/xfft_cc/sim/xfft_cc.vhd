@@ -218,7 +218,7 @@ BEGIN
       C_HAS_ARESETN => 1,
       C_HAS_OVFLO => 1,
       C_HAS_NATURAL_INPUT => 1,
-      C_HAS_NATURAL_OUTPUT => 0,
+      C_HAS_NATURAL_OUTPUT => 1,
       C_HAS_CYCLIC_PREFIX => 0,
       C_HAS_XK_INDEX => 1,
       C_DATA_MEM_TYPE => 1,

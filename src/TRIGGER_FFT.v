@@ -258,7 +258,7 @@ module TRIGGER_FFT_v2(
     );
 
     
-    TRIGGER_FFT_CONTROLLER TRIGGER_FFT_CONTROLLER_inst(
+    FFT_CONTROLLER TRIGGER_FFT_CONTROLLER_inst(
     
         .clk(clk),
         .reset_b(reset_b),

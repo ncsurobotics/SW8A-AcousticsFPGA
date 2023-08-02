@@ -11,20 +11,20 @@ from matplotlib import pyplot as plt
 N = 256 # 256 data points
 Fs = 446000 # ADC sample frequency, no decimation
 prop_zeros=0.25 # determines number of 0s in trigger.data and trigger_lshift.data
-right_shift = 16 # number of points to left shift trigger_lshift.data by
+right_shift = 1 # number of points to left shift trigger_lshift.data by
 
 t_step = (1/Fs)
 freq = 30000
 t = np.arange(N)
 
 # make 256 points of cosine & scale to 0-1023
-raw_cos = 0.5 * np.cos(2*np.pi * freq * t * t_step ) + 0.5 # generate sine wave
+raw_cos = 0.1 * np.sin(2*np.pi * freq * t * t_step ) + 0.5 +np.random.normal(loc=0,scale=0.04,size=256) # generate sine wave
 cos_floats = raw_cos*1023
 cos_ints = np.rint(cos_floats)
 cos_ints = cos_ints.astype(int)
 
 # write & plot cos.data
-with open("cos.data", mode="wt") as f:
+with open("sin.data", mode="wt") as f:
 	for i in range(len(cos_ints)):
 		#print(i)
 		s = "{:03x}".format(cos_ints[i])
@@ -84,3 +84,18 @@ plt.subplot(313)
 plt.plot(t*t_step, data)
 
 plt.show()
+
+#sin_check = np.loadtxt("sin.data")
+#trig_check = np.loadtxt("trigger.data")
+#rshift_check = np.loadtxt("trigger_rshift.data")
+#
+#plt.subplot(311)
+#plt.plot(sin_check)
+#plt.title("im going insane")
+#plt.subplot(312)
+#plt.plot(trig_check)
+#plt.subplot(313)
+#plt.plot(rshift_check)
+#plt.show()
+
+
