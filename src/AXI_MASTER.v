@@ -27,14 +27,16 @@ module AXI_MASTER(
     input [31:0] Input_Data,
     input T_READY,
     input Fourth_Sample_Ready,
+
     output Send_Frame,
     output T_VALID,
-    output [31:0] T_DATA
+    output [31:0] T_DATA,
+    output Count_Reached
 
 );
 
     wire Data_sel;
-    wire Count_Reached;
+    //wire Count_Reached;
     wire [1:0] Count_sel;
 
     AXI_MASTER_DATAPATH AXI_MASTER_DATAPATH_inst(
@@ -65,7 +67,7 @@ module AXI_MASTER(
 
 endmodule
 
-module AXI_MASTER_DATAPATH(
+module AXI_MASTER_DATAPATH #(COUNT_VAL=63, COUNT_BIT_WIDTH=7)(
 
     input clk,
     input reset_b,
@@ -108,7 +110,7 @@ module AXI_MASTER_DATAPATH(
         NEW = 1'b1;
     assign Output_Data = Data_sel ? New_Data : Old_Data;
     
-    GENERAL_COUNTER #(.COUNT_VAL(63), . COUNT_BIT_WIDTH(7)) SAMPLE_COUNTER(
+    GENERAL_COUNTER #(.COUNT_VAL(COUNT_VAL), . COUNT_BIT_WIDTH(COUNT_BIT_WIDTH)) SAMPLE_COUNTER(
     
         .clk(clk),
         .reset_b(reset_b),

@@ -22,7 +22,7 @@
 
 module AXI_STREAM_tb;
 
-reg clk = 1'b1;
+reg clk = 1'b0;
 reg reset_b = 1'b1;
 wire RAM_overflow;
 reg [31:0] data_array [0:255];
@@ -38,8 +38,8 @@ integer index = 0;
 event assert_data_ready;
 
 initial
-$readmemh("/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
-
+//$readmemh("/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
+$readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/TRIGGER_FFT_tb_input.data", data_array);
 always begin // assert_data_ready
     @(assert_data_ready);
     data_ready = 1'b1;
@@ -130,7 +130,7 @@ wire s_axis_config_tready;
 wire fft_s_axis_config_tvalid;
 
 
-TRIGGER_FFT_CONTROLLER TRIGGER_FFT_CONTROLLER_inst(
+FFT_CONTROLLER TRIGGER_FFT_CONTROLLER_inst(
     
         .clk(clk),
         .reset_b(reset_b),
