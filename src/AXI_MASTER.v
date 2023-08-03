@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module AXI_MASTER(
+module AXI_MASTER #(COUNT_VAL=63, COUNT_BIT_WIDTH=7) (
 
     input clk,
     input reset_b,
@@ -39,7 +39,7 @@ module AXI_MASTER(
     //wire Count_Reached;
     wire [1:0] Count_sel;
 
-    AXI_MASTER_DATAPATH AXI_MASTER_DATAPATH_inst(
+    AXI_MASTER_DATAPATH #(.COUNT_VAL(COUNT_VAL), .COUNT_BIT_WIDTH(COUNT_BIT_WIDTH)) AXI_MASTER_DATAPATH_inst(
     
         .clk(clk),
         .reset_b(reset_b),
@@ -198,6 +198,7 @@ module AXI_MASTER_CONTROLLER(
                 Send_Frame = NO;
                 T_VALID = FALSE;
                 Data_sel = OLD; 
+                Count_sel = 2'b00;
                 next_state <= IDLE;
             end
         endcase
