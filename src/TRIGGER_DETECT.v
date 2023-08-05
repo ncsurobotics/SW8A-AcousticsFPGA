@@ -29,43 +29,33 @@ module TRIGGER_DETECT(
     input [15:0] Threshold,
     input [5:0] Frequency,  
     input [1:0] Offset,
+    input [15:0] t_user,
     
     output T_READY,
-    output Trigger,
+    output reg Trigger,
     output FFT_Data_Ready
 
 );
 
     wire [31:0] Next_RAM_Data;
     wire Write_Address_sel;
-    //wire [5:0] Read_Address_BR;
     wire [5:0] Read_Address_With_Offset;
     wire [31:0] FFT_Data;
     
+    wire [7:0] FFT_index = t_user[7:0];
+    
     
     assign Read_Address_With_Offset = Frequency + Offset;
-    //assign Read_Address_BR = {Read_Address_With_Offset[0],Read_Address_With_Offset[01],Read_Address_With_Offset[2],Read_Address_With_Offset[3],Read_Address_With_Offset[4],Read_Address_With_Offset[5]};
     
 
-    BLOCK_RAM_32x64 FFT_TRIGGER_RAM(
     
-        .clka(clk),
-        .wea(Write_Address_sel),
-        .addra(Write_Address),
-        .dina(Next_RAM_Data),
-        .clkb(clk),
-        .enb(1'b1),
-        .addrb(Read_Address_With_Offset),
-        .doutb(FFT_Data)
-    
-    );
-    
-    wire [5:0] Write_Address;
-    
-    wire [20:0] magnitude;
-    
-    assign magnitude = (FFT_Data[31:16] + FFT_Data[15:0] ) * (FFT_Data[15:0] - FFT_Data[31:16]);
-    assign Trigger = (FFT_Data[15:0] > Threshold) && (FFT_Data[15] != 1'b1);
+    always@(*) begin
+        if(FFT_index == 16 || FFT_index == 17 || FFT_index == 18) begin
+            Trigger = (T_DATA[15:0] > Threshold) && (T_DATA[15] != 1'b1);
+        end
+        else Trigger = 1'b0;
+    end
+
 
     AXI_SLAVE AXI_SLAVE_inst(
     

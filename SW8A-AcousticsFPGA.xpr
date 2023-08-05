@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Product Version: Vivado v2022.2 (64-bit)              -->
+<!-- Product Version: Vivado v2022.2.2 (64-bit)              -->
 <!--                                                         -->
-<!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
+<!-- Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="61" Path="C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.xpr">
+<Project Version="7" Minor="61" Path="/home/cpmori/Documents/AquaPack/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="a310fc6637484745af0dfe8ec9ed976c"/>
@@ -402,8 +402,16 @@
     </FileSet>
     <FileSet Name="UART_sim" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/UART_sim" RelGenDir="$PGENDIR/UART_sim">
       <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../../../UART_Tests/UART_Tests.srcs/sim_1/new/UART_tb.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/srcsim/UART_tb.v">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -418,14 +426,6 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/srcsim/adcsim/spi-tb.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../../UART_Tests/UART_Tests.srcs/sim_1/new/UART_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -589,6 +589,7 @@
     <FileSet Name="BLOCK_RAM_32x64" Type="BlockSrcs" RelSrcDir="$PSRCDIR/BLOCK_RAM_32x64" RelGenDir="$PGENDIR/BLOCK_RAM_32x64">
       <File Path="$PSRCDIR/sources_1/ip/BLOCK_RAM_32x64/BLOCK_RAM_32x64.xci">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -777,11 +778,14 @@
     <Simulator Name="Questa">
       <Option Name="Description" Val="Questa Advanced Simulator"/>
     </Simulator>
+    <Simulator Name="Xcelium">
+      <Option Name="Description" Val="Xcelium Parallel Simulator"/>
+    </Simulator>
+    <Simulator Name="VCS">
+      <Option Name="Description" Val="Verilog Compiler Simulator (VCS)"/>
+    </Simulator>
     <Simulator Name="Riviera">
       <Option Name="Description" Val="Riviera-PRO Simulator"/>
-    </Simulator>
-    <Simulator Name="ActiveHDL">
-      <Option Name="Description" Val="Active-HDL Simulator"/>
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="19">
@@ -855,32 +859,29 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="complex_multiplier_synth_1" Type="Ft3:Synth" SrcSet="complex_multiplier" Part="xc7a35tcpg236-1" ConstrsSet="complex_multiplier" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/complex_multiplier_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/complex_multiplier_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/complex_multiplier_synth_1">
+    <Run Id="complex_multiplier_synth_1" Type="Ft3:Synth" SrcSet="complex_multiplier" Part="xc7a35tcpg236-1" ConstrsSet="complex_multiplier" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/complex_multiplier_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/complex_multiplier_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="xfft_256pt_64bit_synth_1" Type="Ft3:Synth" SrcSet="xfft_256pt_64bit" Part="xc7a35tcpg236-1" ConstrsSet="xfft_256pt_64bit" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/xfft_256pt_64bit_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/xfft_256pt_64bit_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/xfft_256pt_64bit_synth_1">
+    <Run Id="xfft_256pt_64bit_synth_1" Type="Ft3:Synth" SrcSet="xfft_256pt_64bit" Part="xc7a35tcpg236-1" ConstrsSet="xfft_256pt_64bit" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/xfft_256pt_64bit_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/xfft_256pt_64bit_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="xfft_cc_synth_1" Type="Ft3:Synth" SrcSet="xfft_cc" Part="xc7a35tcpg236-1" ConstrsSet="xfft_cc" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/xfft_cc_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/xfft_cc_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/xfft_cc_synth_1">
+    <Run Id="xfft_cc_synth_1" Type="Ft3:Synth" SrcSet="xfft_cc" Part="xc7a35tcpg236-1" ConstrsSet="xfft_cc" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/xfft_cc_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/xfft_cc_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
