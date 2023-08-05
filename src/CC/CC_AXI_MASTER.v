@@ -11,12 +11,12 @@ module CC_AXI_MASTER #(ZERO_PAD = 1) (
     
     // S axis data channel -- to/from AXI_MASTER & internal datapath
     input Data_tready,
-    input Data_tvalid,
+    output Data_tvalid,
     output [31:0] Data_tdata,
     output Data_tlast,
 
     // To/from Ring Buffer
-    input [31:0] Ring_Buffer_Input_Data,
+    input [31:0] Input_Data_From_Ring_Buffer,
     output Send_Frame
 );
 
@@ -33,7 +33,7 @@ localparam
     SEND_DATA = 1'b1;
 
 wire [31:0] input_data_with_padding;
-assign input_data_with_padding = (data_or_zero_sel == SEND_DATA) ? Ring_Buffer_Input_Data : 32'b0;
+assign input_data_with_padding = (data_or_zero_sel == SEND_DATA) ? Input_Data_From_Ring_Buffer : 32'd512;
 assign Send_Frame = (data_or_zero_sel == SEND_DATA) ? send_frame_axi_master : 1'b0;
 
 FFT_CONTROLLER fft_controller_inst( .clk(clk),

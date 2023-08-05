@@ -28,6 +28,7 @@ module RING_BUFFER(
     input [31:0] Input_Data,
     input Input_Data_Ready,
     input Send_Frame,
+    input Triggered,
     
     output RAM_Overflow,
     output [31:0] Output_Data
@@ -43,6 +44,7 @@ module RING_BUFFER(
         .reset_b(reset_b),
         .Input_Data(Input_Data),
         .Data_Ready(Input_Data_Ready),
+        .Triggered(Triggered),
         .RAM_Write_Address_sel(RAM_Write_Address_sel),
         .Head_Counter_sel(Head_Counter_sel),
         .RAM_Read_Address_sel(RAM_Read_Address_sel),
@@ -73,7 +75,8 @@ module RING_BUFFER_DATAPATH(
     input reset_b,
     input [31:0] Input_Data,
     input Data_Ready,
-    
+    input Triggered,
+
     input RAM_Write_Address_sel,
     input Head_Counter_sel,
     input RAM_Read_Address_sel,
@@ -89,6 +92,7 @@ module RING_BUFFER_DATAPATH(
     wire [7:0] Next_Head_Address;
     wire [7:0] Next_Write_Address;
     wire [7:0] Next_Read_Address;
+
     
     
     
@@ -118,7 +122,10 @@ module RING_BUFFER_DATAPATH(
         end
     end
     
-    assign Next_Read_Address = RAM_Read_Address_sel ? Head_Address : RAM_Read_Address + 4;
+    wire [7:0] Read_Address_Increment_Value;
+
+    assign Read_Address_Increment_Value = Triggered ? 8'd1 : 8'd4;
+    assign Next_Read_Address = RAM_Read_Address_sel ? Head_Address : RAM_Read_Address + Read_Address_Increment_Value;
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
             RAM_Read_Address = 8'b0;
@@ -127,7 +134,6 @@ module RING_BUFFER_DATAPATH(
             RAM_Read_Address = Next_Read_Address;
         end
     end
-    
     
     RING_BUFFER_RAM RING_BUFFER_RAM_inst(
         
@@ -303,12 +309,9 @@ module WRITE_CONTROLLER(
         endcase
     
     end 
-   
-   
-   
-    
 
 endmodule
+
 
 
 module READ_CONTROLLER(
@@ -350,21 +353,6 @@ module READ_CONTROLLER(
             end
         endcase
     end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 
 endmodule
-

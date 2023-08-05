@@ -196,16 +196,23 @@ module TRIGGER_FFT_v2(
     input data_ready,
     input [9:0] Input_Data,
     input [1:0] Offset,
-    input [3:0] Frequency,
-    input [3:0] Threshold,
-    input fft_s_axis_data_tlast,
+    input [5:0] Frequency,
+    input [15:0] Threshold,
 
     output Send_Frame,
     output FFT_Data_Ready,
-    output Trigger
+    output Trigger,
+
+    // for debug only
+    output tb_trigger_fft_tvalid,
+    output [31:0] tb_trigger_fft_tdata,
+    output tb_trigger_fft_tlast
 
 );
 
+    assign tb_trigger_fft_tvalid = fft_m_axis_data_tvalid;
+    assign tb_trigger_fft_tdata = fft_m_axis_data_tdata;
+    assign tb_trigger_fft_tlast = fft_m_axis_data_tlast;
 
 
     
@@ -215,6 +222,7 @@ module TRIGGER_FFT_v2(
     wire [31:0] fft_s_axis_data_tdata;
     wire fft_s_axis_data_tvalid;
     wire fft_s_axis_data_tready;
+    wire fft_s_axis_data_tlast; // tied to AXI_MASTER Count_Reached output
     wire fft_m_axis_data_tvalid;                // FFT Master Axis Data Channel
     wire [31:0] fft_m_axis_data_tdata;
     wire fft_m_axis_data_tlast;
@@ -241,20 +249,48 @@ module TRIGGER_FFT_v2(
         .Count_Reached(fourth_sample_reached)
     
     );
+
+    reg [1:0] current_state, next_state;
+    reg trigger_en;
+    always @ (posedge clk or negedge reset_b) begin
+        if (!reset_b) current_state <= 2'b00;
+        else current_state <= next_state;
+    end
+    always @ (*) begin
+        case (current_state)
+            2'b00: begin
+                trigger_en <= 1'b0;
+                if (fourth_sample_reached) next_state <= 2'b01;
+                else next_state <= 2'b00;
+            end
+            2'b01: begin
+                trigger_en <= 1'b1;
+                next_state <= 2'b10;
+            end
+            2'b10: begin
+                trigger_en <= 1'b0;
+                if (!fourth_sample_reached) next_state <= 2'b00;
+                else next_state <= 2'b10;
+            end
+            default: begin
+                trigger_en <= 1'b0;
+                next_state <= 2'b00;
+            end
+        endcase
+    end
     
-    wire [9:0] FFT_Input_Data;
+    wire [31:0] FFT_Input_Data;
     
     AXI_MASTER RAM_to_FFT_DRIVER(
-    
         .clk(clk),
         .reset_b(reset_b),
-        .Input_Data(Input_Data),
+        .Input_Data({22'b0, Input_Data}),
         .T_READY(fft_s_axis_data_tready),
-        .Fourth_Sample_Ready(fourth_sample_reached),
+        .Fourth_Sample_Ready(trigger_en),
         .Send_Frame(Send_Frame),
         .T_VALID(fft_s_axis_data_tvalid),
-        .T_DATA(FFT_Input_Data)
-    
+        .T_DATA(FFT_Input_Data),
+        .Count_Reached(fft_s_axis_data_tlast)
     );
 
     

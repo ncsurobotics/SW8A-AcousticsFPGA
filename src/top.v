@@ -80,7 +80,6 @@ assign spi_clk_out2 = SPI_clk;
 assign spi_clk_out3 = SPI_clk;
 assign spi_clk_out4 = SPI_clk;
 
-CC_AXI_MASTER();
 
 
 endmodule

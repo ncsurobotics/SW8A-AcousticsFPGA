@@ -58,7 +58,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
         .reset_b(reset_b),
         .TX_Data_in(TX_Data_in),
         .TX_en(TX_en),
-        .TX_Write_en( ~ (TX_Data_in && TX_Data_Captured)),
+        .TX_Write_en( 1'b1/*~ (TX_Data_in && TX_Data_Captured)*/),
         
         .TX_Data_out(TX_Data_out),
         .TX_Ready_To_Send(TX_Ready_To_Send),

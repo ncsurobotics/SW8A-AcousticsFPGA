@@ -300,8 +300,8 @@ assign sync_err = {s_axis_config_err, s_axis_data_err, m_axis_data_valid_err, m_
 // save the s_axis_datas to files
 always @(posedge clk) begin
         if(ifft_m_axis_data_tvalid)begin
-            $fwrite(fp_out, "%d \n", $signed(ifft_m_axis_data_tdata[31:0]));
             $fwrite(fp_out, "%d \n", $signed(ifft_m_axis_data_tdata[63:32]));
+            $fwrite(fp_out, "%d \n", $signed(ifft_m_axis_data_tdata[31:0]));
         end 
         if (x_m_axis_data_tvalid)begin
             $fwrite(fp_chx_pre, "%d \n", $signed(x_m_axis_data_tdata[31:16]));

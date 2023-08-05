@@ -4,7 +4,31 @@
 // spi clock period: 140 ns, delay value: 68 ns
 
 // send MSB first
-module adc_emulator (
+
+module ADC_EMULATOR(
+    input spi_clk, cs, reset_b,
+    input [9:0] data_in,
+    output reg data_out
+);
+
+parameter
+    IDLE = 1'b0,
+    SHIFT = 1'b1;
+
+reg current_state, next_state;
+reg [13:0] shift_register;
+
+always @ (posedge clk or negedge reset_b) begin
+    if (!reset_b) begin
+        current_state <= IDLE;
+        shift_
+    end
+end
+
+
+endmodule
+
+module adc_emulator_old (
     input clk, spi_clk, cs, reset_b,
     input [9:0] data_in,
     output reg data_out

@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="130.401 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="182.460 ns"></ZoomStartTime>
+      <ZoomEndTime time="282.728 ns"></ZoomEndTime>
+      <Cursor1Time time="245.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="480"></NameColumnWidth>
-      <ValueColumnWidth column_width="163"></ValueColumnWidth>
+      <ValueColumnWidth column_width="131"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
+   <WVObjectSize size="26" />
    <wvobject fp_name="/cc_control_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -69,22 +69,6 @@
       <obj_property name="ElementShortName">event_tlast_missing</obj_property>
       <obj_property name="ObjectShortName">event_tlast_missing</obj_property>
    </wvobject>
-   <wvobject fp_name="/cc_control_tb/event_fft_overflow" type="logic">
-      <obj_property name="ElementShortName">event_fft_overflow</obj_property>
-      <obj_property name="ObjectShortName">event_fft_overflow</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cc_control_tb/event_status_channel_halt" type="logic">
-      <obj_property name="ElementShortName">event_status_channel_halt</obj_property>
-      <obj_property name="ObjectShortName">event_status_channel_halt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cc_control_tb/event_data_in_channel_halt" type="logic">
-      <obj_property name="ElementShortName">event_data_in_channel_halt</obj_property>
-      <obj_property name="ObjectShortName">event_data_in_channel_halt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cc_control_tb/event_data_out_channel_halt" type="logic">
-      <obj_property name="ElementShortName">event_data_out_channel_halt</obj_property>
-      <obj_property name="ObjectShortName">event_data_out_channel_halt</obj_property>
-   </wvobject>
    <wvobject fp_name="/cc_control_tb/dut/cc_block_controller_inst/current_state" type="array">
       <obj_property name="ElementShortName">current_state[2:0]</obj_property>
       <obj_property name="ObjectShortName">current_state[2:0]</obj_property>
@@ -104,5 +88,41 @@
    <wvobject fp_name="/cc_control_tb/dut/axi_master_inst/AXI_MASTER_CONTROLLER_inst/T_READY" type="logic">
       <obj_property name="ElementShortName">T_READY</obj_property>
       <obj_property name="ObjectShortName">T_READY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/addra" type="array">
+      <obj_property name="ElementShortName">addra[7:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/dina" type="array">
+      <obj_property name="ElementShortName">dina[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dina[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/start_cc" type="logic">
+      <obj_property name="ElementShortName">start_cc</obj_property>
+      <obj_property name="ObjectShortName">start_cc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ram_overflow" type="logic">
+      <obj_property name="ElementShortName">ram_overflow</obj_property>
+      <obj_property name="ObjectShortName">ram_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/addrb" type="array">
+      <obj_property name="ElementShortName">addrb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/trigger_tdata" type="array">
+      <obj_property name="ElementShortName">trigger_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">trigger_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/trigger_tvalid" type="logic">
+      <obj_property name="ElementShortName">trigger_tvalid</obj_property>
+      <obj_property name="ObjectShortName">trigger_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/send_frame_trigger" type="logic">
+      <obj_property name="ElementShortName">send_frame_trigger</obj_property>
+      <obj_property name="ObjectShortName">send_frame_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/axi_master_inst/Count_Reached" type="logic">
+      <obj_property name="ElementShortName">Count_Reached</obj_property>
+      <obj_property name="ObjectShortName">Count_Reached</obj_property>
    </wvobject>
 </wave_config>

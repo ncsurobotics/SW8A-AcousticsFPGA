@@ -30,13 +30,13 @@ module COMMAND_READER(
     input Tx_Ready,
     input Trigger,
     input FFT_Data_Ready,
-    input [7:0] Max_Value,
+    input [9:0] Max_Value,
     
     output Set_Threshold_sel,
     output Set_Frequency_sel,
     output [1:0] RAM_Read_Offset,
     output [7:0] Word_To_Send,
-    output [3:0] Channel_sel,
+    output [2:0] Channel_sel,
     output TX_en,
     output TX_Write_en
 

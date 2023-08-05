@@ -26,12 +26,12 @@ module COMMAND_READER_DATA_PATH(
     input reset_b,
     input slow_clk,
     input [7:0] Command,
-    input [7:0] Max_Value,
+    input [9:0] Max_Value,
     input [1:0] Word_To_Send_sel,
     input [1:0] Timer_sel,
     
     output reg [7:0] Word_To_Send,
-    output [3:0] Channel_sel,
+    output [2:0] Channel_sel,
     output Timeout
 
 );
@@ -65,7 +65,7 @@ module COMMAND_READER_DATA_PATH(
             end
             MAX_VALUE:
             begin
-                Next_Word_To_Send <= Max_Value;
+                Next_Word_To_Send <= Max_Value[9:2];
             end
             TRUE:
             begin

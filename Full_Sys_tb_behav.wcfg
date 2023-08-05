@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Full_Sys_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Full_Sys_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="260.673582 us"></ZoomStartTime>
+      <ZoomEndTime time="275.465284 us"></ZoomEndTime>
+      <Cursor1Time time="273.000000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="431"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="41" />
+   <wvobject fp_name="/Full_Sys_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/spi_clk" type="logic">
+      <obj_property name="ElementShortName">spi_clk</obj_property>
+      <obj_property name="ObjectShortName">spi_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/uart_clk_no_div" type="logic">
+      <obj_property name="ElementShortName">uart_clk_no_div</obj_property>
+      <obj_property name="ObjectShortName">uart_clk_no_div</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/adc1" type="logic">
+      <obj_property name="ElementShortName">adc1</obj_property>
+      <obj_property name="ObjectShortName">adc1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/adc2" type="logic">
+      <obj_property name="ElementShortName">adc2</obj_property>
+      <obj_property name="ObjectShortName">adc2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/x_data_array" type="array">
+      <obj_property name="ElementShortName">x_data_array[255:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">x_data_array[255:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/y_data_array" type="array">
+      <obj_property name="ElementShortName">y_data_array[255:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">y_data_array[255:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/arr_index" type="array">
+      <obj_property name="ElementShortName">arr_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">arr_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_word_to_send" type="array">
+      <obj_property name="ElementShortName">tb_word_to_send[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_word_to_send[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_tx_en" type="logic">
+      <obj_property name="ElementShortName">tb_tx_en</obj_property>
+      <obj_property name="ObjectShortName">tb_tx_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/RsTx" type="logic">
+      <obj_property name="ElementShortName">RsTx</obj_property>
+      <obj_property name="ObjectShortName">RsTx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_tx_r2s" type="logic">
+      <obj_property name="ElementShortName">tb_tx_r2s</obj_property>
+      <obj_property name="ObjectShortName">tb_tx_r2s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_word_received" type="array">
+      <obj_property name="ElementShortName">tb_word_received[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_word_received[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_rx_data_ready" type="logic">
+      <obj_property name="ElementShortName">tb_rx_data_ready</obj_property>
+      <obj_property name="ObjectShortName">tb_rx_data_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/cs" type="logic">
+      <obj_property name="ElementShortName">cs</obj_property>
+      <obj_property name="ObjectShortName">cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/uart_clk" type="logic">
+      <obj_property name="ElementShortName">uart_clk</obj_property>
+      <obj_property name="ObjectShortName">uart_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/FFT_Data_Ready" type="logic">
+      <obj_property name="ElementShortName">FFT_Data_Ready</obj_property>
+      <obj_property name="ObjectShortName">FFT_Data_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/Trigger" type="logic">
+      <obj_property name="ElementShortName">Trigger</obj_property>
+      <obj_property name="ObjectShortName">Trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_Data" type="array">
+      <obj_property name="ElementShortName">FFT_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FFT_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/TRIGGER_DETECT_inst/Threshold" type="array">
+      <obj_property name="ElementShortName">Threshold[15:0]</obj_property>
+      <obj_property name="ObjectShortName">Threshold[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/TRIGGER_DETECT_inst/Frequency" type="array">
+      <obj_property name="ElementShortName">Frequency[5:0]</obj_property>
+      <obj_property name="ObjectShortName">Frequency[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_config_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_config_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_config_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_config_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_config_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_config_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_config_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_config_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_config_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/m_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/m_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/m_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RING_BUFFER_channel_1_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/addrb" type="array">
+      <obj_property name="ElementShortName">addrb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_TRIGGER_RAM/addrb" type="array">
+      <obj_property name="ElementShortName">addrb[5:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_trigger_fft_tvalid" type="logic">
+      <obj_property name="ElementShortName">tb_trigger_fft_tvalid</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_trigger_fft_tdata" type="array">
+      <obj_property name="ElementShortName">tb_trigger_fft_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/tb_trigger_fft_tlast" type="logic">
+      <obj_property name="ElementShortName">tb_trigger_fft_tlast</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/trigger_fft/m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">m_axis_data_tuser[7:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tuser[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/ok_to_write" type="logic">
+      <obj_property name="ElementShortName">ok_to_write</obj_property>
+      <obj_property name="ObjectShortName">ok_to_write</obj_property>
+   </wvobject>
+</wave_config>
