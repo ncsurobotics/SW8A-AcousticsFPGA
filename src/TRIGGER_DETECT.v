@@ -65,8 +65,8 @@ module TRIGGER_DETECT(
     wire [20:0] magnitude;
     
     assign magnitude = (FFT_Data[31:16] + FFT_Data[15:0] ) * (FFT_Data[15:0] - FFT_Data[31:16]);
-    assign Trigger = FFT_Data[15:0] > Threshold;
-    
+    assign Trigger = (FFT_Data[15:0] > Threshold) && (FFT_Data[15] != 1'b1);
+
     AXI_SLAVE AXI_SLAVE_inst(
     
         .clk(clk),

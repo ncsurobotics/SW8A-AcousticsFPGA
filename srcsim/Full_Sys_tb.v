@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 100ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -96,7 +96,7 @@ integer spi_ctr = 0;
 integer uart_ctr = 0;
 
 always @ (posedge clk) begin
-    if (spi_ctr == 13) begin
+    if (spi_ctr == 6) begin
         spi_ctr = 0;
         spi_clk = ~spi_clk;
     end
@@ -104,7 +104,7 @@ always @ (posedge clk) begin
 end
 
 always @ (posedge clk) begin
-    if (uart_ctr == 16) begin
+    if (uart_ctr == 8) begin
         uart_ctr = 0;
         uart_clk_no_div = ~uart_clk_no_div;
     end
@@ -117,7 +117,7 @@ reg ok_to_write = 1'b0;
 //always @ (negedge tb_trigger_fft_tlast) $fclose(fp_trig_out);
 always @ (posedge clk) begin
     if (tb_trigger_fft_tvalid && ok_to_write) begin
-        $fwrite(fp_trig_out, "%d \n", $signed(tb_trigger_fft_tdata[31:16]));
+        //$fwrite(fp_trig_out, "%d \n", $signed(tb_trigger_fft_tdata[31:16]));
         $fwrite(fp_trig_out, "%d \n", $signed(tb_trigger_fft_tdata[15:0]));
     end
 end
@@ -173,9 +173,11 @@ initial begin
     fp_trig_out = $fopen("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/trig_out.txt");
     #100 drive_uart_tx(8'h0d);
 
-    #216500 ok_to_write = 1'b1;
+    //#276500 ok_to_write = 1'b1;
+    //@ (negedge tb_trigger_fft_tlast) ok_to_write = 1'b0;
+    while (arr_index < 255) @(posedge clk);
+    ok_to_write = 1'b1;
     @ (negedge tb_trigger_fft_tlast) ok_to_write = 1'b0;
-    
 end
 
 endmodule

@@ -306,6 +306,7 @@ module TRIGGER_FFT_v2(
     wire m_axis_status_tdata;
     wire m_axis_status_tvalid;
     wire m_axis_status_tready;
+    wire ovflo;
 
     xfft_trigger trigger_fft (
     
@@ -325,8 +326,8 @@ module TRIGGER_FFT_v2(
         .m_axis_data_tlast(fft_m_axis_data_tlast),                              // output wire m_axis_data_tlast
         .m_axis_status_tdata(m_axis_status_tdata),                                                 // output wire [7 : 0] m_axis_status_tdata
         .m_axis_status_tvalid(m_axis_status_tvalid),                                                // output wire m_axis_status_tvalid
-        .m_axis_status_tready(1'b1)                                                 // input wire m_axis_status_tready
-      
+        .m_axis_status_tready(1'b1),                                                 // input wire m_axis_status_tready
+        .event_fft_overflow(ovflo)
     );
     
     
