@@ -106,7 +106,7 @@ architecture tb of tb_xfft_trigger is
   signal m_axis_data_tvalid          : std_logic := '0';  -- payload is valid
   signal m_axis_data_tready          : std_logic := '1';  -- slave is ready
   signal m_axis_data_tdata           : std_logic_vector(31 downto 0) := (others => '0');  -- data payload
-  signal m_axis_data_tuser           : std_logic_vector(7 downto 0) := (others => '0');  -- user-defined payload
+  signal m_axis_data_tuser           : std_logic_vector(15 downto 0) := (others => '0');  -- user-defined payload
   signal m_axis_data_tlast           : std_logic := '0';  -- indicates end of packet
 
   -- Status master channel signals
@@ -141,6 +141,7 @@ architecture tb of tb_xfft_trigger is
   -- Data master channel alias signals
   signal m_axis_data_tdata_re             : std_logic_vector(10 downto 0) := (others => '0');  -- real data
   signal m_axis_data_tdata_im             : std_logic_vector(10 downto 0) := (others => '0');  -- imaginary data
+  signal m_axis_data_tuser_xk_index       : std_logic_vector(5 downto 0) := (others => '0');  -- sample index
   signal m_axis_data_tuser_ovflo          : std_logic := '0';  -- overflow
 
   -- Status master channel alias signals
@@ -206,8 +207,6 @@ architecture tb of tb_xfft_trigger is
   signal cfg_scale_sch : T_CFG_SCALE_SCH := DEFAULT;
 
   -- Recording output data, for reuse as input data
-  signal op_sample       : integer    := 0;    -- output sample number
-  signal op_sample_first : std_logic  := '1';  -- indicates first output sample of a frame
   signal ip_frame        : integer    := 0;    -- input / configuration frame number
   signal op_data         : T_IP_TABLE := IP_TABLE_CLEAR;  -- recorded output data
   signal op_frame        : integer    := 0;    -- output frame number (incremented at end of frame output)
@@ -529,46 +528,21 @@ begin
   -----------------------------------------------------------------------
 
   record_outputs : process (aclk)
-    -- Function to digit-reverse an integer, to convert output to input ordering
-    function digit_reverse_int ( fwd, width : integer ) return integer is
-      variable rev     : integer;
-      variable fwd_slv : std_logic_vector(width-1 downto 0);
-      variable rev_slv : std_logic_vector(width-1 downto 0);
-    begin
-      fwd_slv := std_logic_vector(to_unsigned(fwd, width));
-      for i in 0 to width/2-1 loop  -- reverse in digit groups (2 bits at a time)
-        rev_slv(i*2+1 downto i*2) := fwd_slv(width-i*2-1 downto width-i*2-2);
-      end loop;
-      if width mod 2 = 1 then  -- width is odd: LSB moves to MSB
-        rev_slv(width-1) := fwd_slv(0);
-      end if;
-      rev := to_integer(unsigned(rev_slv));
-      return rev;
-    end function digit_reverse_int;
-
     variable index : integer := 0;
 
   begin
     if rising_edge(aclk) then
       if aresetn = '0' then  -- aresetn is active low
-        op_sample_first <= '1';
-        op_sample       <= 0;
         op_data         <= IP_TABLE_CLEAR;
       elsif m_axis_data_tvalid = '1' and m_axis_data_tready = '1' then
         -- Record output data such that it can be used as input data
-        index := op_sample;
-        -- Digit-reverse output sample number, to get actual sample index as outputs are in digit-reversed order
-        index := digit_reverse_int(index, 6);
+        -- Output sample index is given by xk_index field of m_axis_data_tuser
+        index := to_integer(unsigned(m_axis_data_tuser(5 downto 0)));
         op_data(index).re <= m_axis_data_tdata(10 downto 0);
         op_data(index).im <= m_axis_data_tdata(26 downto 16);
-        -- Increment output sample counter
-        if m_axis_data_tlast = '1' then  -- end of output frame: reset sample counter and increment frame counter
-          op_sample <= 0;
+        -- Track the number of output frames
+        if m_axis_data_tlast = '1' then  -- end of output frame: increment frame counter
           op_frame <= op_frame + 1;
-          op_sample_first <= '1';  -- for next output frame
-        else
-          op_sample_first <= '0';
-          op_sample <= op_sample + 1;
         end if;
       end if;
     end if;
@@ -584,7 +558,7 @@ begin
     variable m_data_tvalid_prev : std_logic := '0';
     variable m_data_tready_prev : std_logic := '0';
     variable m_data_tdata_prev  : std_logic_vector(31 downto 0) := (others => '0');
-    variable m_data_tuser_prev  : std_logic_vector(7 downto 0) := (others => '0');
+    variable m_data_tuser_prev  : std_logic_vector(15 downto 0) := (others => '0');
     -- Previous values of status master channel signals
     variable m_status_tvalid_prev : std_logic := '0';
     variable m_status_tready_prev : std_logic := '0';
@@ -670,7 +644,8 @@ begin
   -- Data master channel alias signals
   m_axis_data_tdata_re           <= m_axis_data_tdata(10 downto 0);
   m_axis_data_tdata_im           <= m_axis_data_tdata(26 downto 16);
-  m_axis_data_tuser_ovflo        <= m_axis_data_tuser(0);
+  m_axis_data_tuser_xk_index     <= m_axis_data_tuser(5 downto 0);
+  m_axis_data_tuser_ovflo        <= m_axis_data_tuser(8);
 
   -- Status master channel alias signals
   m_axis_status_tdata_ovflo      <= m_axis_status_tdata(0);

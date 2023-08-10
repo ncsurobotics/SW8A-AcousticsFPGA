@@ -47,11 +47,16 @@ module TRIGGER_DETECT(
     
     assign Read_Address_With_Offset = Frequency + Offset;
     
-
+    // verbose for debug
+    wire [15:0] val_to_compare;
+    assign val_to_compare = (T_DATA[15] == 1'b0) ? T_DATA[15:0] : (~(T_DATA[15:0]) + 1);
     
     always@(*) begin
         if(FFT_index == 16 || FFT_index == 17 || FFT_index == 18) begin
-            Trigger = (T_DATA[15:0] > Threshold) && (T_DATA[15] != 1'b1);
+            //Trigger = (T_DATA[15:0] > Threshold) && (T_DATA[15] != 1'b1);
+            //if (T_DATA[15] == 1'b0) Trigger = T_DATA[15:0] > Threshold;
+            //else Trigger = (~(T_DATA[15:0])+1) > Threshold;
+            Trigger = val_to_compare > Threshold;
         end
         else Trigger = 1'b0;
     end

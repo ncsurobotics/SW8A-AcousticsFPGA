@@ -63,7 +63,7 @@ task drive_adc;
         index = 9;
         adc1 = 1'b0;
         adc2 = 1'b0;
-        repeat(4)@(posedge spi_clk);
+        repeat(5)@(posedge spi_clk);
         while (index >= 0) begin
             adc1 = x_data[index];
             adc2 = y_data[index];

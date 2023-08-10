@@ -121,7 +121,7 @@ RING_BUFFER RING_BUFFER_channel_1_inst(
 
     .clk(clk),
     .reset_b(reset_b),
-    .Input_Data(ADC_Channel_1),
+    .Input_Data({22'd0, ADC_Channel_1}),
     .Input_Data_Ready(ADC_CH1_Ready),
     .Triggered(Trigger_Persistant),
     .Send_Frame(Channel_1_Send_Frame),
@@ -135,7 +135,7 @@ RING_BUFFER RING_BUFFER_channel_2_inst(
 
     .clk(clk),
     .reset_b(reset_b),
-    .Input_Data(ADC_Channel_2),
+    .Input_Data({22'd0, ADC_Channel_2}),
     .Input_Data_Ready(ADC_CH2_Ready),
     .Triggered(Trigger_Persistant),
     .Send_Frame(Channel_2_Send_Frame),
@@ -197,7 +197,7 @@ TRIGGER_FFT_v2 trigger_fft_inst(
     .Input_Data(Channel_1_Ring_Buffer_out),
     .Offset(offset),
     .Frequency(6'd16),
-    .Threshold(16'd100),
+    .Threshold(16'd45),
     .Send_Frame(Trigger_Send_Frame),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Trigger(Trigger),
