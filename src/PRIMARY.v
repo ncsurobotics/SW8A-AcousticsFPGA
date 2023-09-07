@@ -29,7 +29,7 @@ module PRIMARY (
 wire UART_clk;
 
 // peripherals
-wire reset_button_out, reset_b;
+wire reset_button_out;
 reg [15:0] display;
 
 wire [9:0] ADC_Channel_1,ADC_Channel_2,ADC_Channel_3, ADC_Channel_4;

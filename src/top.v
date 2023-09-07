@@ -55,6 +55,7 @@ DATA_clks DATA_clks_inst(
 PRIMARY main_level (
 
     .clk(clk),
+    .reset_b(1'b1),
     .btnC(btnC),
     .btnU(btnU),
     .SPI_clk(SPI_clk),
