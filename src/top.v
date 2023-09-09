@@ -36,7 +36,8 @@ module top(
                 input RsRx,
                 output RsTx,
                 output [6:0] seg,
-                output [3:0] an
+                output [3:0] an,
+                output [15:0] led
     );
     
     
@@ -72,7 +73,8 @@ PRIMARY main_level (
     .RsRx(RsRx),
     .RsTx(RsTx),
     .seg(seg),
-    .an(an)
+    .an(an),
+    .led(led)
 
 );
 

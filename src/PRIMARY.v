@@ -16,6 +16,7 @@ module PRIMARY (
 
                 output [6:0] seg,
                 output [3:0] an,
+                output [15:0] led,
 
                 // for debug only
                 output tb_trigger_fft_tvalid,
@@ -62,6 +63,8 @@ wire [1:0] offset;
 wire FFT_Data_Ready;
 wire fourth_sample_reached;
 
+wire [3:0] cmd_state_debug; // for debug only
+
 
 COMMAND_READER cmd(
 
@@ -81,7 +84,8 @@ COMMAND_READER cmd(
     .Word_To_Send(Cmd_Reader_Word_To_Send),
     .Channel_sel(Max_Value_Channel_sel),
     .TX_en(Cmd_Reader_TX_en),
-    .TX_Write_en(Cmd_Reader_TX_Write_en)
+    .TX_Write_en(Cmd_Reader_TX_Write_en),
+    .state_debug(cmd_state_debug) // for debug only
 
 
 );
@@ -340,14 +344,30 @@ UART UART_inst(
 
 
 
+// LEDs
+// for debug
+reg did_trigger;
+always @ (posedge clk or negedge reset_b) begin
+    if (!reset_b) did_trigger <= 1'b0;
+    else begin
+        if (Trigger) did_trigger <= 1'b1;
+        else did_trigger <= did_trigger;
+    end
+end
 
+assign led = {15'b0, did_trigger};
 
 // DISPLAY
+reg [7:0] display_rx;
 always @ (posedge clk) begin
     if(rx_ready)
-        display <= {1};
+        display_rx <= rx_data;
     else 
-        display<= display;
+        display_rx <= display_rx;
+end
+
+always @ (*) begin
+    display = {cmd_state_debug, 4'b0, display_rx}; // for debug
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),

@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="626.750000 us"></ZoomStartTime>
-      <ZoomEndTime time="655.850001 us"></ZoomEndTime>
-      <Cursor1Time time="629.150000 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="1,104.000001 us"></ZoomEndTime>
+      <Cursor1Time time="731.000000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="480"></NameColumnWidth>
-      <ValueColumnWidth column_width="233"></ValueColumnWidth>
+      <ValueColumnWidth column_width="225"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="34" />
+   <WVObjectSize size="39" />
    <wvobject fp_name="/Full_Sys_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -141,10 +141,6 @@
       <obj_property name="ElementShortName">RX_Data_out[7:0]</obj_property>
       <obj_property name="ObjectShortName">RX_Data_out[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/current_state" type="array">
-      <obj_property name="ElementShortName">current_state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">current_state[2:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/RsTx" type="logic">
       <obj_property name="ElementShortName">RsTx</obj_property>
       <obj_property name="ObjectShortName">RsTx</obj_property>
@@ -156,5 +152,29 @@
    <wvobject fp_name="/Full_Sys_tb/dut/UART_inst/UART_TX_inst/TX_Data_Register" type="array">
       <obj_property name="ElementShortName">TX_Data_Register[7:0]</obj_property>
       <obj_property name="ObjectShortName">TX_Data_Register[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Command" type="array">
+      <obj_property name="ElementShortName">Command[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Command[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Rx_Ready" type="logic">
+      <obj_property name="ElementShortName">Rx_Ready</obj_property>
+      <obj_property name="ObjectShortName">Rx_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/Rx_Ready" type="logic">
+      <obj_property name="ElementShortName">Rx_Ready</obj_property>
+      <obj_property name="ObjectShortName">Rx_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
    </wvobject>
 </wave_config>

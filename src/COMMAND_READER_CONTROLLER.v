@@ -24,7 +24,7 @@ module COMMAND_READER_CONTROLLER(
 
     input clk,
     input reset_b,
-    input Rx_Ready,
+    (* mark_debug = "true" *) input Rx_Ready,
     input RsTx,
     input Tx_Ready,
     input Trigger,
@@ -38,9 +38,14 @@ module COMMAND_READER_CONTROLLER(
     output reg Set_Frequency_sel,
     output reg [1:0] RAM_Read_Offset,
     output reg TX_en,
-    output reg TX_Write_en
+    output reg TX_Write_en,
+
+    output [3:0] state_debug // for debug only
 
 );
+
+    assign state_debug = current_state; // for debug only
+    
     parameter 
         HOLD = 1'b0,
         SET = 1'b1;
@@ -72,7 +77,8 @@ module COMMAND_READER_CONTROLLER(
         WRITE_FALSE = 4'b1100,
         LOAD_0 = 4'b1101;
     
-    reg [3:0] current_state, next_state;
+    (* mark_debug = "true" *) reg [3:0] current_state;
+    reg [3:0] next_state;
     
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
@@ -112,7 +118,7 @@ module COMMAND_READER_CONTROLLER(
                 TX_Write_en <= 0;  
             end
             INTERPERET_OP:begin
-                case(Command[3:0])
+                case(Command[7:4])
                     4'hf:begin
                         next_state <= SET_FREQUENCY;
                     end

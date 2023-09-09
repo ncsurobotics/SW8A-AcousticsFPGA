@@ -3,10 +3,12 @@
 import serial
 import time
 import keyboard # pip install keyboard
+import sys
 
 #port = input("enter port name: ")
 
-ser = serial.Serial('/dev/ttyUSB1', 115200, timeout = 1) # open serial port
+port = sys.argv[1]
+ser = serial.Serial(port, 115200, timeout = 1) # open serial port
 print(ser.name)
 
 start_time = time.time()
@@ -21,7 +23,7 @@ while True:
     if check_input in ("stop"):
         break
     elif (check_input in ("1")):
-        instruction = b'A'
+        instruction = bytes.fromhex('41')
     elif (check_input in ("2")):
         instruction = b'B'
     elif (check_input in ("3")):
@@ -29,9 +31,10 @@ while True:
     elif (check_input in ("4")):
         instruction = b'D'
     elif (check_input in("5")):
-        instruction = 0x0d
+        instruction = bytes.fromhex('D0')
     
     # Send 'A' to the FPGA to tell it to give you data
+    print(int.from_bytes(instruction, 'big'))
     ser.write(instruction)
 
     # read 1 channel (2 bytes)

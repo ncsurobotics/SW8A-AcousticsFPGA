@@ -38,12 +38,14 @@ module COMMAND_READER(
     output [7:0] Word_To_Send,
     output [2:0] Channel_sel,
     output TX_en,
-    output TX_Write_en
+    output TX_Write_en,
+    
+    output [3:0] state_debug // for debug only
 
 );
 
     wire [1:0] Word_To_Send_sel,Timer_sel;
-    wire Timeout;
+    (* mark_debug = "true" *) wire Timeout;
     
     COMMAND_READER_CONTROLLER COMM_READ_CONT_inst(
     
@@ -62,7 +64,8 @@ module COMMAND_READER(
         .Set_Frequency_sel(Set_Frequency_sel),
         .RAM_Read_Offset(RAM_Read_Offset),
         .TX_en(TX_en),
-        .TX_Write_en(TX_Write_en)
+        .TX_Write_en(TX_Write_en),
+        .state_debug(state_debug) // for debug only
         
     );
 

@@ -1,0 +1,125 @@
+{
+    "ltx_root": {
+        "version": 4,
+        "minor": 0,
+        "ltx_data": [
+            {
+                "name": "EDA_PROBESET",
+                "active": true,
+                "debug_cores": [
+                    {
+                        "type": "XSDB_V3",
+                        "name": "dbg_hub",
+                        "spec": "labtools_xsdbm_v3",
+                        "clk_input_freq_hz": "100000000"
+                    },
+                    {
+                        "type": "ILA_V3",
+                        "name": "u_ila_0",
+                        "spec": "labtools_ila_v6",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 0,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "23E7D65A79BC59F7BC47406C1714DFAE",
+                        "pins": [
+                            {
+                                "name": "probe0",
+                                "id": 0,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 3,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "main_level/cmd/COMM_READ_CONT_inst/current_state",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "main_level/cmd/COMM_READ_CONT_inst/current_state[3]"
+                                            },
+                                            {
+                                                "name": "main_level/cmd/COMM_READ_CONT_inst/current_state[2]"
+                                            },
+                                            {
+                                                "name": "main_level/cmd/COMM_READ_CONT_inst/current_state[1]"
+                                            },
+                                            {
+                                                "name": "main_level/cmd/COMM_READ_CONT_inst/current_state[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe1",
+                                "id": 1,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 1,
+                                "nets": [
+                                    {
+                                        "name": "main_level/cmd/COMM_READ_CONT_inst/Rx_Ready",
+                                        "isBus": false,
+                                        "parentNetId": 4
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe2",
+                                "id": 2,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 2,
+                                "nets": [
+                                    {
+                                        "name": "main_level/cmd/Timeout",
+                                        "isBus": false
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "parent_nets": [
+                    {
+                        "id": 4,
+                        "name": "main_level/UART_inst/UART_RX_inst/UART_RX_CONTROLLER_inst/E[0]",
+                        "state_reg": [
+                            {
+                                "name": "main_level/UART_inst/UART_RX_inst/UART_RX_CONTROLLER_inst/FSM_onehot_current_state_reg[3]",
+                                "states": [
+                                    {
+                                        "name": "SAMPLE",
+                                        "val": "0100"
+                                    },
+                                    {
+                                        "name": "COUNT_TO_54",
+                                        "val": "0010"
+                                    },
+                                    {
+                                        "name": "WAIT_FOR_STOP_BIT",
+                                        "val": "1000"
+                                    },
+                                    {
+                                        "name": "IDLE",
+                                        "val": "0001"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
