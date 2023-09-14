@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="full_pipeline_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="full_pipeline_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="38,797.880 ns"></ZoomStartTime>
+      <ZoomEndTime time="39,353.211 ns"></ZoomEndTime>
+      <Cursor1Time time="39,515.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="479"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="38" />
+   <wvobject fp_name="/full_pipeline_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/data_ready" type="logic">
+      <obj_property name="ElementShortName">data_ready</obj_property>
+      <obj_property name="ObjectShortName">data_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/start_cc" type="logic">
+      <obj_property name="ElementShortName">start_cc</obj_property>
+      <obj_property name="ObjectShortName">start_cc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/ram_overflow" type="logic">
+      <obj_property name="ElementShortName">ram_overflow</obj_property>
+      <obj_property name="ObjectShortName">ram_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_y_fft/m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_x_fft/m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/complex_mult_inst/m_axis_dout_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_dout_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_dout_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/complex_mult_inst/m_axis_dout_tready" type="logic">
+      <obj_property name="ElementShortName">m_axis_dout_tready</obj_property>
+      <obj_property name="ObjectShortName">m_axis_dout_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/inverse_fft/m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/Max_Index" type="array">
+      <obj_property name="ElementShortName">Max_Index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Max_Index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/Value_in" type="array">
+      <obj_property name="ElementShortName">Value_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Value_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/Index_in" type="array">
+      <obj_property name="ElementShortName">Index_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Index_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/max_value_next" type="array">
+      <obj_property name="ElementShortName">max_value_next[31:0]</obj_property>
+      <obj_property name="ObjectShortName">max_value_next[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/max_value_reg" type="array">
+      <obj_property name="ElementShortName">max_value_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">max_value_reg[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/argmax/max_index_next" type="array">
+      <obj_property name="ElementShortName">max_index_next[7:0]</obj_property>
+      <obj_property name="ObjectShortName">max_index_next[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/x_ring_buffer/Output_Data" type="array">
+      <obj_property name="ElementShortName">Output_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Output_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Input_Data" type="array">
+      <obj_property name="ElementShortName">Input_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Input_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Input_Data_Ready" type="logic">
+      <obj_property name="ElementShortName">Input_Data_Ready</obj_property>
+      <obj_property name="ObjectShortName">Input_Data_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Send_Frame" type="logic">
+      <obj_property name="ElementShortName">Send_Frame</obj_property>
+      <obj_property name="ObjectShortName">Send_Frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Triggered" type="logic">
+      <obj_property name="ElementShortName">Triggered</obj_property>
+      <obj_property name="ObjectShortName">Triggered</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/RAM_Overflow" type="logic">
+      <obj_property name="ElementShortName">RAM_Overflow</obj_property>
+      <obj_property name="ObjectShortName">RAM_Overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Output_Data" type="array">
+      <obj_property name="ElementShortName">Output_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Output_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/RAM_Write_Address_sel" type="logic">
+      <obj_property name="ElementShortName">RAM_Write_Address_sel</obj_property>
+      <obj_property name="ObjectShortName">RAM_Write_Address_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/Head_Counter_sel" type="logic">
+      <obj_property name="ElementShortName">Head_Counter_sel</obj_property>
+      <obj_property name="ObjectShortName">Head_Counter_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/RAM_Read_Address_sel" type="logic">
+      <obj_property name="ElementShortName">RAM_Read_Address_sel</obj_property>
+      <obj_property name="ObjectShortName">RAM_Read_Address_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/x_ring_buffer/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/wea" type="array">
+      <obj_property name="ElementShortName">wea[0:0]</obj_property>
+      <obj_property name="ObjectShortName">wea[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/y_ring_buffer/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/wea" type="array">
+      <obj_property name="ElementShortName">wea[0:0]</obj_property>
+      <obj_property name="ObjectShortName">wea[0:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/Channel_X_CC_AXI_Master/axi_master_inst/AXI_MASTER_DATAPATH_inst/Output_Data" type="array">
+      <obj_property name="ElementShortName">Output_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Output_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_x_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/Channel_X_CC_AXI_Master/Data_tvalid" type="logic">
+      <obj_property name="ElementShortName">Data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">Data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_x_fft/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_x_fft/s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/channel_x_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/x_data_array" type="array">
+      <obj_property name="ElementShortName">x_data_array[255:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">x_data_array[255:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/full_pipeline_tb/dut/inverse_fft/m_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tlast</obj_property>
+   </wvobject>
+</wave_config>

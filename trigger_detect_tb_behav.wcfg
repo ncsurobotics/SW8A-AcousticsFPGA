@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="trigger_detect_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="trigger_detect_tb" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="485.801029 us"></ZoomStartTime>
+      <ZoomEndTime time="511.239795 us"></ZoomEndTime>
+      <Cursor1Time time="507.000000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="275"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="31" />
+   <wvobject fp_name="/trigger_detect_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/spi_clk" type="logic">
+      <obj_property name="ElementShortName">spi_clk</obj_property>
+      <obj_property name="ObjectShortName">spi_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/data_ready" type="logic">
+      <obj_property name="ElementShortName">data_ready</obj_property>
+      <obj_property name="ObjectShortName">data_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/triggered" type="logic">
+      <obj_property name="ElementShortName">triggered</obj_property>
+      <obj_property name="ObjectShortName">triggered</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/start_cc" type="logic">
+      <obj_property name="ElementShortName">start_cc</obj_property>
+      <obj_property name="ObjectShortName">start_cc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/ram_overflow" type="logic">
+      <obj_property name="ElementShortName">ram_overflow</obj_property>
+      <obj_property name="ObjectShortName">ram_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/ring_buffer_in" type="array">
+      <obj_property name="ElementShortName">ring_buffer_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ring_buffer_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/ring_buffer_to_axi_master" type="array">
+      <obj_property name="ElementShortName">ring_buffer_to_axi_master[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ring_buffer_to_axi_master[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/send_frame" type="logic">
+      <obj_property name="ElementShortName">send_frame</obj_property>
+      <obj_property name="ObjectShortName">send_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/data_array" type="array">
+      <obj_property name="ElementShortName">data_array[0:255][31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_array[0:255][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/fp_out" type="array">
+      <obj_property name="ElementShortName">fp_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fp_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/tb_trigger_fft_tvalid" type="logic">
+      <obj_property name="ElementShortName">tb_trigger_fft_tvalid</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/tb_trigger_fft_tdata" type="array">
+      <obj_property name="ElementShortName">tb_trigger_fft_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/tb_trigger_fft_tlast" type="logic">
+      <obj_property name="ElementShortName">tb_trigger_fft_tlast</obj_property>
+      <obj_property name="ObjectShortName">tb_trigger_fft_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/event_tlast_unexpected" type="logic">
+      <obj_property name="ElementShortName">event_tlast_unexpected</obj_property>
+      <obj_property name="ObjectShortName">event_tlast_unexpected</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/event_tlast_missing" type="logic">
+      <obj_property name="ElementShortName">event_tlast_missing</obj_property>
+      <obj_property name="ObjectShortName">event_tlast_missing</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/ok_to_write" type="logic">
+      <obj_property name="ElementShortName">ok_to_write</obj_property>
+      <obj_property name="ObjectShortName">ok_to_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/event_fft_overflow" type="logic">
+      <obj_property name="ElementShortName">event_fft_overflow</obj_property>
+      <obj_property name="ObjectShortName">event_fft_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/TRIGGER_DETECT_inst/FFT_index" type="array">
+      <obj_property name="ElementShortName">FFT_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">FFT_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/trigger_fft/m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">m_axis_data_tuser[15:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tuser[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/tb_data_into_fft" type="array">
+      <obj_property name="ElementShortName">tb_data_into_fft[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_data_into_fft[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/tb_data_in_valid" type="logic">
+      <obj_property name="ElementShortName">tb_data_in_valid</obj_property>
+      <obj_property name="ObjectShortName">tb_data_in_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/tb_data_into_fft" type="array">
+      <obj_property name="ElementShortName">tb_data_into_fft[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_data_into_fft[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/tb_data_in_valid" type="logic">
+      <obj_property name="ElementShortName">tb_data_in_valid</obj_property>
+      <obj_property name="ObjectShortName">tb_data_in_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/TRIGGER_DETECT_inst/val_to_compare" type="array">
+      <obj_property name="ElementShortName">val_to_compare[15:0]</obj_property>
+      <obj_property name="ObjectShortName">val_to_compare[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trigger_detect_tb/dut/TRIGGER_DETECT_inst/T_DATA" type="array">
+      <obj_property name="ElementShortName">T_DATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">T_DATA[31:0]</obj_property>
+   </wvobject>
+</wave_config>

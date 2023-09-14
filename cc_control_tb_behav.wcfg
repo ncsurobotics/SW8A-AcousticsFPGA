@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="cc_control_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="cc_control_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="182.460 ns"></ZoomStartTime>
+      <ZoomEndTime time="282.728 ns"></ZoomEndTime>
+      <Cursor1Time time="245.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="480"></NameColumnWidth>
+      <ValueColumnWidth column_width="131"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="26" />
+   <wvobject fp_name="/cc_control_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_config_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_config_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_config_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_config_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_config_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_config_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_data_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/send_frame" type="logic">
+      <obj_property name="ElementShortName">send_frame</obj_property>
+      <obj_property name="ObjectShortName">send_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/event_frame_started" type="logic">
+      <obj_property name="ElementShortName">event_frame_started</obj_property>
+      <obj_property name="ObjectShortName">event_frame_started</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/event_tlast_unexpected" type="logic">
+      <obj_property name="ElementShortName">event_tlast_unexpected</obj_property>
+      <obj_property name="ObjectShortName">event_tlast_unexpected</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/event_tlast_missing" type="logic">
+      <obj_property name="ElementShortName">event_tlast_missing</obj_property>
+      <obj_property name="ObjectShortName">event_tlast_missing</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/dut/cc_block_controller_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/dut/axi_master_inst/AXI_MASTER_CONTROLLER_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/dut/axi_master_inst/AXI_MASTER_DATAPATH_inst/SAMPLE_COUNTER/Counter_Value_reg" type="array">
+      <obj_property name="ElementShortName">Counter_Value_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Counter_Value_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/dut/axi_master_inst/AXI_MASTER_CONTROLLER_inst/Fourth_Sample_Ready" type="logic">
+      <obj_property name="ElementShortName">Fourth_Sample_Ready</obj_property>
+      <obj_property name="ObjectShortName">Fourth_Sample_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/dut/axi_master_inst/AXI_MASTER_CONTROLLER_inst/T_READY" type="logic">
+      <obj_property name="ElementShortName">T_READY</obj_property>
+      <obj_property name="ObjectShortName">T_READY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/addra" type="array">
+      <obj_property name="ElementShortName">addra[7:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/dina" type="array">
+      <obj_property name="ElementShortName">dina[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dina[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/start_cc" type="logic">
+      <obj_property name="ElementShortName">start_cc</obj_property>
+      <obj_property name="ObjectShortName">start_cc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ram_overflow" type="logic">
+      <obj_property name="ElementShortName">ram_overflow</obj_property>
+      <obj_property name="ObjectShortName">ram_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/ring_buffer_inst/RING_BUFFER_DATAPATH_inst/RING_BUFFER_RAM_inst/addrb" type="array">
+      <obj_property name="ElementShortName">addrb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/trigger_tdata" type="array">
+      <obj_property name="ElementShortName">trigger_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">trigger_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/trigger_tvalid" type="logic">
+      <obj_property name="ElementShortName">trigger_tvalid</obj_property>
+      <obj_property name="ObjectShortName">trigger_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/send_frame_trigger" type="logic">
+      <obj_property name="ElementShortName">send_frame_trigger</obj_property>
+      <obj_property name="ObjectShortName">send_frame_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cc_control_tb/axi_master_inst/Count_Reached" type="logic">
+      <obj_property name="ElementShortName">Count_Reached</obj_property>
+      <obj_property name="ObjectShortName">Count_Reached</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,1 @@
+// Testbench to verify the adc emulator

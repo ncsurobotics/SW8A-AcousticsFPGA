@@ -6,7 +6,7 @@ import keyboard # pip install keyboard
 
 #port = input("enter port name: ")
 
-ser = serial.Serial('COM4', 115200, timeout = 1) # open serial port
+ser = serial.Serial('/dev/ttyUSB1', 115200, timeout = 1) # open serial port
 print(ser.name)
 
 start_time = time.time()
@@ -28,7 +28,10 @@ while True:
         instruction = b'C'
     elif (check_input in ("4")):
         instruction = b'D'
-
+    elif (check_input in("5")):
+        instruction = 0x71
+    elif (check_input in("6")):
+        intruction = 0xd1
     # Send 'A' to the FPGA to tell it to give you data
     ser.write(instruction)
 
