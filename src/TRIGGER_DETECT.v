@@ -49,7 +49,7 @@ module TRIGGER_DETECT(
     
     // verbose for debug
     wire [15:0] val_to_compare;
-    assign val_to_compare = (T_DATA[15] == 1'b0) ? T_DATA[15:0] : (~(T_DATA[15:0]) + 1);
+    (* mark_debug = "true" *) assign val_to_compare = (T_DATA[15] == 1'b0) ? T_DATA[15:0] : (~(T_DATA[15:0]) + 1); // magnitude of signed 2'sC int
     
     always@(*) begin
         if(FFT_index == 16 || FFT_index == 17 || FFT_index == 18) begin
