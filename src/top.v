@@ -41,14 +41,14 @@ module top(
     );
     
     
-wire SPI_clk, UART_clk_No_Div;
+wire SPI_clk, UART_clk;
 
     
 DATA_clks DATA_clks_inst(
 
     .clk_in1(clk),
     .SPI_clk(SPI_clk),
-    .UART_clk(UART_clk_No_Div)
+    .UART_clk(UART_clk)
 
 ); 
 
@@ -60,7 +60,7 @@ PRIMARY main_level (
     .btnC(btnC),
     .btnU(btnU),
     .SPI_clk(SPI_clk),
-    .UART_clk_No_Div(UART_clk_No_Div),
+    .UART_clk(UART_clk),
     .adc1(adc1),
     .adc2(adc2),
     .adc3(adc3),

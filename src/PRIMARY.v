@@ -2,7 +2,7 @@
 `timescale 1ns / 1ps
 
 module PRIMARY (
-                input clk, btnU,btnC, SPI_clk, UART_clk_No_Div,
+                input clk, btnU,btnC, SPI_clk, UART_clk,
 
                 input adc1,
                 input adc2,
@@ -70,7 +70,7 @@ COMMAND_READER cmd(
 
     .clk(clk),
     .reset_b(reset_b),
-    .slow_clk(UART_clk_No_Div),
+    .slow_clk(UART_clk),
     .Command(rx_data),
     .Rx_Ready(rx_ready),
     .RsTx(RsTx),
@@ -112,14 +112,14 @@ end
 
 
 
-UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
+/*UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
     .UART_clk_in(UART_clk_No_Div),
     .reset_b(reset_b),
     
     .UART_clk_out(UART_clk)    
 
-);               
+);*/               
                     
 RING_BUFFER RING_BUFFER_channel_1_inst(
 
@@ -176,7 +176,7 @@ RING_BUFFER RING_BUFFER_channel_4_inst(
                                   
 CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .clk(clk),
-    .slow_clk(UART_clk_No_Div),
+    .slow_clk(UART_clk),
     .reset_b(reset_b),
     .Trigger(Trigger),
     .CC_Done(CC_Done),
@@ -305,7 +305,7 @@ reg[7:0] OP_Code;
 
 SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .clk(clk),
-    .Slow_clk(UART_clk_No_Div),
+    .Slow_clk(UART_clk),
     .reset_b(reset_b),
     .SPI_Data_1(ADC_Channel_1),
     .SPI_Data_2(ADC_Channel_2),
@@ -327,7 +327,7 @@ UART UART_inst(
 
     .UART_clk(UART_clk),
     .clk(clk),
-    .Slow_clk(UART_clk_No_Div),
+    .Slow_clk(UART_clk),
     .reset_b(reset_b),
 	.TX_Data_in(Word_To_Send),
 	.TX_en(TX_en),

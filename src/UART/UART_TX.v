@@ -15,6 +15,9 @@ module UART_TX (
     output RsTx   // to RS232 peripheral
 );
 
+wire Counter_Reset, Count_Reached;
+wire [3:0] TX_Bit_sel;
+
 // Clock Domain Crossing for TX_en and TX_Data_in
 // Outside TX_en, TX_Data_in --> [100 MHz FF] --> [5.76 MHz FF] --> Controller and Datapath
 reg TX_en_100, TX_en_576;
@@ -28,6 +31,40 @@ always @ (posedge UART_clk) begin
     TX_Data_in_576 <= TX_Data_in_100;
 end
 
-// Clock Domain Crossing for TX_
+// Clock Domain Crossing for TX_Ready
+// Controller and Datapath --> [5.76 MHz FF] --> [100 MHz FF] --> TX_Ready
+wire TX_Ready_Controller;
+reg TX_Ready_576;
+always @ (posedge UART_clk) begin
+    TX_Ready_576 <= TX_Ready_Controller;
+end
+always @ (posedge clk) begin
+    TX_Ready <= TX_Ready_576;
+end
+
+
+UART_TX_DATAPATH UART_TX_DATAPATH_inst(
+    .UART_clk(UART_clk),
+    .reset_b(reset_b),
+    .TX_en(TX_en_576),
+    .Word_To_Send(TX_Data_in_576),
+    .TX_Ready(TX_Ready_Controller),
+    .Counter_Reset(Counter_Reset),
+    .TX_Bit_sel(TX_Bit_sel),
+
+    .Count_Reached(Count_Reached),
+    .RsTx(RsTx)
+);
+
+UART_TX_CONTROLLER UART_TX_CONTROLLER_inst(
+    .UART_clk(UART_clk),
+    .reset_b(reset_b),
+    .TX_en(TX_en_576),
+    .Count_Reached(Count_Reached),
+
+    .TX_Ready(TX_Ready_Controller),
+    .Counter_Reset(Counter_Reset),
+    .TX_Bit_sel(TX_Bit_sel)
+);
 
 endmodule
