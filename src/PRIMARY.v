@@ -27,7 +27,7 @@ module PRIMARY (
 
 
 
-wire UART_clk;
+//wire UART_clk;
 
 // peripherals
 wire reset_button_out;
