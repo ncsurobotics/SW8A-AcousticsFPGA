@@ -133,7 +133,8 @@ xfft_cc channel_x_fft (
   .m_axis_data_tuser(           x_m_axis_data_tuser),                      // output wire [15 : 0] m_axis_data_tuser
   .m_axis_data_tvalid(          x_m_axis_data_tvalid),                    // output wire m_axis_data_tvalid
   .m_axis_data_tready(          x_m_axis_data_tready),                    // input wire m_axis_data_tready
-  .m_axis_data_tlast(           x_m_axis_data_tlast)                      // output wire m_axis_data_tlast
+  .m_axis_data_tlast(           x_m_axis_data_tlast),                      // output wire m_axis_data_tlast
+  .m_axis_status_tready(        1'b1)                                     // Unused status channel
 );
 
 xfft_cc channel_y_fft (
@@ -152,7 +153,8 @@ xfft_cc channel_y_fft (
   .m_axis_data_tuser(           y_m_axis_data_tuser),                      // output wire [15 : 0] m_axis_data_tuser
   .m_axis_data_tvalid(          y_m_axis_data_tvalid),                    // output wire m_axis_data_tvalid
   .m_axis_data_tready(          y_m_axis_data_tready),                    // input wire m_axis_data_tready
-  .m_axis_data_tlast(           y_m_axis_data_tlast)                      // output wire m_axis_data_tlast
+  .m_axis_data_tlast(           y_m_axis_data_tlast),                      // output wire m_axis_data_tlast
+  .m_axis_status_tready(                       1'b1)                      // Unused status channel
 );
 
 
@@ -198,7 +200,8 @@ xfft_256pt_64bit inverse_fft (
   .m_axis_data_tuser(           ifft_m_axis_data_tuser),                      // output wire [15 : 0] m_axis_data_tuser
   .m_axis_data_tvalid(          ifft_m_axis_data_tvalid),                    // output wire m_axis_data_tvalid
   .m_axis_data_tready(                            1'b1),                    // input wire m_axis_data_tready
-  .m_axis_data_tlast(           ifft_m_axis_data_tlast)                      // output wire m_axis_data_tlast
+  .m_axis_data_tlast(           ifft_m_axis_data_tlast),                      // output wire m_axis_data_tlast
+  .m_axis_status_tready(                          1'b1)                     // Unused status channel
 );
 
 // ARGMAX --------------------------------------------------------------------------------------------------------
