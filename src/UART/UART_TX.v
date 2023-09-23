@@ -10,9 +10,9 @@ module UART_TX (
     input TX_en, // all inputs are from outside modules running at 100 MHz
     input [7:0] TX_Data_in,
 
-    output TX_Ready,    // changes slowly; it's the outside module's responsibility 
+    output reg TX_Ready,    // changes slowly; it's the outside module's responsibility 
                         // to check whether Ready has gone high before it goes low
-    output RsTx   // to RS232 peripheral
+    output TX_Data_out   // to RS232 peripheral
 );
 
 wire Counter_Reset, Count_Reached;
@@ -44,7 +44,7 @@ end
 
 
 UART_TX_DATAPATH UART_TX_DATAPATH_inst(
-    .UART_clk(UART_clk),
+    .clk(UART_clk),
     .reset_b(reset_b),
     .TX_en(TX_en_576),
     .Word_To_Send(TX_Data_in_576),
@@ -53,11 +53,11 @@ UART_TX_DATAPATH UART_TX_DATAPATH_inst(
     .TX_Bit_sel(TX_Bit_sel),
 
     .Count_Reached(Count_Reached),
-    .RsTx(RsTx)
+    .TX_Data_out(TX_Data_out)
 );
 
 UART_TX_CONTROLLER UART_TX_CONTROLLER_inst(
-    .UART_clk(UART_clk),
+    .clk(UART_clk),
     .reset_b(reset_b),
     .TX_en(TX_en_576),
     .Count_Reached(Count_Reached),

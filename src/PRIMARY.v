@@ -2,7 +2,7 @@
 `timescale 1ns / 1ps
 
 module PRIMARY (
-                input clk, btnU,btnC, SPI_clk, UART_clk,
+                input clk, btnU, btnC, SPI_clk, UART_clk,
 
                 input adc1,
                 input adc2,
@@ -327,11 +327,10 @@ UART UART_inst(
 
     .UART_clk(UART_clk),
     .clk(clk),
-    .Slow_clk(UART_clk),
     .reset_b(reset_b),
 	.TX_Data_in(Word_To_Send),
 	.TX_en(TX_en),
-	.TX_Write_en(TX_Write_en),
+	//.TX_Write_en(TX_Write_en),
 	.RX_Data_in(RsRx),
 				
 	.TX_Data_out(RsTx),

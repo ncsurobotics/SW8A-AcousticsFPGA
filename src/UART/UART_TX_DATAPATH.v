@@ -2,7 +2,7 @@
 // This is the new UART TX Datapath made to eliminate the slow UART "clock" which was causing timing issues.
 
 module UART_TX_DATAPATH (
-    input UART_clk, // 5.76 MHz
+    input clk, // 5.76 MHz
     input reset_b, // async
 
     input TX_en,                // TX_en and W2S are from outside modules
@@ -13,20 +13,27 @@ module UART_TX_DATAPATH (
     input [3:0] TX_Bit_sel,     
 
     output Count_Reached,       // to TX_CONTROLLER -- counter counts the time to send 1 bit
-    output RsTx                 // RsTx -- directly to the FPGA's RS232 peripheral
+    output TX_Data_out                 // TX_Data_out -- directly to the FPGA's RS232 peripheral
 );
 
-// Word To Send + Start Bit + Stop Bit --> RsTx
+// Word To Send + Start Bit + Stop Bit --> TX_Data_out
+integer i;
 reg [9:0] tx_bits_register;
 always @ (posedge clk or negedge reset_b) begin
     if (!reset_b) tx_bits_register <= 10'b0;
     else begin
-        if (TX_en & TX_Ready) tx_bits_register <= {1'b0, Word_To_Send[0:7], 1'b1}; // start bit + data, LSB --> MSB + stop bit
+        if (TX_en & TX_Ready) begin // start bit + data, LSB --> MSB + stop bit
+            tx_bits_register[9] <= 1'b0;
+            tx_bits_register[0] <= 1'b1;
+            for (i=8; i>0; i=i-1) begin
+                tx_bits_register[i] <= Word_To_Send[8-i];
+            end
+        end 
         else tx_bits_register <= tx_bits_register;
     end
 end
 
-assign RsTx = tx_bits_register[TX_Bit_sel];
+assign TX_Data_out = tx_bits_register[TX_Bit_sel];
 
 // Counter -- counts from 0 to 49 -- 6 bits
 // 49 = 50-1 where 50 = 5.76 MHz / 115200

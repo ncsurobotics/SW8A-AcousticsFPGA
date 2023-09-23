@@ -2,7 +2,7 @@
 // This is the new UART TX Controller made to eliminate the slow UART "clock" which was causing timing issues
 
 module UART_TX_CONTROLLER(
-    input UART_clk, // 5.76 MHz
+    input clk, // 5.76 MHz
     input reset_b, // Active low
 
     input TX_en, Count_Reached,
@@ -28,7 +28,7 @@ module UART_TX_CONTROLLER(
     
     reg [3:0] current_state, next_state;
 
-    always @(posedge UART_clk) begin
+    always @(posedge clk) begin
         if(!reset_b) begin
             current_state <= IDLE;
         end
