@@ -38,8 +38,11 @@ module UART_tb;
     );
 
     initial begin
-        #50 reset_b = 1'b1;
-        #50 TX_Data_in <= 8'b01000001;
+        #5000 reset_b = 1'b0;
+        #5000 
+            reset_b = 1'b1;
+        #20
+            TX_Data_in <= 8'b01000001;
             TX_en <= 1'b1;
         while (TX_Ready) @ (posedge clk);
         TX_en <= 1'b0;

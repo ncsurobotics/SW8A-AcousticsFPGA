@@ -46,7 +46,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
         .TX_en(TX_en), // all inputs are from outside modules running at 100 MHz
         .TX_Data_in(TX_Data_in),
 
-        .TX_Ready(TX_Ready),
+        .TX_Ready(TX_Ready_To_Send),
         .TX_Data_out(TX_Data_out)
     );
 

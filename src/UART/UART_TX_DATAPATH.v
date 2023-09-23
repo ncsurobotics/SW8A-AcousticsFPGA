@@ -20,14 +20,15 @@ module UART_TX_DATAPATH (
 integer i;
 reg [9:0] tx_bits_register;
 always @ (posedge clk or negedge reset_b) begin
-    if (!reset_b) tx_bits_register <= 10'b0;
+    if (!reset_b) tx_bits_register <= 10'b11_1111_1111;
     else begin
         if (TX_en & TX_Ready) begin // start bit + data, LSB --> MSB + stop bit
-            tx_bits_register[9] <= 1'b0;
-            tx_bits_register[0] <= 1'b1;
-            for (i=8; i>0; i=i-1) begin
-                tx_bits_register[i] <= Word_To_Send[8-i];
-            end
+            //tx_bits_register[9] <= 1'b0;
+            //tx_bits_register[0] <= 1'b1;
+            //for (i=8; i>0; i=i-1) begin
+            //    tx_bits_register[i] <= Word_To_Send[8-i];
+            //end
+            tx_bits_register <= {1'b1, Word_To_Send[7:0], 1'b0};
         end 
         else tx_bits_register <= tx_bits_register;
     end
