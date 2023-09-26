@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="80.557310 us"></ZoomStartTime>
-      <ZoomEndTime time="108.117311 us"></ZoomEndTime>
-      <Cursor1Time time="93.697310 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="7.160001 us"></ZoomEndTime>
+      <Cursor1Time time="10.205000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="150"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="15" />
    <wvobject fp_name="/UART_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -56,13 +56,13 @@
       <obj_property name="ElementShortName">RX_Ready</obj_property>
       <obj_property name="ObjectShortName">RX_Ready</obj_property>
    </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Ready_576" type="logic">
-      <obj_property name="ElementShortName">TX_Ready_576</obj_property>
-      <obj_property name="ObjectShortName">TX_Ready_576</obj_property>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_en_100" type="logic">
+      <obj_property name="ElementShortName">TX_en_100</obj_property>
+      <obj_property name="ObjectShortName">TX_en_100</obj_property>
    </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Ready_Controller" type="logic">
-      <obj_property name="ElementShortName">TX_Ready_Controller</obj_property>
-      <obj_property name="ObjectShortName">TX_Ready_Controller</obj_property>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_en_576" type="logic">
+      <obj_property name="ElementShortName">TX_en_576</obj_property>
+      <obj_property name="ObjectShortName">TX_en_576</obj_property>
    </wvobject>
    <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Data_in_576" type="array">
       <obj_property name="ElementShortName">TX_Data_in_576[7:0]</obj_property>
@@ -72,20 +72,12 @@
       <obj_property name="ElementShortName">TX_Data_in_100[7:0]</obj_property>
       <obj_property name="ObjectShortName">TX_Data_in_100[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_en_100" type="logic">
-      <obj_property name="ElementShortName">TX_en_100</obj_property>
-      <obj_property name="ObjectShortName">TX_en_100</obj_property>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Ready_Controller" type="logic">
+      <obj_property name="ElementShortName">TX_Ready_Controller</obj_property>
+      <obj_property name="ObjectShortName">TX_Ready_Controller</obj_property>
    </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_en_576" type="logic">
-      <obj_property name="ElementShortName">TX_en_576</obj_property>
-      <obj_property name="ObjectShortName">TX_en_576</obj_property>
-   </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/UART_TX_CONTROLLER_inst/current_state" type="array">
-      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/UART_TX_CONTROLLER_inst/next_state" type="array">
-      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Ready_576" type="logic">
+      <obj_property name="ElementShortName">TX_Ready_576</obj_property>
+      <obj_property name="ObjectShortName">TX_Ready_576</obj_property>
    </wvobject>
 </wave_config>
