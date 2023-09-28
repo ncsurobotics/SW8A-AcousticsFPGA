@@ -94,18 +94,23 @@ module COMMAND_READER_DATA_PATH(
     );
     
     // CDC for timer_sel
+    (* ASYNC_REG = "TRUE" *)reg [1:0] timer_sel_100;
+    always @ (posedge clk) timer_sel_100 <= Timer_sel;
+
     integer i;
     (* ASYNC_REG = "TRUE" *) reg [1:0] timer_sel_sync [0:3];
     always @ (posedge slow_clk) begin
         for (i=3; i>0; i=i-1) timer_sel_sync[i] <= timer_sel_sync[i-1];
-        timer_sel_sync[0] <= Timer_sel;
+        timer_sel_sync[0] <= timer_sel_100;
     end
-    
+
     GENERAL_COUNTER  #(.COUNT_VAL(23040000), . COUNT_BIT_WIDTH(25)) Timer (
         .clk(slow_clk),
         .reset_b(reset_b),
         .Count_sel(timer_sel_sync[3]),
         .Count_Reached(timeout_int) // timeout internal --> CDC
     );
+
+
 
 endmodule
