@@ -38,7 +38,7 @@ module UART_tb;
     );
 
     initial begin
-        #5000 reset_b = 1'b0;
+        reset_b = 1'b0;
         #5000 
             reset_b = 1'b1;
         #20

@@ -3,3 +3,13 @@ set_false_path -setup -rise -reset_path -from [get_clocks sys_clk_pin] -to [get_
 set_false_path -setup -rise -reset_path -from [get_clocks -of_objects [get_pins DATA_clks_inst/inst/mmcm_adv_inst/CLKOUT1]] -to [get_clocks sys_clk_pin]
 set_false_path -hold -rise -reset_path -from [get_clocks -of_objects [get_pins DATA_clks_inst/inst/mmcm_adv_inst/CLKOUT1]] -to [get_clocks sys_clk_pin]
 set_false_path -hold -rise -reset_path -from [get_clocks sys_clk_pin] -to [get_clocks -of_objects [get_pins DATA_clks_inst/inst/mmcm_adv_inst/CLKOUT1]]
+
+set_false_path -to [get_pins main_level/UART_inst/UART_TX_inst/TX_en_576_reg/D]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[0]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[1]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[2]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[3]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[4]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[5]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[6]/D}]
+set_false_path -to [get_pins {main_level/UART_inst/UART_TX_inst/TX_Data_in_576_reg[7]/D}]

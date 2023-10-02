@@ -10,48 +10,45 @@ module UART_TX (
     input TX_en, // all inputs are from outside modules running at 100 MHz
     input [7:0] TX_Data_in,
 
-    output reg TX_Ready,    // changes slowly; it's the outside module's responsibility 
+    output TX_Ready,    // changes slowly; it's the outside module's responsibility 
                         // to check whether Ready has gone high before it goes low
     output TX_Data_out   // to RS232 peripheral
 );
 
 wire Counter_Reset, Count_Reached;
 wire [3:0] TX_Bit_sel;
+wire [7:0] TX_Data_in_576;
+wire empty, data_valid;
+wire wr_reset_busy, rd_reset_busy, reset_busy;
 
-// Clock Domain Crossing for TX_en and TX_Data_in
-// Outside TX_en, TX_Data_in --> [100 MHz FF] --> [5.76 MHz FF] --> Controller and Datapath
+assign TX_Ready = reset_busy ? ~full : 1'b0;
+assign reset_busy = !reset_b | wr_reset_busy | rd_reset_busy;
 
-reg TX_en_100, TX_en_576;
-(* ASYNC_REG = "TRUE" *) reg [7:0]TX_Data_in_576;
-reg [7:0] TX_Data_in_100;
+// Clock Domain Crossing for TX_Data_in
+XPM_FIFO_ASYNC #(
+    .FIFO_WRITE_DEPTH(5'd16), .READ_DATA_WIDTH(4'd8), .WRITE_DATA_WIDTH(4'd8)
+) MASTER_TO_UART(
+    .din(TX_Data_in),
+    .rst(reset_b),
+    .wr_clk(clk),
+    .wr_en(TX_en),
+    .rd_clk(UART_clk),
+    .rd_en(read_en),
+    .wr_reset_busy(wr_reset_busy),
+    .rd_reset_busy(rd_reset_busy),
 
-always @ (posedge clk) begin
-    TX_en_100 <= TX_en;
-    TX_Data_in_100 <= TX_Data_in;
-end
-always @ (posedge UART_clk) begin
-    TX_en_576 <= TX_en_100;
-    TX_Data_in_576 <= TX_Data_in_100;
-end
-
-// Clock Domain Crossing for TX_Ready
-// Controller and Datapath --> [5.76 MHz FF] --> [100 MHz FF] --> TX_Ready
-wire TX_Ready_Controller;
-(* ASYNC_REG = "TRUE" *) reg TX_Ready_576;
-always @ (posedge UART_clk) begin
-    TX_Ready_576 <= TX_Ready_Controller;
-end
-always @ (posedge clk) begin
-    TX_Ready <= TX_Ready_576;
-end
+    .dout(TX_Data_in_576),
+    .full(full),
+    .empty(empty),
+    .data_valid(data_valid)
+);
 
 
 UART_TX_DATAPATH UART_TX_DATAPATH_inst(
     .clk(UART_clk),
     .reset_b(reset_b),
-    .TX_en(TX_en_576),
+    .data_valid(data_valid),
     .Word_To_Send(TX_Data_in_576),
-    .TX_Ready(TX_Ready_Controller),
     .Counter_Reset(Counter_Reset),
     .TX_Bit_sel(TX_Bit_sel),
 
@@ -62,12 +59,13 @@ UART_TX_DATAPATH UART_TX_DATAPATH_inst(
 UART_TX_CONTROLLER UART_TX_CONTROLLER_inst(
     .clk(UART_clk),
     .reset_b(reset_b),
-    .TX_en(TX_en_576),
+    .data_valid(data_valid),
     .Count_Reached(Count_Reached),
+    .empty(empty),
 
-    .TX_Ready(TX_Ready_Controller),
     .Counter_Reset(Counter_Reset),
-    .TX_Bit_sel(TX_Bit_sel)
+    .TX_Bit_sel(TX_Bit_sel),
+    .read_en(read_en)
 );
 
 endmodule
