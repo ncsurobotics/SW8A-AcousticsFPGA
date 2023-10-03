@@ -5,11 +5,12 @@ module UART_TX_CONTROLLER(
     input clk, // 5.76 MHz
     input reset_b, // Active low
 
-    input data_valid, Count_Reached, empty,
+    input Count_Reached, empty,
 
     output reg Counter_Reset, // When IDLE, tell the clock counter in the Datapath to reset
     output reg [3:0] TX_Bit_sel, // Outputs a value 0-9 to the Datapath as the select line to a MUX
-    output reg read_en
+    output reg read_en,
+    output reg Data_In_sel // to DP -- capture FIFO output
 );
 
     // The States of the State Machine
@@ -46,37 +47,44 @@ module UART_TX_CONTROLLER(
                 Counter_Reset <= 1'b1;
                 TX_Bit_sel <= 4'd9;
                 read_en <= 1'b0;
-                next_state <= !empty ? START:IDLE;
+                Data_In_sel <= 1'b0;
+                next_state <= !empty ? READ_EN:IDLE;
             end
             READ_EN: begin
                 Counter_Reset <= 1'b1;
                 TX_Bit_sel <= 4'd9;
                 read_en <=1'b1;
+                Data_In_sel <= 1'b0;
                 next_state <= WAIT;
             end
             WAIT: begin
                 Counter_Reset <= 1'b1;
                 TX_Bit_sel <= 4'd9;
                 read_en <=1'b0;
-                next_state <= data_valid ? START:WAIT;
+                Data_In_sel <= 1'b1;
+                //next_state <= data_valid ? START:WAIT;
+                next_state <= START; // don't know why, but data_valid is never going high
             end
             // Lets the outside world know that TX is not ready to receive a new Word and lets the counter know to start counting. Each state below selects which bit of the Word the Datapath will output.
             START: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd0;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D0:START;
             end
             D0: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd1;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D1:D0;
             end
             D1: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd2;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D2:D1;
             end
             D2: begin
@@ -89,36 +97,42 @@ module UART_TX_CONTROLLER(
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd4;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D4:D3;
             end
             D4: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd5;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D5:D4;
             end
             D5: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd6;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D6:D5;
             end
             D6: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd7;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D7:D6;
             end
             D7: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd8;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? STOP:D7;
             end
             STOP: begin
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd9;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? IDLE:STOP;
             end
             // If we end up in this state something went horribly wrong, we want to let the outside world know we are NOT ready to receive a new word, reset the counter, and return to IDLE as soon as possible.
@@ -126,6 +140,7 @@ module UART_TX_CONTROLLER(
                 Counter_Reset <= 1'b1;
                 TX_Bit_sel <= 4'd9;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= IDLE;
             end
         endcase

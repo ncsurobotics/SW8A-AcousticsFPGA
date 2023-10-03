@@ -5,7 +5,7 @@ module UART_TX_DATAPATH (
     input clk, // 5.76 MHz
     input reset_b, // async
 
-    input data_valid,            
+    input Data_In_sel,            
     input [7:0] Word_To_Send,   // but CDC is handled in UART_TX.v
 
     input Counter_Reset,        
@@ -21,7 +21,7 @@ reg [9:0] tx_bits_register;
 always @ (posedge clk or negedge reset_b) begin
     if (!reset_b) tx_bits_register <= 10'b11_1111_1111;
     else begin
-        if (data_valid) begin // start bit + data, LSB --> MSB + stop bit
+        if (Data_In_sel) begin // start bit + data, LSB --> MSB + stop bit
             //tx_bits_register[9] <= 1'b0;
             //tx_bits_register[0] <= 1'b1;
             //for (i=8; i>0; i=i-1) begin

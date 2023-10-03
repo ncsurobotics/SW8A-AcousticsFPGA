@@ -38,14 +38,14 @@ module UART_tb;
     );
 
     initial begin
-        reset_b = 1'b0;
-        #5000 
-            reset_b = 1'b1;
-        #20
-            TX_Data_in <= 8'b01000001;
+        @ (posedge UART_clk)
+        @ (posedge clk) reset_b = 1'b0;
+        repeat (10) @ (posedge clk);
+        reset_b = 1'b1;
+        while (!TX_Ready) @ (posedge clk);
+        @ (posedge clk) TX_Data_in <= 8'b01000001;
             TX_en <= 1'b1;
-        while (TX_Ready) @ (posedge clk);
-        TX_en <= 1'b0;
+        @ (posedge clk) TX_en <= 1'b0;
         #10
         while (!RX_Ready) @ (posedge clk);
         $display("TX in: 0x%h  RX out: 0x%h", TX_Data_in, RX_Data_out);

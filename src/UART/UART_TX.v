@@ -18,36 +18,37 @@ module UART_TX (
 wire Counter_Reset, Count_Reached;
 wire [3:0] TX_Bit_sel;
 wire [7:0] TX_Data_in_576;
-wire empty, data_valid;
-wire wr_reset_busy, rd_reset_busy, reset_busy;
+wire empty, data_in_sel;
+wire wr_rst_busy, rd_rst_busy, rst_busy;
 
-assign TX_Ready = reset_busy ? ~full : 1'b0;
-assign reset_busy = !reset_b | wr_reset_busy | rd_reset_busy;
+assign TX_Ready = rst_busy ? 1'b0 : ~full;
+assign rst_busy = !reset_b | wr_rst_busy | rd_rst_busy;
 
 // Clock Domain Crossing for TX_Data_in
-XPM_FIFO_ASYNC #(
+xpm_fifo_async #(
     .FIFO_WRITE_DEPTH(5'd16), .READ_DATA_WIDTH(4'd8), .WRITE_DATA_WIDTH(4'd8)
 ) MASTER_TO_UART(
     .din(TX_Data_in),
-    .rst(reset_b),
+    .rst(~reset_b), // FIFO has an active high reset
     .wr_clk(clk),
-    .wr_en(TX_en),
+    .wr_en(TX_en & ~rst_busy),
     .rd_clk(UART_clk),
     .rd_en(read_en),
-    .wr_reset_busy(wr_reset_busy),
-    .rd_reset_busy(rd_reset_busy),
+    .wr_rst_busy(wr_rst_busy),
+    .rd_rst_busy(rd_rst_busy),
 
     .dout(TX_Data_in_576),
     .full(full),
-    .empty(empty),
-    .data_valid(data_valid)
+    .empty(empty)
+    //.data_valid(data_valid)
 );
 
 
 UART_TX_DATAPATH UART_TX_DATAPATH_inst(
     .clk(UART_clk),
     .reset_b(reset_b),
-    .data_valid(data_valid),
+    //.data_valid(data_valid),
+    .Data_In_sel(data_in_sel),
     .Word_To_Send(TX_Data_in_576),
     .Counter_Reset(Counter_Reset),
     .TX_Bit_sel(TX_Bit_sel),
@@ -59,11 +60,12 @@ UART_TX_DATAPATH UART_TX_DATAPATH_inst(
 UART_TX_CONTROLLER UART_TX_CONTROLLER_inst(
     .clk(UART_clk),
     .reset_b(reset_b),
-    .data_valid(data_valid),
+    //.data_valid(data_valid),
     .Count_Reached(Count_Reached),
     .empty(empty),
 
     .Counter_Reset(Counter_Reset),
+    .Data_In_sel(data_in_sel),
     .TX_Bit_sel(TX_Bit_sel),
     .read_en(read_en)
 );

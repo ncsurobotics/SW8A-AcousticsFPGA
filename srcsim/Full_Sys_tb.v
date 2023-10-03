@@ -24,8 +24,9 @@ module Full_Sys_tb;
 
 
 reg clk = 1'b0;
-reg spi_clk = 1'b0;
-reg uart_clk_no_div = 1'b0;
+//reg spi_clk = 1'b0;
+//reg uart_clk_no_div = 1'b0;
+wire SPI_clk, UART_clk;
 reg adc1, adc2;
 
 reg [9:0] x_data_array [255:0];
@@ -92,7 +93,7 @@ end
 
 // Clocks
 always #5 clk = ~clk;
-integer spi_ctr = 0;
+/*integer spi_ctr = 0;
 integer uart_ctr = 0;
 
 always @ (posedge clk) begin
@@ -109,7 +110,14 @@ always @ (posedge clk) begin
         uart_clk_no_div = ~uart_clk_no_div;
     end
     else uart_ctr = uart_ctr + 1;
-end
+end */
+
+DATA_clks DATA_clks_inst(
+        .clk_in1(clk),
+        .SPI_clk(SPI_clk),
+        .UART_clk(UART_clk)
+);
+
 
 integer fp_trig_out;
 reg ok_to_write = 1'b0;
@@ -123,7 +131,8 @@ always @ (posedge clk) begin
 end
 
 
-UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
+
+/* old UART stuff --> UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
     .UART_clk_in(uart_clk_no_div),
     .reset_b(reset_b),
     
@@ -144,6 +153,20 @@ UART #(.WORD_SIZE(8), .WORD_SIZE_WIDTH(4)) uart (
     .TX_Ready_To_Send(tb_tx_r2s),
     .RX_Data_out(tb_word_received),
     .RX_Data_Ready(tb_rx_data_ready)
+);*/
+
+UART UART_inst(	
+    .UART_clk(UART_clk),
+    .clk(clk),
+    .reset_b(reset_b),
+	.TX_Data_in(tb_word_to_send),
+	.TX_en(tb_tx_en),
+	.RX_Data_in(RsTx),
+				
+	.TX_Data_out(RsRx),
+	.TX_Ready_To_Send(tb_tx_r2s),
+	.RX_Data_out(tb_word_received),
+	.RX_Data_Ready(tb_rx_data_ready)
 );
 
 PRIMARY dut(
@@ -152,7 +175,7 @@ PRIMARY dut(
     .btnU(1'b0),
     .btnC(1'b0),
     .SPI_clk(spi_clk),
-    .UART_clk_No_Div(uart_clk_no_div),
+    .UART_clk(UART_clk),
     .adc1(adc1),
     .adc2(adc2),
     .cs1(cs),
@@ -171,7 +194,7 @@ initial begin
     $readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/cc_datasets/trigger_rshift.data", y_data_array);
     $readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/cc_datasets/trigger.data", x_data_array);
     fp_trig_out = $fopen("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/trig_out.txt");
-    #100 drive_uart_tx(8'h41);
+    #100 @(posedge UART_clk) drive_uart_tx(8'hD0); // trig det: 0xD0, max val ch1: 0x41
 
     //#276500 ok_to_write = 1'b1;
     //@ (negedge tb_trigger_fft_tlast) ok_to_write = 1'b0;

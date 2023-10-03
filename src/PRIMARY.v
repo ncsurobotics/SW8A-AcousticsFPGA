@@ -319,7 +319,7 @@ SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
 
 
 assign TX_en = Cmd_Reader_TX_en | CC_TX_en;
-assign TX_Write_en = Cmd_Reader_TX_Write_en | CC_TX_Write_en;
+//assign TX_Write_en = Cmd_Reader_TX_Write_en | CC_TX_Write_en;
 
 assign Word_To_Send = (Cmd_Reader_TX_Write_en) ? Cmd_Reader_Word_To_Send : CC_Block_Word_To_Send;
 
