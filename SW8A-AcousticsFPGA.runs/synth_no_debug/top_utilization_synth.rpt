@@ -1,8 +1,13 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+<<<<<<< HEAD
 | Date         : Wed Sep 27 20:48:32 2023
 | Host         : DESKTOP-SE3SLHH running 64-bit major release  (build 9200)
+=======
+| Date         : Wed Sep 27 20:08:51 2023
+| Host         : DESKTOP-6KV2NE2 running 64-bit major release  (build 9200)
+>>>>>>> 8a2dd0e21909eee2f711505d3c4d84d141833ac5
 | Command      : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
 | Design       : top
 | Device       : xc7a35tcpg236-1
@@ -31,13 +36,13 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                |  585 |     0 |          0 |     20800 |  2.81 |
-|   LUT as Logic             |  518 |     0 |          0 |     20800 |  2.49 |
+| Slice LUTs*                |  565 |     0 |          0 |     20800 |  2.72 |
+|   LUT as Logic             |  498 |     0 |          0 |     20800 |  2.39 |
 |   LUT as Memory            |   67 |     0 |          0 |      9600 |  0.70 |
 |     LUT as Distributed RAM |    0 |     0 |            |           |       |
 |     LUT as Shift Register  |   67 |     0 |            |           |       |
-| Slice Registers            |  773 |     0 |          0 |     41600 |  1.86 |
-|   Register as Flip Flop    |  773 |     0 |          0 |     41600 |  1.86 |
+| Slice Registers            |  788 |     0 |          0 |     41600 |  1.89 |
+|   Register as Flip Flop    |  788 |     0 |          0 |     41600 |  1.89 |
 |   Register as Latch        |    0 |     0 |          0 |     41600 |  0.00 |
 | F7 Muxes                   |    0 |     0 |          0 |     16300 |  0.00 |
 | F8 Muxes                   |    0 |     0 |          0 |      8150 |  0.00 |
@@ -61,7 +66,7 @@ Warning! LUT value is adjusted to account for LUT combining.
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
-| 773   |          Yes |       Reset |            - |
+| 788   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -155,7 +160,7 @@ Warning! LUT value is adjusted to account for LUT combining.
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  773 |        Flop & Latch |
+| FDRE     |  788 |        Flop & Latch |
 | LUT4     |  170 |                 LUT |
 | LUT6     |  148 |                 LUT |
 | LUT3     |  114 |                 LUT |
