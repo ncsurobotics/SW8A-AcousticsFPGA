@@ -104,11 +104,12 @@ module COMMAND_READER_DATA_PATH(
         timer_sel_sync[0] <= timer_sel_100;
     end
 
+    // 4 second timer to get out of trigger_detect state -- 23040000 / 5760000 = 4
     GENERAL_COUNTER  #(.COUNT_VAL(23040000), . COUNT_BIT_WIDTH(25)) Timer (
         .clk(slow_clk),
         .reset_b(reset_b),
         .Count_sel(timer_sel_sync[3]),
-        .Count_Reached(timeout_int) // timeout internal --> CDC
+        .Count_Reached(timeout_int) // timeout internal --> CDC 
     );
 
 

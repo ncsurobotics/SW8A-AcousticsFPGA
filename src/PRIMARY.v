@@ -177,6 +177,7 @@ RING_BUFFER RING_BUFFER_channel_4_inst(
 CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .clk(clk),
     .slow_clk(UART_clk),
+    .SPI_clk(SPI_clk),
     .reset_b(reset_b),
     .Trigger(Trigger),
     .CC_Done(CC_Done),
@@ -301,9 +302,10 @@ SPI Channel_4_SPI (
 
 wire[2:0] Max_Value_Channel_sel;
 wire[9:0] Max_Value;
+assign Max_Value = 10'b0;
 reg[7:0] OP_Code;
 
-SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
+/* SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .clk(clk),
     .Slow_clk(UART_clk),
     .reset_b(reset_b),
@@ -314,7 +316,7 @@ SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .Max_Value_Channel_sel(Max_Value_Channel_sel),
 
     .Max_Value(Max_Value)
-);
+); */
 
 
 

@@ -3,7 +3,8 @@
 
 module CC_PIPELINE_CONTROLLER (
     input clk,
-    input slow_clk, // uart clk no div
+    input slow_clk, // UART_clk -- 5.76 MHz
+    input SPI_clk, // solely for SPI_en CDC
     input reset_b,
     input Trigger,
     input CC_Done,
@@ -15,7 +16,7 @@ module CC_PIPELINE_CONTROLLER (
     output reg Start_CC, // for CC Block
     output reg TX_en,
     output reg TX_Write_en,
-    output reg SPI_en // disable the SPI after triggering
+    output SPI_en // disable the SPI after triggering
 );
 
 reg [2:0] current_state, next_state;
@@ -24,6 +25,7 @@ reg [2:0] current_state, next_state;
 // wires to/from internal General Counter 
 wire post_cc_timeout;
 reg [1:0] count_sel;
+reg spi_en_int; // spi_en_internal; 100 MHz combinational logic
 
 localparam [2:0]
     IDLE = 3'b000,
@@ -58,7 +60,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
             TX_Write_en             = 1'b0;
-            SPI_en                  = 1'b1;
+            spi_en_int                  = 1'b1;
             //max_index_next          = 8'b0;
             count_sel               = ZERO;
             if (Trigger) next_state <= TRIGGERED;
@@ -69,7 +71,7 @@ always @ (*) begin
             Start_CC                = 1'b1;
             TX_en                   = 1'b0;
             TX_Write_en             = 1'b0;
-            SPI_en                  = 1'b0;
+            spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
 
@@ -80,7 +82,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
             TX_Write_en             = 1'b0;
-            SPI_en                  = 1'b0;
+            spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
 
@@ -103,7 +105,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
             TX_Write_en             = 1'b0;
-            SPI_en                  = 1'b0;
+            spi_en_int                  = 1'b0;
             //max_index_next          = max_index_reg;
             count_sel = ZERO;
 
@@ -115,7 +117,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b1;
             TX_Write_en             = 1'b1;
-            SPI_en                  = 1'b0;
+            spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
 
@@ -127,7 +129,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
             TX_Write_en             = 1'b0;
-            SPI_en                  = 1'b0;
+            spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = COUNT;
 
@@ -139,7 +141,7 @@ always @ (*) begin
             Start_CC = 1'b0;
             TX_en = 1'b0;
             TX_Write_en = 1'b0;
-            SPI_en = 1'b1;
+            spi_en_int = 1'b1;
             //max_index_next = 8'b0;
             count_sel = ZERO;
             next_state <= IDLE;
@@ -147,11 +149,26 @@ always @ (*) begin
     endcase
 end
 
-// count to ~10 ms using UART_clk_no_div
-GENERAL_COUNTER #(.COUNT_VAL(57600), .COUNT_BIT_WIDTH(16)) post_cc_timeout_counter(
-    .clk(slow_clk),
+xpm_cdc_single #(
+    .DEST_SYNC_FF(3),   // DECIMAL; range: 2-10
+    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+    .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+    .SRC_INPUT_REG(1)   // DECIMAL; 0=do not register input, 1=register input
+)
+xpm_cdc_single_inst (
+    .dest_out(SPI_en), // 1-bit output: src_in synchronized to the destination clock domain. This output is
+                        // registered.
+
+    .dest_clk(SPI_clk), // 1-bit input: Clock signal for the destination clock domain.
+    .src_clk(clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
+    .src_in(spi_en_int)      // 1-bit input: Input signal to be synchronized to dest_clk domain.
+);
+
+// count to ~10 ms to not trigger on same ping twice
+GENERAL_COUNTER #(.COUNT_VAL(1000000), .COUNT_BIT_WIDTH(20)) post_cc_timeout_counter(
+    .clk(clk),
     .reset_b(reset_b),
-    .Count_sel(count_sel),
+    .Count_sel(count_sel),         
     .Count_Reached(post_cc_timeout)
 );
     
