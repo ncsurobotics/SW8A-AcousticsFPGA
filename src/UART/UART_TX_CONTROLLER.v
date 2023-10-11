@@ -31,7 +31,7 @@ module UART_TX_CONTROLLER(
     
     reg [3:0] current_state, next_state;
 
-    always @(posedge clk) begin
+    always @(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
             current_state <= IDLE;
         end
@@ -91,6 +91,7 @@ module UART_TX_CONTROLLER(
                 Counter_Reset <= 1'b0;
                 TX_Bit_sel <= 4'd3;
                 read_en <=1'b0;
+                Data_In_sel <= 1'b0;
                 next_state <= Count_Reached ? D3:D2;
             end
             D3: begin
