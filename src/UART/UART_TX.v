@@ -21,8 +21,17 @@ wire [7:0] TX_Data_in_576;
 wire empty, data_in_sel;
 wire wr_rst_busy, rd_rst_busy, rst_busy;
 
-assign TX_Ready = rst_busy ? 1'b0 : ~full;
-assign rst_busy = !reset_b | wr_rst_busy | rd_rst_busy;
+//assign TX_Ready = rst_busy ? 1'b0 : ~full;
+assign TX_Ready = ~wr_rst_busy && ~full; 
+//assign rst_busy = !reset_b | wr_rst_busy | rd_rst_busy;
+
+// registering wr_en and data_in to fix timing violation
+/*reg [7:0] data_in_fifo;
+reg write_en_fifo;
+always @ (posedge clk) begin
+    data_in_fifo <= TX_Data_in;
+    write_en_fifo <= TX_en & ~wr_rst_busy;
+end*/
 
 // Clock Domain Crossing for TX_Data_in
 xpm_fifo_async #(
@@ -31,7 +40,7 @@ xpm_fifo_async #(
     .din(TX_Data_in),
     .rst(~reset_b), // FIFO has an active high reset
     .wr_clk(clk),
-    .wr_en(TX_en & ~rst_busy),
+    .wr_en(TX_en),
     .rd_clk(UART_clk),
     .rd_en(read_en),
     .wr_rst_busy(wr_rst_busy),
@@ -63,6 +72,7 @@ UART_TX_CONTROLLER UART_TX_CONTROLLER_inst(
     //.data_valid(data_valid),
     .Count_Reached(Count_Reached),
     .empty(empty),
+    .rd_rst_busy(rd_rst_busy),
 
     .Counter_Reset(Counter_Reset),
     .Data_In_sel(data_in_sel),

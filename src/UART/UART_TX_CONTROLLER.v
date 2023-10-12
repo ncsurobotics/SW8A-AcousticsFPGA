@@ -5,7 +5,9 @@ module UART_TX_CONTROLLER(
     input clk, // 5.76 MHz
     input reset_b, // Active low
 
-    input Count_Reached, empty,
+    input Count_Reached, 
+    input empty,            // from FIFO -- goes low when some data is in FIFO
+    input rd_rst_busy,      // from FIFO -- if low, it's safe to set read_en high
 
     output reg Counter_Reset, // When IDLE, tell the clock counter in the Datapath to reset
     output reg [3:0] TX_Bit_sel, // Outputs a value 0-9 to the Datapath as the select line to a MUX
@@ -48,7 +50,7 @@ module UART_TX_CONTROLLER(
                 TX_Bit_sel <= 4'd9;
                 read_en <= 1'b0;
                 Data_In_sel <= 1'b0;
-                next_state <= !empty ? READ_EN:IDLE;
+                next_state <= (!empty && !rd_rst_busy) ? READ_EN:IDLE; 
             end
             READ_EN: begin
                 Counter_Reset <= 1'b1;
