@@ -194,7 +194,8 @@ initial begin
     $readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/cc_datasets/trigger_rshift.data", y_data_array);
     $readmemh("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/cc_datasets/trigger.data", x_data_array);
     fp_trig_out = $fopen("C:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/srcsim/trig_out.txt");
-    #100 @(posedge UART_clk) drive_uart_tx(8'hD0); // trig det: 0xD0, max val ch1: 0x41
+    #100 drive_uart_tx(8'h41); // send max ch1
+    //#100 drive_uart_tx(8'hd0); // trigger detect
 
     //#276500 ok_to_write = 1'b1;
     //@ (negedge tb_trigger_fft_tlast) ok_to_write = 1'b0;
