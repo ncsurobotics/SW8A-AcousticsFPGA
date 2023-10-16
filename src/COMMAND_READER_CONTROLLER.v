@@ -249,8 +249,10 @@ module COMMAND_READER_CONTROLLER(
                 TX_Write_en <= 1'b0; 
             end
             TX_EN:begin 
-                if(RsTx) next_state <= TX_EN;
-                else next_state <= TX_SEND;
+                //if(RsTx) next_state <= TX_EN;     // ** This has been changed to support the new UART.
+                //else next_state <= TX_SEND;       // ** When Tx_Ready is high, the data is taken in in 1 clock cycle.
+                if (Tx_Ready) next_state <= IDLE;
+                else next_state <= TX_EN;
                 Timer_sel <= ZERO;
                 Word_To_Send_sel <= HOLD_VALUE;
                 Set_Threshold_sel <= HOLD;
@@ -259,13 +261,13 @@ module COMMAND_READER_CONTROLLER(
                 TX_en <= 1'b1;
                 TX_Write_en <= 1'b1; 
             end
-            TX_SEND:begin
+            TX_SEND:begin                           // ** This is deprecated by the new UART and cannot be reached.
                 if(Tx_Ready) next_state <= IDLE;
                 else next_state <= TX_SEND;
                 Timer_sel <= ZERO;
                 Word_To_Send_sel <= HOLD_VALUE;
                 Set_Threshold_sel <= HOLD;
-                Set_Frequency_sel <= HOLD; 
+                Set_Frequency_sel <= HOLD;
                 RAM_Read_Offset <= 2'b00;  
                 TX_en <= 1'b0;
                 TX_Write_en <= 1'b0; 
