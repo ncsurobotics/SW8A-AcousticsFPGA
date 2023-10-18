@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
--- Date        : Wed Sep 27 19:12:55 2023
--- Host        : DESKTOP-6KV2NE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks_sim_netlist.vhdl
+-- Date        : Sat Sep 23 11:51:06 2023
+-- Host        : DESKTOP-SE3SLHH running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim -rename_top DATA_clks -prefix
+--               DATA_clks_ DATA_clks_sim_netlist.vhdl
 -- Design      : DATA_clks
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,15 +14,15 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity DATA_clks_clk_wiz is
+entity DATA_clks_DATA_clks_clk_wiz is
   port (
     SPI_clk : out STD_LOGIC;
     UART_clk : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-end DATA_clks_clk_wiz;
+end DATA_clks_DATA_clks_clk_wiz;
 
-architecture STRUCTURE of DATA_clks_clk_wiz is
+architecture STRUCTURE of DATA_clks_DATA_clks_clk_wiz is
   signal SPI_clk_DATA_clks : STD_LOGIC;
   signal UART_clk_DATA_clks : STD_LOGIC;
   signal clkfbout_DATA_clks : STD_LOGIC;
@@ -167,7 +167,7 @@ end DATA_clks;
 
 architecture STRUCTURE of DATA_clks is
 begin
-inst: entity work.DATA_clks_clk_wiz
+inst: entity work.DATA_clks_DATA_clks_clk_wiz
      port map (
       SPI_clk => SPI_clk,
       UART_clk => UART_clk,

@@ -35,13 +35,14 @@ module SPI #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
 );
 
     wire Data_Ready_Internal;
+    wire SPI_Data_out_Internal;
     wire Bit_Count_Reached;
     wire RX_Shift_Register_sel, Bit_Counter_sel;
     assign Data_Ready = Data_Ready_Internal;
 
     SPI_DATAPATH #(.WIDTH(WIDTH) , .TOTAL_BITS(TOTAL_BITS)) SPI_DATAPATH_inst(
     
-        .clk(clk),
+        //.clk(clk),
         .SPI_clk(SPI_clk),
         .reset_b(reset_b),
         .SPI_Data_in(SPI_Data_in),
@@ -49,7 +50,7 @@ module SPI #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
         .Data_Ready(Data_Ready_Internal),
         .RX_Shift_Register_sel(RX_Shift_Register_sel),
         
-        .SPI_Data_out(SPI_Data_out),
+        .SPI_Data_out(SPI_Data_out_Internal),
         .Bit_Count_Reached(Bit_Count_Reached)
     
     );
@@ -69,7 +70,18 @@ module SPI #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     );
 
 
+    xpm_cdc_handshake #()(
+        .src_clk(SPI_CLK),
+        .dest_clk(clk),
+        
+        .src_in(SPI_Data_out_Internal),
+        .src_send(SPI_en),
+        .dest_ack(),
 
+        .dest_out(SPI_Data_out),
+        .src_rcv(),
+        .dest_req()
+    );
 
 
 
