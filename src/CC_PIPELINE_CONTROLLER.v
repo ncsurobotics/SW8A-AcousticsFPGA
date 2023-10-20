@@ -9,14 +9,14 @@ module CC_PIPELINE_CONTROLLER (
     input Trigger,
     input CC_Done,
     input Tx_Ready,
-    input RsTx,
+    //input RsTx,
     //input [7:0] Max_Index, // from CC Block
 
     output reg Trigger_Persistant, // persistant Triggered signal for Ring Buffer
     output reg Start_CC, // for CC Block
     output reg TX_en,
-    output reg TX_Write_en,
-    output SPI_en // disable the SPI after triggering
+    //output reg TX_Write_en,
+    output SPI_en // disable the SPI after triggering -- synchronized w/ SPI_clk
 );
 
 reg [2:0] current_state, next_state;
@@ -59,7 +59,7 @@ always @ (*) begin
             Trigger_Persistant    = 1'b0;
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
-            TX_Write_en             = 1'b0;
+            //TX_Write_en             = 1'b0;
             spi_en_int                  = 1'b1;
             //max_index_next          = 8'b0;
             count_sel               = ZERO;
@@ -70,7 +70,7 @@ always @ (*) begin
             Trigger_Persistant    = 1'b1;
             Start_CC                = 1'b1;
             TX_en                   = 1'b0;
-            TX_Write_en             = 1'b0;
+            //TX_Write_en             = 1'b0;
             spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
@@ -81,7 +81,7 @@ always @ (*) begin
             Trigger_Persistant    = 1'b1;
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
-            TX_Write_en             = 1'b0;
+            //TX_Write_en             = 1'b0;
             spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
@@ -100,35 +100,36 @@ always @ (*) begin
 
             next_state <= WAIT_FOR_TX;
         end*/
-        WAIT_FOR_TX: begin // wait for TX to become available
+        /*WAIT_FOR_TX: begin // wait for TX to become available // ** Deprecated by new UART
             Trigger_Persistant    = 1'b1;
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
-            TX_Write_en             = 1'b0;
+            //TX_Write_en             = 1'b0;
             spi_en_int                  = 1'b0;
             //max_index_next          = max_index_reg;
             count_sel = ZERO;
 
             if (Tx_Ready) next_state <= TX_EN;
             else next_state <= WAIT_FOR_TX;
-        end
+        end*/
         TX_EN: begin // kick off UART TX
             Trigger_Persistant    = 1'b1;
             Start_CC                = 1'b0;
             TX_en                   = 1'b1;
-            TX_Write_en             = 1'b1;
+            //TX_Write_en             = 1'b1;
             spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = ZERO;
 
-            if (!RsTx) next_state <= TIMEOUT;
-            else next_state <= TX_EN;
+            //if (!RsTx) next_state <= TIMEOUT; // next_state logic for old UART
+            //else next_state <= TX_EN;
+            next_state <= (Tx_Ready) ? TIMEOUT : TX_EN; // next_state logic for new UART
         end
         TIMEOUT: begin // wait for 10 ms timeout to expire so we can look for new ping
             Trigger_Persistant    = 1'b0;
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
-            TX_Write_en             = 1'b0;
+            //TX_Write_en             = 1'b0;
             spi_en_int                  = 1'b0;
             //max_index_next          = 8'b0;
             count_sel = COUNT;
@@ -140,8 +141,8 @@ always @ (*) begin
             Trigger_Persistant = 1'b0;
             Start_CC = 1'b0;
             TX_en = 1'b0;
-            TX_Write_en = 1'b0;
-            spi_en_int = 1'b1;
+            //TX_Write_en = 1'b0;
+            spi_en_int = 1'b0;
             //max_index_next = 8'b0;
             count_sel = ZERO;
             next_state <= IDLE;
@@ -149,10 +150,11 @@ always @ (*) begin
     endcase
 end
 
+// CDC for SPI enable signal -- from 100 MHz to 7.2 MHz
 xpm_cdc_single #(
-    .DEST_SYNC_FF(3),   // DECIMAL; range: 2-10
-    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-    .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
+    //.INIT_SYNC_FF(1),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+    .SIM_ASSERT_CHK(1), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
     .SRC_INPUT_REG(1)   // DECIMAL; 0=do not register input, 1=register input
 )
 xpm_cdc_single_inst (
