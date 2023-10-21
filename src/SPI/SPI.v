@@ -69,28 +69,4 @@ module SPI #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     
     );
 
-
-    xpm_cdc_handshake #()(
-        .src_clk(SPI_CLK),
-        .dest_clk(clk),
-        
-        .src_in(SPI_Data_out_Internal),
-        .src_send(SPI_en),
-        .dest_ack(),
-
-        .dest_out(SPI_Data_out),
-        .src_rcv(),
-        .dest_req()
-    );
-
-
-
-
-
-
-
-
-
-
-
 endmodule
