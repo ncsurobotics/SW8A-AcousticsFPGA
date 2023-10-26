@@ -35,7 +35,6 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     output reg [WORD_SIZE-1:0] RX_Data_out,
     output wire RX_Data_Ready
     
-
 );
 
     UART_TX UART_TX_inst(
@@ -63,9 +62,9 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     
     end
     
-    UART_RX #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_inst( // TODO: handle CDC
+    UART_RX #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_inst(
     
-        .clk(UART_clk),
+        .clk(clk),
         .reset_b(reset_b),
         .RX_Data_in(RX_Data_in),
         

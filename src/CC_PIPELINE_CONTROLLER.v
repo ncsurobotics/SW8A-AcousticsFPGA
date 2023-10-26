@@ -56,13 +56,13 @@ end
 always @ (*) begin
     case (current_state)
         IDLE: begin
-            Trigger_Persistant    = 1'b0;
-            Start_CC                = 1'b0;
-            TX_en                   = 1'b0;
+            Trigger_Persistant    <= 1'b0;
+            Start_CC                <= 1'b0;
+            TX_en                   <= 1'b0;
             //TX_Write_en             = 1'b0;
-            spi_en_int                  = 1'b1;
+            spi_en_int                  <= 1'b1;
             //max_index_next          = 8'b0;
-            count_sel               = ZERO;
+            count_sel               <= ZERO;
             if (Trigger) next_state <= TRIGGERED;
             else next_state <= IDLE;
         end
@@ -151,20 +151,17 @@ always @ (*) begin
 end
 
 // CDC for SPI enable signal -- from 100 MHz to 7.2 MHz
-xpm_cdc_single #(
-    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
-    //.INIT_SYNC_FF(1),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-    .SIM_ASSERT_CHK(1), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-    .SRC_INPUT_REG(1)   // DECIMAL; 0=do not register input, 1=register input
-)
-xpm_cdc_single_inst (
-    .dest_out(SPI_en), // 1-bit output: src_in synchronized to the destination clock domain. This output is
-                        // registered.
+reg spi_en_int_ff;
+(* ASYNC_REG = "TRUE" *) reg [3:0] spi_en_sync;
+always @ (posedge clk) begin
+    spi_en_int_ff <= spi_en_int;
+end
+always @ (posedge clk) begin
+    spi_en_sync[2:0] = spi_en_sync[3:1];
+    spi_en_sync[3] = spi_en_int_ff;
+end
 
-    .dest_clk(SPI_clk), // 1-bit input: Clock signal for the destination clock domain.
-    .src_clk(clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
-    .src_in(spi_en_int)      // 1-bit input: Input signal to be synchronized to dest_clk domain.
-);
+assign SPI_en = spi_en_sync[0];
 
 // count to ~10 ms to not trigger on same ping twice
 GENERAL_COUNTER #(.COUNT_VAL(1000000), .COUNT_BIT_WIDTH(20)) post_cc_timeout_counter(

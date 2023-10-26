@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="2,442.008 ns"></ZoomEndTime>
-      <Cursor1Time time="419.335 ns"></Cursor1Time>
+      <ZoomStartTime time="77.729975 us"></ZoomStartTime>
+      <ZoomEndTime time="83.771109 us"></ZoomEndTime>
+      <Cursor1Time time="0.045000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="480"></NameColumnWidth>
-      <ValueColumnWidth column_width="185"></ValueColumnWidth>
+      <ValueColumnWidth column_width="161"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="6" />
+   <WVObjectSize size="12" />
    <wvobject fp_name="/Full_Sys_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -44,5 +44,29 @@
    <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/spi_en_int" type="logic">
       <obj_property name="ElementShortName">spi_en_int</obj_property>
       <obj_property name="ObjectShortName">spi_en_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/spi_en_sync" type="array">
+      <obj_property name="ElementShortName">spi_en_sync[3:0]</obj_property>
+      <obj_property name="ObjectShortName">spi_en_sync[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/spi_en_int_ff" type="logic">
+      <obj_property name="ElementShortName">spi_en_int_ff</obj_property>
+      <obj_property name="ObjectShortName">spi_en_int_ff</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/SPI_en" type="logic">
+      <obj_property name="ElementShortName">SPI_en</obj_property>
+      <obj_property name="ObjectShortName">SPI_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/SPI_CONTROLLER_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/SPI_CONTROLLER_inst/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_4_SPI/SPI_CONTROLLER_inst/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
    </wvobject>
 </wave_config>
