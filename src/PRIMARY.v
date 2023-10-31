@@ -196,7 +196,7 @@ CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
 TRIGGER_FFT_v2 trigger_fft_inst(
 
     .clk(clk),
-    .SPI_CLK(SPI_clk),
+    //.SPI_CLK(SPI_clk),
     .reset_b(reset_b),
     .data_ready(ADC_CH1_Ready),
     .Input_Data(Channel_1_Ring_Buffer_out),

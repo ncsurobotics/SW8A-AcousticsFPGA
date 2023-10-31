@@ -191,7 +191,7 @@ endmodule */
 module TRIGGER_FFT_v2(
 
     input clk,
-    input SPI_CLK,
+    //input SPI_CLK,
     input reset_b,
     input data_ready,
     input [9:0] Input_Data,
@@ -246,7 +246,7 @@ module TRIGGER_FFT_v2(
 
     GENERAL_COUNTER #(.COUNT_VAL(0), .COUNT_BIT_WIDTH(2)) fourth_sample_counter (
         
-        .clk(SPI_CLK),
+        .clk(clk),
         .reset_b(reset_b),
         .Count_sel({1'b1,data_ready}),
         .Count_Reached(fourth_sample_reached)

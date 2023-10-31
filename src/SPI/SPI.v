@@ -69,7 +69,7 @@ module SPI #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     
     );
 
-    CDC_DRIVER#(.DATA_LENGTH(10)) DATA_DRIVER_inst(
+    CDC_DRIVER#(.DATA_LENGTH(WIDTH)) DATA_DRIVER_inst(
         .src_clk(SPI_clk),
         .dest_clk(clk),
         .reset_b(reset_b),

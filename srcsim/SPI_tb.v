@@ -25,8 +25,11 @@ module SPI_tb();
         SPI_en = 0;
         #100 reset_b = 1;
         #100 SPI_en = 1;
-        while(!Data_Ready)
+        while(!Data_Ready) @ (posedge clk)
         #50  x_data = 10'h2A4;
+        while(Data_Ready) @ (posedge clk)
+        while(!Data_Ready) @ (posedge clk)
+        #50 x_data = 10'h1B6;
     end
 
     integer index;
