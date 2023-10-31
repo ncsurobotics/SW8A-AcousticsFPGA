@@ -100,13 +100,4 @@ module SPI_CONTROLLER (
     
     end   
         
-    
-        
-        
-
-
-
-
-
-
 endmodule
