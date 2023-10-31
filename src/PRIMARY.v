@@ -41,8 +41,9 @@ wire SPI_en;
 
 wire Hold_Data_sel, Byte_To_Send_sel;
 
-wire Cmd_Reader_TX_Write_en, Cmd_Reader_TX_en, CC_TX_Write_en, CC_TX_en;
-wire TX_Write_en, TX_en;
+//wire Cmd_Reader_TX_Write_en, Cmd_Reader_TX_en, CC_TX_Write_en, CC_TX_en;
+wire Cmd_Reader_TX_en, CC_TX_en;
+wire /*TX_Write_en,*/ TX_en;
 
 wire [7:0] Word_To_Send, Cmd_Reader_Word_To_Send, CC_Block_Word_To_Send;
 wire [7:0] rx_data;
@@ -84,7 +85,7 @@ COMMAND_READER cmd(
     .Word_To_Send(Cmd_Reader_Word_To_Send),
     .Channel_sel(Max_Value_Channel_sel),
     .TX_en(Cmd_Reader_TX_en),
-    .TX_Write_en(Cmd_Reader_TX_Write_en),
+    //.TX_Write_en(Cmd_Reader_TX_Write_en),
     .state_debug(cmd_state_debug) // for debug only
 
 
@@ -182,12 +183,12 @@ CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .Trigger(Trigger),
     .CC_Done(CC_Done),
     .Tx_Ready(tx_ready),
-    .RsTx(RsTx),
+    //.RsTx(RsTx),
     
     .Trigger_Persistant(Trigger_Persistant),
     .Start_CC(Start_CC),
     .TX_en(CC_TX_en),
-    .TX_Write_en(CC_TX_Write_en),
+    //.TX_Write_en(CC_TX_Write_en),
     .SPI_en(SPI_en)
 );
 
@@ -323,7 +324,7 @@ reg[7:0] OP_Code;
 assign TX_en = Cmd_Reader_TX_en | CC_TX_en;
 //assign TX_Write_en = Cmd_Reader_TX_Write_en | CC_TX_Write_en;
 
-assign Word_To_Send = (Cmd_Reader_TX_Write_en) ? Cmd_Reader_Word_To_Send : CC_Block_Word_To_Send;
+assign Word_To_Send = (Cmd_Reader_TX_en) ? Cmd_Reader_Word_To_Send : CC_Block_Word_To_Send;
 
 UART UART_inst(	
 

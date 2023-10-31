@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="205.166667 us"></ZoomStartTime>
-      <ZoomEndTime time="236.166667 us"></ZoomEndTime>
-      <Cursor1Time time="231.000000 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="201.000000 us"></ZoomEndTime>
+      <Cursor1Time time="186.702233 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="338"></NameColumnWidth>
+      <NameColumnWidth column_width="330"></NameColumnWidth>
       <ValueColumnWidth column_width="116"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="18" />
    <wvobject fp_name="/UART_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -59,10 +59,6 @@
    <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Data_in_576" type="array">
       <obj_property name="ElementShortName">TX_Data_in_576[7:0]</obj_property>
       <obj_property name="ObjectShortName">TX_Data_in_576[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/rst_busy" type="logic">
-      <obj_property name="ElementShortName">rst_busy</obj_property>
-      <obj_property name="ObjectShortName">rst_busy</obj_property>
    </wvobject>
    <wvobject fp_name="/UART_tb/dut/UART_TX_inst/full" type="logic">
       <obj_property name="ElementShortName">full</obj_property>
