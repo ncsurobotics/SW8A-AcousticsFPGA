@@ -32,7 +32,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
     
     output wire TX_Data_out,
     output wire TX_Ready_To_Send,
-    output reg [WORD_SIZE-1:0] RX_Data_out,
+    output /*reg*/wire [WORD_SIZE-1:0] RX_Data_out,
     output wire RX_Data_Ready
     
 );
@@ -49,7 +49,7 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
         .TX_Data_out(TX_Data_out)
     );
 
-    wire [WORD_SIZE-1:0] RX_Data_Captured;
+    /*wire [WORD_SIZE-1:0] RX_Data_Captured;
     integer i;
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
@@ -60,15 +60,16 @@ module UART #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4) (
             else RX_Data_out <= RX_Data_out;
         end 
     
-    end
-    
+    end*/
+
+
     UART_RX #(.WORD_SIZE(WORD_SIZE), .WORD_SIZE_WIDTH(WORD_SIZE_WIDTH)) UART_RX_inst(
     
         .clk(clk),
         .reset_b(reset_b),
         .RX_Data_in(RX_Data_in),
         
-        .RX_Data_out(RX_Data_Captured),
+        .RX_Data_out(/*RX_Data_Captured*/RX_Data_out),
         .RX_Data_Ready(RX_Data_Ready)
         
     );
