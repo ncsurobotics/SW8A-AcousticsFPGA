@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="283.500000 us"></ZoomStartTime>
-      <ZoomEndTime time="784.500001 us"></ZoomEndTime>
-      <Cursor1Time time="522.967617 us"></Cursor1Time>
+      <ZoomStartTime time="499,766.424 ns"></ZoomStartTime>
+      <ZoomEndTime time="501,246.716 ns"></ZoomEndTime>
+      <Cursor1Time time="501,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="407"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <NameColumnWidth column_width="172"></NameColumnWidth>
+      <ValueColumnWidth column_width="82"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="33" />
+   <WVObjectSize size="32" />
    <wvobject fp_name="/Full_Sys_tb/adc1" type="logic">
       <obj_property name="ElementShortName">adc1</obj_property>
       <obj_property name="ObjectShortName">adc1</obj_property>
@@ -48,10 +48,6 @@
    <wvobject fp_name="/Full_Sys_tb/cs" type="logic">
       <obj_property name="ElementShortName">cs</obj_property>
       <obj_property name="ObjectShortName">cs</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Full_Sys_tb/uart_clk" type="logic">
-      <obj_property name="ElementShortName">uart_clk</obj_property>
-      <obj_property name="ObjectShortName">uart_clk</obj_property>
    </wvobject>
    <wvobject fp_name="/Full_Sys_tb/dut/trigger_fft_inst/FFT_Data_Ready" type="logic">
       <obj_property name="ElementShortName">FFT_Data_Ready</obj_property>

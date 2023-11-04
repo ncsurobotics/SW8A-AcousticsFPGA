@@ -86,7 +86,7 @@ always @ (*) begin
             //max_index_next          = 8'b0;
             count_sel = ZERO;
 
-            if (CC_Done) next_state <= /*CC_DONE*/ WAIT_FOR_TX;
+            if (CC_Done) next_state <= /*CC_DONE*/ TX_EN;
             else next_state <= WAIT_FOR_CC;
         end
         /*CC_DONE: begin // save the Max Index value
@@ -156,7 +156,7 @@ reg spi_en_int_ff;
 always @ (posedge clk) begin
     spi_en_int_ff <= spi_en_int;
 end
-always @ (posedge clk) begin
+always @ (posedge SPI_clk) begin
     spi_en_sync[2:0] = spi_en_sync[3:1];
     spi_en_sync[3] = spi_en_int_ff;
 end

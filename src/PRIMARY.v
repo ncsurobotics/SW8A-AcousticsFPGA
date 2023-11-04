@@ -203,7 +203,7 @@ TRIGGER_FFT_v2 trigger_fft_inst(
     .Input_Data(Channel_1_Ring_Buffer_out),
     .Offset(offset),
     .Frequency(6'd16),
-    .Threshold(16'd45),
+    .Threshold(16'h16),
     .Send_Frame(Trigger_Send_Frame),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Trigger(Trigger),
