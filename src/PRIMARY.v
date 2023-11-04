@@ -361,15 +361,14 @@ assign led = {15'b0, did_trigger};
 
 // DISPLAY
 reg [7:0] display_rx;
+reg [7:0] display_spi;
 always @ (posedge clk) begin
-    if(rx_ready)
-        display_rx <= rx_data;
-    else 
-        display_rx <= display_rx;
+    display_rx <= rx_ready ? rx_data : display_rx;
+    display_spi <= ADC_CH1_Ready ? ADC_Channel_1[9:2] : display_spi;
 end
 
 always @ (*) begin
-    display = {cmd_state_debug, 4'b0, display_rx}; // for debug
+    display = {cmd_state_debug, 4'b0, display_spi}; // for debug
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),

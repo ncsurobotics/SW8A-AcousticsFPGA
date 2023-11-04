@@ -40,7 +40,7 @@ module TRIGGER_FFT_v2(
     wire fft_s_axis_data_tvalid;
     wire fft_s_axis_data_tready;
     wire fft_s_axis_data_tlast; // tied to AXI_MASTER Count_Reached output
-    wire fft_m_axis_data_tvalid;                // FFT Master Axis Data Channel
+    (* mark_debug = "true" *) wire fft_m_axis_data_tvalid;                // FFT Master Axis Data Channel
     wire [31:0] fft_m_axis_data_tdata;
     wire fft_m_axis_data_tlast;
     wire fft_m_axis_data_tready;
