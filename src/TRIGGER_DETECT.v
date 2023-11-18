@@ -32,7 +32,7 @@ module TRIGGER_DETECT(
     input [15:0] t_user,
     
     output T_READY,
-    output reg Trigger,
+    (* mark_debug = "true" *) output reg Trigger,
     output FFT_Data_Ready
 
 );

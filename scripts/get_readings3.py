@@ -6,13 +6,13 @@ import keyboard # pip install keyboard
 
 #port = input("enter port name: ")
 
-ser = serial.Serial('COM6', 115200, timeout = 1) # open serial port
+ser = serial.Serial('COM8', 115200, timeout = 1) # open serial port
 print(ser.name)
 
 start_time = time.time()
 
 # initial values
-instruction = b'x41'
+instruction = b'\x41'
 
 
 while True:
@@ -21,7 +21,7 @@ while True:
     if check_input in ("stop"):
         break
     elif (check_input in ("1")):
-        instruction = b'A'
+        instruction = b'\x41'
     elif (check_input in ("2")):
         instruction = b'B'
     elif (check_input in ("3")):
@@ -29,9 +29,9 @@ while True:
     elif (check_input in ("4")):
         instruction = b'D'
     elif (check_input in("5")):
-        instruction = 0x71
+        instruction = b'\xd0'
     elif (check_input in("6")):
-        intruction = 0xFF
+        intruction = b'\xFF'
     # Send 'A' to the FPGA to tell it to give you data
     ser.write(instruction)
 

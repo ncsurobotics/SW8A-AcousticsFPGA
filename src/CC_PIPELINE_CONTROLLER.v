@@ -130,7 +130,7 @@ always @ (*) begin
             Start_CC                = 1'b0;
             TX_en                   = 1'b0;
             //TX_Write_en             = 1'b0;
-            spi_en_int                  = 1'b0;
+            spi_en_int                  = 1'b1;
             //max_index_next          = 8'b0;
             count_sel = COUNT;
 
@@ -164,7 +164,7 @@ end
 assign SPI_en = spi_en_sync[0];
 
 // count to ~10 ms to not trigger on same ping twice
-GENERAL_COUNTER #(.COUNT_VAL(1000000), .COUNT_BIT_WIDTH(20)) post_cc_timeout_counter(
+GENERAL_COUNTER #(.COUNT_VAL(50_000_000), .COUNT_BIT_WIDTH(26)) post_cc_timeout_counter(
     .clk(clk),
     .reset_b(reset_b),
     .Count_sel(count_sel),         

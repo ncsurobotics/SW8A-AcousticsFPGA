@@ -118,17 +118,17 @@ module COMMAND_READER_CONTROLLER(
                 TX_Write_en <= 0;  
             end
             INTERPERET_OP:begin
-                case(Command[7:4])
-                    4'hf:begin
+                casex(Command[7:4])
+                    4'h7:begin
                         next_state <= SET_FREQUENCY;
                     end
-                    4'h7:begin
+                    4'b1xxx:begin
                         next_state <= SET_THRESHOLD;
                     end
                     4'h4:begin
                         next_state <= SEND_MAX;
                     end
-                    4'hd:begin
+                    4'h5:begin
                         next_state <= TRIGGER_DETECT;
                     end
                     default:begin
@@ -184,7 +184,7 @@ module COMMAND_READER_CONTROLLER(
                 TX_en <= 0;
                 TX_Write_en <= 0; 
             end
-            LOAD_0: begin
+            /*LOAD_0: begin // unreachable state, idek what it used to do 
                 next_state <= READ_0;
                 Timer_sel <= COUNT;
                 Word_To_Send_sel <= HOLD_VALUE;
@@ -193,8 +193,7 @@ module COMMAND_READER_CONTROLLER(
                 RAM_Read_Offset <= 2'b00; 
                 TX_en <= 0;
                 TX_Write_en <= 0; 
-            
-            end
+            end */
             READ_0:begin
                 if(!Trigger) next_state <= READ_1;
                 else next_state <= WRITE_TRUE;

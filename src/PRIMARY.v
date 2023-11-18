@@ -48,6 +48,9 @@ wire /*TX_Write_en,*/ TX_en;
 wire [7:0] Word_To_Send, Cmd_Reader_Word_To_Send, CC_Block_Word_To_Send;
 wire [7:0] rx_data;
 
+wire [15:0] Threshold;
+wire [6:0] Frequency;
+
 wire Trigger, Trigger_Persistant;
 wire Start_CC, CC_Done;
 
@@ -79,8 +82,9 @@ COMMAND_READER cmd(
     .Trigger(Trigger),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Max_Value(Max_Value),
-    .Set_Threshold_sel(Set_Threshold_sel),
-    .Set_Frequency_sel(Set_Frequency_sel),
+
+    .Frequency(Frequency),
+    .Threshold(Threshold),
     .RAM_Read_Offset(offset),
     .Word_To_Send(Cmd_Reader_Word_To_Send),
     .Channel_sel(Max_Value_Channel_sel),
@@ -203,7 +207,7 @@ TRIGGER_FFT_v2 trigger_fft_inst(
     .Input_Data(Channel_1_Ring_Buffer_out),
     .Offset(offset),
     .Frequency(6'd16),
-    .Threshold(16'h16),
+    .Threshold(Threshold),
     .Send_Frame(Trigger_Send_Frame),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Trigger(Trigger),

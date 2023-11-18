@@ -29,8 +29,12 @@ module COMMAND_READER_DATA_PATH(
     input [9:0] Max_Value,
     input [1:0] Word_To_Send_sel,
     input [1:0] Timer_sel,
+    input Set_Frequency_sel,
+    input Set_Threshold_sel,
     
     output reg [7:0] Word_To_Send,
+    output reg [15:0] Threshold,
+    output reg [5:0] Frequency,
     output [2:0] Channel_sel,
     output Timeout
 
@@ -74,6 +78,26 @@ module COMMAND_READER_DATA_PATH(
                 Next_Word_To_Send <= 8'h31;
             end
         endcase
+    end
+
+    // Frequency
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin
+            Frequency<=0;
+        end
+        else begin
+            Frequency <= Set_Frequency_sel ? Command[3:0] : Frequency;
+        end
+    end
+
+    // Threshold
+    always@(posedge clk or negedge reset_b)begin 
+        if(!reset_b) begin
+            Threshold <= 0;
+        end
+        else begin
+            Threshold <= Set_Threshold_sel ? {9'b0, Command[6:0]} : Threshold;
+        end
     end
     
     // CDC handling for Timeout
