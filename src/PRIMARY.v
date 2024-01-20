@@ -48,7 +48,7 @@ wire /*TX_Write_en,*/ TX_en;
 wire [7:0] Word_To_Send, Cmd_Reader_Word_To_Send, CC_Block_Word_To_Send;
 wire [7:0] rx_data;
 
-wire [15:0] Threshold;
+(* mark_debug = "true" *) wire [15:0] Threshold;
 wire [6:0] Frequency;
 
 wire Trigger, Trigger_Persistant;

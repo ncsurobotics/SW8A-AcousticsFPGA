@@ -83,7 +83,7 @@ module COMMAND_READER_DATA_PATH(
     // Frequency
     always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
-            Frequency<=0;
+            Frequency<=6'd16;
         end
         else begin
             Frequency <= Set_Frequency_sel ? Command[3:0] : Frequency;
@@ -93,7 +93,7 @@ module COMMAND_READER_DATA_PATH(
     // Threshold
     always@(posedge clk or negedge reset_b)begin 
         if(!reset_b) begin
-            Threshold <= 0;
+            Threshold <= 16'h16;
         end
         else begin
             Threshold <= Set_Threshold_sel ? {9'b0, Command[6:0]} : Threshold;
