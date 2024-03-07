@@ -22,13 +22,26 @@ def set_threshold_from_input(ser):
 
         if set_threshold(ser, thres) == 0:
             break
-            
+
+def stream(ser):
+    try:
+        while True:
+            num_to_read = ser.inWaiting() 
+            out = ser.read(num_to_read)
+            for i in out:
+                print(i)
+    except KeyboardInterrupt:
+        pass
+
 port = input("Type port name exactly, case sensitive:")
 ser = open_port(port)
 
 while True:
     set_threshold_from_input(ser)
 
+    stream(ser)
+
     run_again = input("run again? (y/n)")
     if run_again in ("n", "N"):
         break
+

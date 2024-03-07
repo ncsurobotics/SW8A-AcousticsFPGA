@@ -183,6 +183,11 @@ set_property MARK_DEBUG true [get_nets {main_level/ADC_Channel_1[8]}]
 
 
 
+connect_debug_port u_ila_0/clk [get_nets [list clk_IBUF_BUFG]]
+connect_debug_port dbg_hub/clk [get_nets clk_IBUF_BUFG]
+
+
+
 create_debug_core u_ila_0 ila
 set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
 set_property ALL_PROBE_SAME_MU_CNT 4 [get_debug_cores u_ila_0]
@@ -193,47 +198,63 @@ set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
 set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
 set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
 set_property port_width 1 [get_debug_ports u_ila_0/clk]
-connect_debug_port u_ila_0/clk [get_nets [list clk_IBUF_BUFG]]
+connect_debug_port u_ila_0/clk [get_nets [list DATA_clks_inst/inst/slower_clk]]
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-set_property port_width 16 [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {main_level/Threshold[0]} {main_level/Threshold[1]} {main_level/Threshold[2]} {main_level/Threshold[3]} {main_level/Threshold[4]} {main_level/Threshold[5]} {main_level/Threshold[6]} {main_level/Threshold[7]} {main_level/Threshold[8]} {main_level/Threshold[9]} {main_level/Threshold[10]} {main_level/Threshold[11]} {main_level/Threshold[12]} {main_level/Threshold[13]} {main_level/Threshold[14]} {main_level/Threshold[15]}]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[0]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[1]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[2]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[3]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[4]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[5]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[6]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[7]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[8]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[9]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[10]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[11]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[12]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[13]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[14]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[15]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[16]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[17]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[18]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[19]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[20]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[21]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[22]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[23]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[24]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[25]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[26]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[27]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[28]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[29]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[30]} {main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tdata[31]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
-set_property port_width 10 [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list {main_level/ADC_Channel_1[0]} {main_level/ADC_Channel_1[1]} {main_level/ADC_Channel_1[2]} {main_level/ADC_Channel_1[3]} {main_level/ADC_Channel_1[4]} {main_level/ADC_Channel_1[5]} {main_level/ADC_Channel_1[6]} {main_level/ADC_Channel_1[7]} {main_level/ADC_Channel_1[8]} {main_level/ADC_Channel_1[9]}]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe1]
+connect_debug_port u_ila_0/probe1 [get_nets [list {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[0]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[1]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[2]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[3]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[4]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[5]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[6]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[7]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[8]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[9]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[10]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[11]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[12]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[13]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[14]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[15]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[16]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[17]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[18]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[19]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[20]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[21]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[22]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[23]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[24]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[25]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[26]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[27]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[28]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[29]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[30]} {main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tdata[31]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
 set_property port_width 4 [get_debug_ports u_ila_0/probe2]
 connect_debug_port u_ila_0/probe2 [get_nets [list {main_level/cmd/COMM_READ_CONT_inst/current_state[0]} {main_level/cmd/COMM_READ_CONT_inst/current_state[1]} {main_level/cmd/COMM_READ_CONT_inst/current_state[2]} {main_level/cmd/COMM_READ_CONT_inst/current_state[3]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
-set_property port_width 16 [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[0]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[1]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[2]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[3]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[4]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[5]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[6]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[7]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[8]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[9]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[10]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[11]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[12]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[13]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[14]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[15]}]]
+set_property port_width 8 [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[0]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[1]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[2]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[3]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[4]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[5]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[6]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[7]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
-set_property port_width 8 [get_debug_ports u_ila_0/probe4]
-connect_debug_port u_ila_0/probe4 [get_nets [list {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[0]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[1]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[2]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[3]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[4]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[5]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[6]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/FFT_index[7]}]]
+set_property port_width 16 [get_debug_ports u_ila_0/probe4]
+connect_debug_port u_ila_0/probe4 [get_nets [list {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[0]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[1]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[2]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[3]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[4]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[5]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[6]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[7]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[8]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[9]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[10]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[11]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[12]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[13]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[14]} {main_level/trigger_fft_inst/TRIGGER_DETECT_inst/val_to_compare[15]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
-set_property port_width 1 [get_debug_ports u_ila_0/probe5]
-connect_debug_port u_ila_0/probe5 [get_nets [list main_level/data_ready]]
+set_property port_width 10 [get_debug_ports u_ila_0/probe5]
+connect_debug_port u_ila_0/probe5 [get_nets [list {main_level/ADC_Channel_1[0]} {main_level/ADC_Channel_1[1]} {main_level/ADC_Channel_1[2]} {main_level/ADC_Channel_1[3]} {main_level/ADC_Channel_1[4]} {main_level/ADC_Channel_1[5]} {main_level/ADC_Channel_1[6]} {main_level/ADC_Channel_1[7]} {main_level/ADC_Channel_1[8]} {main_level/ADC_Channel_1[9]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe6]
-set_property port_width 1 [get_debug_ports u_ila_0/probe6]
-connect_debug_port u_ila_0/probe6 [get_nets [list main_level/trigger_fft_inst/fft_m_axis_data_tvalid]]
+set_property port_width 16 [get_debug_ports u_ila_0/probe6]
+connect_debug_port u_ila_0/probe6 [get_nets [list {main_level/Threshold[0]} {main_level/Threshold[1]} {main_level/Threshold[2]} {main_level/Threshold[3]} {main_level/Threshold[4]} {main_level/Threshold[5]} {main_level/Threshold[6]} {main_level/Threshold[7]} {main_level/Threshold[8]} {main_level/Threshold[9]} {main_level/Threshold[10]} {main_level/Threshold[11]} {main_level/Threshold[12]} {main_level/Threshold[13]} {main_level/Threshold[14]} {main_level/Threshold[15]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe7]
 set_property port_width 1 [get_debug_ports u_ila_0/probe7]
-connect_debug_port u_ila_0/probe7 [get_nets [list main_level/cmd/COMM_READ_CONT_inst/Rx_Ready]]
+connect_debug_port u_ila_0/probe7 [get_nets [list main_level/data_ready]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe8]
 set_property port_width 1 [get_debug_ports u_ila_0/probe8]
-connect_debug_port u_ila_0/probe8 [get_nets [list main_level/cmd/Timeout]]
+connect_debug_port u_ila_0/probe8 [get_nets [list main_level/trigger_fft_inst/fft_m_axis_data_tvalid]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe9]
 set_property port_width 1 [get_debug_ports u_ila_0/probe9]
-connect_debug_port u_ila_0/probe9 [get_nets [list main_level/trigger_fft_inst/TRIGGER_DETECT_inst/Trigger]]
+connect_debug_port u_ila_0/probe9 [get_nets [list main_level/cmd/COMM_READ_CONT_inst/Rx_Ready]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe10]
+set_property port_width 1 [get_debug_ports u_ila_0/probe10]
+connect_debug_port u_ila_0/probe10 [get_nets [list main_level/cc_block_inst/Channel_X_CC_AXI_Master/s_axis_data_tvalid]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe11]
+set_property port_width 1 [get_debug_ports u_ila_0/probe11]
+connect_debug_port u_ila_0/probe11 [get_nets [list main_level/cc_block_inst/Channel_Y_CC_AXI_Master/s_axis_data_tvalid]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe12]
+set_property port_width 1 [get_debug_ports u_ila_0/probe12]
+connect_debug_port u_ila_0/probe12 [get_nets [list main_level/cmd/Timeout]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe13]
+set_property port_width 1 [get_debug_ports u_ila_0/probe13]
+connect_debug_port u_ila_0/probe13 [get_nets [list main_level/Trigger]]
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
-connect_debug_port dbg_hub/clk [get_nets clk_IBUF_BUFG]
+connect_debug_port dbg_hub/clk [get_nets main_clk]

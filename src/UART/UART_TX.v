@@ -1,4 +1,4 @@
-// UART TX -- 9/13/2023 -- Ilena Johnson
+// UART TX -- 9/13/2023 -- Ilena Johnson & Omar Obeid
 // This is the new UART TX made to eliminate the slow UART "clock" which was causing timing issues.
 // Houses the Controller and Datapath; handles Clock Domain Crossing
 

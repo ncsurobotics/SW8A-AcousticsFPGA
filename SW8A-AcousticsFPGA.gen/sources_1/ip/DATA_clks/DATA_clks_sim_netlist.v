@@ -1,10 +1,10 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-// Date        : Sat Sep 23 11:51:06 2023
-// Host        : DESKTOP-SE3SLHH running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top DATA_clks -prefix
-//               DATA_clks_ DATA_clks_sim_netlist.v
+// Date        : Sat Feb  3 15:13:21 2024
+// Host        : DESKTOP-6KV2NE2 running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim
+//               c:/Users/ilena/Documents/apr-private/fpga/SW8A-AcousticsFPGA/SW8A-AcousticsFPGA.gen/sources_1/ip/DATA_clks/DATA_clks_sim_netlist.v
 // Design      : DATA_clks
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -16,27 +16,33 @@
 module DATA_clks
    (SPI_clk,
     UART_clk,
+    slower_clk,
     clk_in1);
   output SPI_clk;
   output UART_clk;
+  output slower_clk;
   input clk_in1;
 
   wire SPI_clk;
   wire UART_clk;
   wire clk_in1;
+  wire slower_clk;
 
-  DATA_clks_DATA_clks_clk_wiz inst
+  DATA_clks_clk_wiz inst
        (.SPI_clk(SPI_clk),
         .UART_clk(UART_clk),
-        .clk_in1(clk_in1));
+        .clk_in1(clk_in1),
+        .slower_clk(slower_clk));
 endmodule
 
-module DATA_clks_DATA_clks_clk_wiz
+module DATA_clks_clk_wiz
    (SPI_clk,
     UART_clk,
+    slower_clk,
     clk_in1);
   output SPI_clk;
   output UART_clk;
+  output slower_clk;
   input clk_in1;
 
   wire SPI_clk;
@@ -46,12 +52,13 @@ module DATA_clks_DATA_clks_clk_wiz
   wire clk_in1;
   wire clkfbout_DATA_clks;
   wire clkfbout_buf_DATA_clks;
+  wire slower_clk;
+  wire slower_clk_DATA_clks;
   wire NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED;
-  wire NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT3_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT3B_UNCONNECTED;
@@ -76,6 +83,10 @@ module DATA_clks_DATA_clks_clk_wiz
        (.I(UART_clk_DATA_clks),
         .O(UART_clk));
   (* BOX_TYPE = "PRIMITIVE" *) 
+  BUFG clkout3_buf
+       (.I(slower_clk_DATA_clks),
+        .O(slower_clk));
+  (* BOX_TYPE = "PRIMITIVE" *) 
   MMCME2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
     .CLKFBOUT_MULT_F(50.000000),
@@ -91,7 +102,7 @@ module DATA_clks_DATA_clks_clk_wiz
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
     .CLKOUT1_USE_FINE_PS("FALSE"),
-    .CLKOUT2_DIVIDE(1),
+    .CLKOUT2_DIVIDE(9),
     .CLKOUT2_DUTY_CYCLE(0.500000),
     .CLKOUT2_PHASE(0.000000),
     .CLKOUT2_USE_FINE_PS("FALSE"),
@@ -138,7 +149,7 @@ module DATA_clks_DATA_clks_clk_wiz
         .CLKOUT0B(NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED),
         .CLKOUT1(UART_clk_DATA_clks),
         .CLKOUT1B(NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED),
-        .CLKOUT2(NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED),
+        .CLKOUT2(slower_clk_DATA_clks),
         .CLKOUT2B(NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED),
         .CLKOUT3(NLW_mmcm_adv_inst_CLKOUT3_UNCONNECTED),
         .CLKOUT3B(NLW_mmcm_adv_inst_CLKOUT3B_UNCONNECTED),

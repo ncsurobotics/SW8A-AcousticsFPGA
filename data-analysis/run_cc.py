@@ -1,3 +1,5 @@
+# alternate method of plotting AD2 data using numpy - requires manually edited CSV file, see right_trimmed.csv for sample
+
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.fft import fft, fftfreq, ifft
