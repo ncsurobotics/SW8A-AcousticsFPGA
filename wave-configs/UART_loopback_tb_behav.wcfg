@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="UART_loopback_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="UART_loopback_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="201.000000 us"></ZoomEndTime>
+      <Cursor1Time time="46.938728 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="314"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject fp_name="/UART_loopback_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/UART_clk" type="logic">
+      <obj_property name="ElementShortName">UART_clk</obj_property>
+      <obj_property name="ObjectShortName">UART_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/RX_Data_Ready" type="logic">
+      <obj_property name="ElementShortName">RX_Data_Ready</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/RX_Data_out" type="array">
+      <obj_property name="ElementShortName">RX_Data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/TX_en" type="logic">
+      <obj_property name="ElementShortName">TX_en</obj_property>
+      <obj_property name="ObjectShortName">TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/TX_Data_in" type="array">
+      <obj_property name="ElementShortName">TX_Data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_Data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/UART_TX_inst/MASTER_TO_UART/empty" type="logic">
+      <obj_property name="ElementShortName">empty</obj_property>
+      <obj_property name="ObjectShortName">empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/UART_TX_inst/MASTER_TO_UART/dout" type="array">
+      <obj_property name="ElementShortName">dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dout[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/UART_TX_inst/MASTER_TO_UART/rd_en" type="logic">
+      <obj_property name="ElementShortName">rd_en</obj_property>
+      <obj_property name="ObjectShortName">rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/dut/lb_uart/RX_Data_in" type="logic">
+      <obj_property name="ElementShortName">RX_Data_in</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/tester/RX_Data_out" type="array">
+      <obj_property name="ElementShortName">RX_Data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_loopback_tb/tester/RX_Data_Ready" type="logic">
+      <obj_property name="ElementShortName">RX_Data_Ready</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_Ready</obj_property>
+   </wvobject>
+</wave_config>

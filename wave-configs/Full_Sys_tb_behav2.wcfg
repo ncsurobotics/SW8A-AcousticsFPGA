@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Full_Sys_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Full_Sys_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="329.334656 us"></ZoomEndTime>
+      <Cursor1Time time="11.000000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="480"></NameColumnWidth>
+      <ValueColumnWidth column_width="201"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/Full_Sys_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/SPI_clk" type="logic">
+      <obj_property name="ElementShortName">SPI_clk</obj_property>
+      <obj_property name="ObjectShortName">SPI_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/UART_clk" type="logic">
+      <obj_property name="ElementShortName">UART_clk</obj_property>
+      <obj_property name="ObjectShortName">UART_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/data_ready" type="logic">
+      <obj_property name="ElementShortName">data_ready</obj_property>
+      <obj_property name="ObjectShortName">data_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RsTx" type="logic">
+      <obj_property name="ElementShortName">RsTx</obj_property>
+      <obj_property name="ObjectShortName">RsTx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/did_trigger" type="logic">
+      <obj_property name="ElementShortName">did_trigger</obj_property>
+      <obj_property name="ObjectShortName">did_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/UART_inst/TX_en" type="logic">
+      <obj_property name="ElementShortName">TX_en</obj_property>
+      <obj_property name="ObjectShortName">TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/UART_inst/TX_Data_in" type="array">
+      <obj_property name="ElementShortName">TX_Data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_Data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/UART_inst/TX_Ready_To_Send" type="logic">
+      <obj_property name="ElementShortName">TX_Ready_To_Send</obj_property>
+      <obj_property name="ObjectShortName">TX_Ready_To_Send</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/UART_inst/UART_TX_inst/TX_Ready_Controller" type="logic">
+      <obj_property name="ElementShortName">TX_Ready_Controller</obj_property>
+      <obj_property name="ObjectShortName">TX_Ready_Controller</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Trigger" type="logic">
+      <obj_property name="ElementShortName">Trigger</obj_property>
+      <obj_property name="ObjectShortName">Trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Timer_sel" type="array">
+      <obj_property name="ElementShortName">Timer_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Timer_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Timeout" type="logic">
+      <obj_property name="ElementShortName">Timeout</obj_property>
+      <obj_property name="ObjectShortName">Timeout</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cs1" type="logic">
+      <obj_property name="ElementShortName">cs1</obj_property>
+      <obj_property name="ObjectShortName">cs1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/SPI_CONTROLLER_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/SPI_en" type="logic">
+      <obj_property name="ElementShortName">SPI_en</obj_property>
+      <obj_property name="ObjectShortName">SPI_en</obj_property>
+   </wvobject>
+</wave_config>

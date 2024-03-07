@@ -32,8 +32,8 @@ module COMMAND_READER(
     input FFT_Data_Ready,
     input [9:0] Max_Value,
     
-    output Set_Threshold_sel,
-    output Set_Frequency_sel,
+    output [15:0] Threshold,
+    output [6:0] Frequency,
     output [1:0] RAM_Read_Offset,
     output [7:0] Word_To_Send,
     output [2:0] Channel_sel,
@@ -43,6 +43,8 @@ module COMMAND_READER(
     output [3:0] state_debug // for debug only
 
 );
+
+    wire Set_Frequency_sel, Set_Threshold_sel;
 
     wire [1:0] Word_To_Send_sel,Timer_sel;
     (* mark_debug = "true" *) wire Timeout;
@@ -77,7 +79,11 @@ module COMMAND_READER(
         .Max_Value(Max_Value),
         .Word_To_Send_sel(Word_To_Send_sel),
         .Timer_sel(Timer_sel),
+        .Set_Frequency_sel(Set_Frequency_sel),
+        .Set_Threshold_sel(Set_Threshold_sel),
         .Word_To_Send(Word_To_Send),
+        .Frequency(Frequency),
+        .Threshold(Threshold),
         .Channel_sel(Channel_sel),
         .Timeout(Timeout)
 

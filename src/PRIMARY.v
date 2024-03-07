@@ -2,7 +2,7 @@
 `timescale 1ns / 1ps
 
 module PRIMARY (
-                input clk, btnU,btnC, SPI_clk, UART_clk_No_Div,
+                input clk, btnU, btnC, SPI_clk, UART_clk,
 
                 input adc1,
                 input adc2,
@@ -27,7 +27,7 @@ module PRIMARY (
 
 
 
-wire UART_clk;
+//wire UART_clk;
 
 // peripherals
 wire reset_button_out;
@@ -41,11 +41,15 @@ wire SPI_en;
 
 wire Hold_Data_sel, Byte_To_Send_sel;
 
-wire Cmd_Reader_TX_Write_en, Cmd_Reader_TX_en, CC_TX_Write_en, CC_TX_en;
-wire TX_Write_en, TX_en;
+//wire Cmd_Reader_TX_Write_en, Cmd_Reader_TX_en, CC_TX_Write_en, CC_TX_en;
+wire Cmd_Reader_TX_en, CC_TX_en;
+wire /*TX_Write_en,*/ TX_en;
 
 wire [7:0] Word_To_Send, Cmd_Reader_Word_To_Send, CC_Block_Word_To_Send;
 wire [7:0] rx_data;
+
+(* mark_debug = "true" *) wire [15:0] Threshold;
+wire [6:0] Frequency;
 
 wire Trigger, Trigger_Persistant;
 wire Start_CC, CC_Done;
@@ -70,7 +74,7 @@ COMMAND_READER cmd(
 
     .clk(clk),
     .reset_b(reset_b),
-    .slow_clk(UART_clk_No_Div),
+    .slow_clk(UART_clk),
     .Command(rx_data),
     .Rx_Ready(rx_ready),
     .RsTx(RsTx),
@@ -78,13 +82,14 @@ COMMAND_READER cmd(
     .Trigger(Trigger),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Max_Value(Max_Value),
-    .Set_Threshold_sel(Set_Threshold_sel),
-    .Set_Frequency_sel(Set_Frequency_sel),
+
+    .Frequency(Frequency),
+    .Threshold(Threshold),
     .RAM_Read_Offset(offset),
     .Word_To_Send(Cmd_Reader_Word_To_Send),
     .Channel_sel(Max_Value_Channel_sel),
     .TX_en(Cmd_Reader_TX_en),
-    .TX_Write_en(Cmd_Reader_TX_Write_en),
+    //.TX_Write_en(Cmd_Reader_TX_Write_en),
     .state_debug(cmd_state_debug) // for debug only
 
 
@@ -112,14 +117,14 @@ end
 
 
 
-UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
+/*UART_CLK_DIVIDER UART_CLK_DIVIDER_inst(
 
     .UART_clk_in(UART_clk_No_Div),
     .reset_b(reset_b),
     
     .UART_clk_out(UART_clk)    
 
-);               
+);*/               
                     
 RING_BUFFER RING_BUFFER_channel_1_inst(
 
@@ -176,17 +181,18 @@ RING_BUFFER RING_BUFFER_channel_4_inst(
                                   
 CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .clk(clk),
-    .slow_clk(UART_clk_No_Div),
+    .slow_clk(UART_clk),
+    .SPI_clk(SPI_clk),
     .reset_b(reset_b),
     .Trigger(Trigger),
     .CC_Done(CC_Done),
     .Tx_Ready(tx_ready),
-    .RsTx(RsTx),
+    //.RsTx(RsTx),
     
     .Trigger_Persistant(Trigger_Persistant),
     .Start_CC(Start_CC),
     .TX_en(CC_TX_en),
-    .TX_Write_en(CC_TX_Write_en),
+    //.TX_Write_en(CC_TX_Write_en),
     .SPI_en(SPI_en)
 );
 
@@ -195,13 +201,13 @@ CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
 TRIGGER_FFT_v2 trigger_fft_inst(
 
     .clk(clk),
-    .SPI_CLK(SPI_clk),
+    //.SPI_CLK(SPI_clk),
     .reset_b(reset_b),
     .data_ready(ADC_CH1_Ready),
     .Input_Data(Channel_1_Ring_Buffer_out),
     .Offset(offset),
     .Frequency(6'd16),
-    .Threshold(16'd45),
+    .Threshold(Threshold),
     .Send_Frame(Trigger_Send_Frame),
     .FFT_Data_Ready(FFT_Data_Ready),
     .Trigger(Trigger),
@@ -301,11 +307,12 @@ SPI Channel_4_SPI (
 
 wire[2:0] Max_Value_Channel_sel;
 wire[9:0] Max_Value;
+assign Max_Value = 10'b0;
 reg[7:0] OP_Code;
 
-SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
+/* SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .clk(clk),
-    .Slow_clk(UART_clk_No_Div),
+    .Slow_clk(UART_clk),
     .reset_b(reset_b),
     .SPI_Data_1(ADC_Channel_1),
     .SPI_Data_2(ADC_Channel_2),
@@ -314,24 +321,23 @@ SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .Max_Value_Channel_sel(Max_Value_Channel_sel),
 
     .Max_Value(Max_Value)
-);
+); */
 
 
 
 assign TX_en = Cmd_Reader_TX_en | CC_TX_en;
-assign TX_Write_en = Cmd_Reader_TX_Write_en | CC_TX_Write_en;
+//assign TX_Write_en = Cmd_Reader_TX_Write_en | CC_TX_Write_en;
 
-assign Word_To_Send = (Cmd_Reader_TX_Write_en) ? Cmd_Reader_Word_To_Send : CC_Block_Word_To_Send;
+assign Word_To_Send = (Cmd_Reader_TX_en) ? Cmd_Reader_Word_To_Send : CC_Block_Word_To_Send;
 
 UART UART_inst(	
 
     .UART_clk(UART_clk),
     .clk(clk),
-    .Slow_clk(UART_clk_No_Div),
     .reset_b(reset_b),
 	.TX_Data_in(Word_To_Send),
 	.TX_en(TX_en),
-	.TX_Write_en(TX_Write_en),
+	//.TX_Write_en(TX_Write_en),
 	.RX_Data_in(RsRx),
 				
 	.TX_Data_out(RsTx),
@@ -359,15 +365,14 @@ assign led = {15'b0, did_trigger};
 
 // DISPLAY
 reg [7:0] display_rx;
+reg [7:0] display_spi;
 always @ (posedge clk) begin
-    if(rx_ready)
-        display_rx <= rx_data;
-    else 
-        display_rx <= display_rx;
+    display_rx <= rx_ready ? rx_data : display_rx;
+    display_spi <= ADC_CH1_Ready ? ADC_Channel_1[9:2] : display_spi;
 end
 
 always @ (*) begin
-    display = {cmd_state_debug, 4'b0, display_rx}; // for debug
+    display = {cmd_state_debug, 4'b0, display_spi}; // for debug
 end
 
 seven_segment seg7(.clk(clk), .btnC(btnC), .decimal_num(display),

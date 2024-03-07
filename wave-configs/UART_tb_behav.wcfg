@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="UART_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="UART_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="201.000000 us"></ZoomEndTime>
+      <Cursor1Time time="186.702233 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="330"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="18" />
+   <wvobject fp_name="/UART_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/UART_clk" type="logic">
+      <obj_property name="ElementShortName">UART_clk</obj_property>
+      <obj_property name="ObjectShortName">UART_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/TX_en" type="logic">
+      <obj_property name="ElementShortName">TX_en</obj_property>
+      <obj_property name="ObjectShortName">TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/TX_Data_in" type="array">
+      <obj_property name="ElementShortName">TX_Data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_Data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/TX_Ready" type="logic">
+      <obj_property name="ElementShortName">TX_Ready</obj_property>
+      <obj_property name="ObjectShortName">TX_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/RsTx" type="logic">
+      <obj_property name="ElementShortName">RsTx</obj_property>
+      <obj_property name="ObjectShortName">RsTx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/RX_Data_out" type="array">
+      <obj_property name="ElementShortName">RX_Data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_Data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/RX_Ready" type="logic">
+      <obj_property name="ElementShortName">RX_Ready</obj_property>
+      <obj_property name="ObjectShortName">RX_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/TX_Data_in_576" type="array">
+      <obj_property name="ElementShortName">TX_Data_in_576[7:0]</obj_property>
+      <obj_property name="ObjectShortName">TX_Data_in_576[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/full" type="logic">
+      <obj_property name="ElementShortName">full</obj_property>
+      <obj_property name="ObjectShortName">full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/wr_rst_busy" type="logic">
+      <obj_property name="ElementShortName">wr_rst_busy</obj_property>
+      <obj_property name="ObjectShortName">wr_rst_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/rd_rst_busy" type="logic">
+      <obj_property name="ElementShortName">rd_rst_busy</obj_property>
+      <obj_property name="ObjectShortName">rd_rst_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/empty" type="logic">
+      <obj_property name="ElementShortName">empty</obj_property>
+      <obj_property name="ObjectShortName">empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/UART_TX_CONTROLLER_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/MASTER_TO_UART/data_valid" type="logic">
+      <obj_property name="ElementShortName">data_valid</obj_property>
+      <obj_property name="ObjectShortName">data_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/MASTER_TO_UART/rd_en" type="logic">
+      <obj_property name="ElementShortName">rd_en</obj_property>
+      <obj_property name="ObjectShortName">rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/UART_tb/dut/UART_TX_inst/UART_TX_DATAPATH_inst/tx_bits_register" type="array">
+      <obj_property name="ElementShortName">tx_bits_register[9:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_bits_register[9:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+</wave_config>

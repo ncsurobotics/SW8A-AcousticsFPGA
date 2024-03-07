@@ -58,6 +58,7 @@
 //----------------------------------------------------------------------------
 // _SPI_clk___7.14286______0.000______50.0______621.062____480.876
 // UART_clk___5.76037______0.000______50.0______641.480____480.876
+// slower_clk__79.36508______0.000______50.0______426.057____480.876
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -66,13 +67,14 @@
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "DATA_clks,clk_wiz_v6_0_11_0_0,{component_name=DATA_clks,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,enable_axi=0,feedback_source=FDBK_AUTO,PRIMITIVE=MMCM,num_out_clk=2,clkin1_period=10.000,clkin2_period=10.000,use_power_down=false,use_reset=false,use_locked=false,use_inclk_stopped=false,feedback_type=SINGLE,CLOCK_MGR_TYPE=NA,manual_override=false}" *)
+(* CORE_GENERATION_INFO = "DATA_clks,clk_wiz_v6_0_11_0_0,{component_name=DATA_clks,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,enable_axi=0,feedback_source=FDBK_AUTO,PRIMITIVE=MMCM,num_out_clk=3,clkin1_period=10.000,clkin2_period=10.000,use_power_down=false,use_reset=false,use_locked=false,use_inclk_stopped=false,feedback_type=SINGLE,CLOCK_MGR_TYPE=NA,manual_override=false}" *)
 
 module DATA_clks 
  (
   // Clock out ports
   output        SPI_clk,
   output        UART_clk,
+  output        slower_clk,
  // Clock in ports
   input         clk_in1
  );
@@ -82,6 +84,7 @@ module DATA_clks
   // Clock out ports  
   .SPI_clk(SPI_clk),
   .UART_clk(UART_clk),
+  .slower_clk(slower_clk),
  // Clock in ports
   .clk_in1(clk_in1)
   );

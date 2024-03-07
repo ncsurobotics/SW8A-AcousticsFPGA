@@ -13,11 +13,12 @@ module UART_RX_CONTROLLER #(
     output reg RX_Data_Ready
 );
 
-parameter [1:0] // state localparams
-    IDLE = 2'b00,
-    COUNT_TO_54 = 2'b01,
-    SAMPLE = 2'b10,
-    WAIT_FOR_STOP_BIT = 2'b11;
+parameter [2:0] // state localparams
+    IDLE                = 3'b000,
+    COUNT_TO_54         = 3'b001,
+    SAMPLE              = 3'b010,
+    WAIT_FOR_STOP_BIT   = 3'b011,
+    DATA_READY          = 3'b100;
 
 parameter [1:0] // counter to 55 localparams
     HOLD_CTR = 2'b10,
@@ -32,7 +33,7 @@ parameter
     FALSE =  1'b0,
     TRUE =  1'b1;
 
-reg [1:0] current_state, next_state;
+reg [2:0] current_state, next_state;
 
 always @ (posedge clk or negedge reset_b) begin
     if (!reset_b) begin
@@ -82,11 +83,20 @@ always @ (*) begin
         WAIT_FOR_STOP_BIT: begin
             RX_Shift_Register_sel   <= HOLD;
             Bit_Counter_sel         <= ZERO;
-            RX_Data_Ready           <= TRUE;
+            RX_Data_Ready           <= FALSE;
             Baud_Counter_sel        <= ZERO;
 
-            if (RX_Data_in) next_state <= IDLE;
+            if (RX_Data_in) next_state <= DATA_READY;
             else next_state <= WAIT_FOR_STOP_BIT;
+        end
+
+        DATA_READY: begin
+            RX_Shift_Register_sel   <= HOLD;
+            Bit_Counter_sel         <= ZERO;
+            RX_Data_Ready           <= TRUE;
+            Baud_Counter_sel        <= ZERO;
+            
+            next_state              <= IDLE;
         end
 
         default: begin
