@@ -58,6 +58,7 @@
 //----------------------------------------------------------------------------
 // _SPI_clk___7.14286______0.000______50.0______621.062____480.876
 // UART_clk___5.76037______0.000______50.0______641.480____480.876
+// slower_clk__79.36508______0.000______50.0______426.057____480.876
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -72,6 +73,7 @@ module DATA_clks_clk_wiz
   // Clock out ports
   output        SPI_clk,
   output        UART_clk,
+  output        slower_clk,
   input         clk_in1
  );
   // Input buffering
@@ -92,7 +94,7 @@ wire clk_in2_DATA_clks;
 
   wire        SPI_clk_DATA_clks;
   wire        UART_clk_DATA_clks;
-  wire        clk_out3_DATA_clks;
+  wire        slower_clk_DATA_clks;
   wire        clk_out4_DATA_clks;
   wire        clk_out5_DATA_clks;
   wire        clk_out6_DATA_clks;
@@ -107,7 +109,6 @@ wire clk_in2_DATA_clks;
   wire        clkfboutb_unused;
     wire clkout0b_unused;
    wire clkout1b_unused;
-   wire clkout2_unused;
    wire clkout2b_unused;
    wire clkout3_unused;
    wire clkout3b_unused;
@@ -134,6 +135,10 @@ wire clk_in2_DATA_clks;
     .CLKOUT1_PHASE        (0.000),
     .CLKOUT1_DUTY_CYCLE   (0.500),
     .CLKOUT1_USE_FINE_PS  ("FALSE"),
+    .CLKOUT2_DIVIDE       (9),
+    .CLKOUT2_PHASE        (0.000),
+    .CLKOUT2_DUTY_CYCLE   (0.500),
+    .CLKOUT2_USE_FINE_PS  ("FALSE"),
     .CLKIN1_PERIOD        (10.000))
   mmcm_adv_inst
     // Output clocks
@@ -144,7 +149,7 @@ wire clk_in2_DATA_clks;
     .CLKOUT0B            (clkout0b_unused),
     .CLKOUT1             (UART_clk_DATA_clks),
     .CLKOUT1B            (clkout1b_unused),
-    .CLKOUT2             (clkout2_unused),
+    .CLKOUT2             (slower_clk_DATA_clks),
     .CLKOUT2B            (clkout2b_unused),
     .CLKOUT3             (clkout3_unused),
     .CLKOUT3B            (clkout3b_unused),
@@ -199,6 +204,10 @@ wire clk_in2_DATA_clks;
   BUFG clkout2_buf
    (.O   (UART_clk),
     .I   (UART_clk_DATA_clks));
+
+  BUFG clkout3_buf
+   (.O   (slower_clk),
+    .I   (slower_clk_DATA_clks));
 
 
 

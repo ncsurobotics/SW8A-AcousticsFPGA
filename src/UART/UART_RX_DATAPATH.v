@@ -1,3 +1,5 @@
+`include "params.v"
+
 module UART_RX_DATAPATH #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
 
     input clk,
@@ -23,7 +25,13 @@ module UART_RX_DATAPATH #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
     
     );
     
-    GENERAL_COUNTER #(.COUNT_VAL(54), . COUNT_BIT_WIDTH(6)) BAUD_COUNTER (
+    // This counter's "Count Reached" samples the incoming UART line, and is timed to sample at even intervals
+    // Sampling every 9370 ns guarantees that each data bit is sampled once, at a different "place" each bit
+    // e.g. --> ¯¯¯¯|________|   D0   |   D1   |   D2   |   D3   |   D4   |   D5   |   D6   |   D7   |¯¯¯¯¯¯¯
+    // sample                ^         ^         ^         ^         ^         ^         ^         ^
+    
+    localparam COUNTS_PER_SAMPLE = UART_SAMPLE_PERIOD / CLK_PERIOD;
+    GENERAL_COUNTER #(.COUNT_VAL(COUNTS_PER_SAMPLE), .COUNT_BIT_WIDTH( $clog2(COUNTS_PER_SAMPLE) )) BAUD_COUNTER (
     
         .clk(clk),
         .reset_b(reset_b),

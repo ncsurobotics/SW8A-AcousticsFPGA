@@ -32,7 +32,7 @@ module TRIGGER_DETECT(
     input [15:0] t_user,
     
     output T_READY,
-    output reg Trigger,
+    (* mark_debug = "true" *) output reg Trigger,
     output FFT_Data_Ready
 
 );
@@ -42,14 +42,14 @@ module TRIGGER_DETECT(
     wire [5:0] Read_Address_With_Offset;
     wire [31:0] FFT_Data;
     
-    wire [7:0] FFT_index = t_user[7:0];
+    (* mark_debug = "true" *) wire [7:0] FFT_index;
     
-    
+    assign FFT_index = t_user[7:0];
     assign Read_Address_With_Offset = Frequency + Offset;
     
     // verbose for debug
-    wire [15:0] val_to_compare;
-    (* mark_debug = "true" *) assign val_to_compare = (T_DATA[15] == 1'b0) ? T_DATA[15:0] : (~(T_DATA[15:0]) + 1); // magnitude of signed 2'sC int
+    (* mark_debug = "true" *) wire [15:0] val_to_compare;
+    assign val_to_compare = (T_DATA[15] == 1'b0) ? T_DATA[15:0] : (~(T_DATA[15:0]) + 1); // magnitude of signed 2'sC int
     
     always@(*) begin
         if(FFT_index == 16 || FFT_index == 17 || FFT_index == 18) begin

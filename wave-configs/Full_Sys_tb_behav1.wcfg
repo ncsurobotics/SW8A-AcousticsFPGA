@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Full_Sys_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Full_Sys_tb" />
+            <top_module name="glbl" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,668.220 ns"></ZoomEndTime>
+      <Cursor1Time time="100.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="480"></NameColumnWidth>
+      <ValueColumnWidth column_width="201"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="37" />
+   <wvobject fp_name="/Full_Sys_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/ok_to_write" type="logic">
+      <obj_property name="ElementShortName">ok_to_write</obj_property>
+      <obj_property name="ObjectShortName">ok_to_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_x_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_x_fft/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_x_fft/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_y_fft/s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_y_fft/s_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/channel_y_fft/s_axis_data_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_data_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_data_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/complex_mult_inst/m_axis_dout_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_dout_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_dout_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/inverse_fft/m_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_data_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/inverse_fft/m_axis_data_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_data_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/inverse_fft/m_axis_data_tuser" type="array">
+      <obj_property name="ElementShortName">m_axis_data_tuser[15:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_data_tuser[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RING_BUFFER_channel_1_inst/Output_Data" type="array">
+      <obj_property name="ElementShortName">Output_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Output_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/Channel_X_Ring_Buffer_in" type="array">
+      <obj_property name="ElementShortName">Channel_X_Ring_Buffer_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Channel_X_Ring_Buffer_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/x_s_axis_data_tdata" type="array">
+      <obj_property name="ElementShortName">x_s_axis_data_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">x_s_axis_data_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RING_BUFFER_channel_1_inst/Input_Data" type="array">
+      <obj_property name="ElementShortName">Input_Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Input_Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/RING_BUFFER_channel_1_inst/Input_Data_Ready" type="logic">
+      <obj_property name="ElementShortName">Input_Data_Ready</obj_property>
+      <obj_property name="ObjectShortName">Input_Data_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/argmax/Value_in" type="array">
+      <obj_property name="ElementShortName">Value_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Value_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/argmax/Index_in" type="array">
+      <obj_property name="ElementShortName">Index_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Index_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_block_inst/argmax/Max_Index" type="array">
+      <obj_property name="ElementShortName">Max_Index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Max_Index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Cmd_Reader_TX_en" type="logic">
+      <obj_property name="ElementShortName">Cmd_Reader_TX_en</obj_property>
+      <obj_property name="ObjectShortName">Cmd_Reader_TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/CC_TX_en" type="logic">
+      <obj_property name="ElementShortName">CC_TX_en</obj_property>
+      <obj_property name="ObjectShortName">CC_TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/TX_en" type="logic">
+      <obj_property name="ElementShortName">TX_en</obj_property>
+      <obj_property name="ObjectShortName">TX_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Word_To_Send" type="array">
+      <obj_property name="ElementShortName">Word_To_Send[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Word_To_Send[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Cmd_Reader_Word_To_Send" type="array">
+      <obj_property name="ElementShortName">Cmd_Reader_Word_To_Send[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Cmd_Reader_Word_To_Send[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/CC_Block_Word_To_Send" type="array">
+      <obj_property name="ElementShortName">CC_Block_Word_To_Send[7:0]</obj_property>
+      <obj_property name="ObjectShortName">CC_Block_Word_To_Send[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cc_pipeline_controller_inst/Tx_Ready" type="logic">
+      <obj_property name="ElementShortName">Tx_Ready</obj_property>
+      <obj_property name="ObjectShortName">Tx_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Command" type="array">
+      <obj_property name="ElementShortName">Command[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Command[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/Rx_Ready" type="logic">
+      <obj_property name="ElementShortName">Rx_Ready</obj_property>
+      <obj_property name="ObjectShortName">Rx_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/Rx_Ready" type="logic">
+      <obj_property name="ElementShortName">Rx_Ready</obj_property>
+      <obj_property name="ObjectShortName">Rx_Ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/cmd/COMM_READ_CONT_inst/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/reset_b" type="logic">
+      <obj_property name="ElementShortName">reset_b</obj_property>
+      <obj_property name="ObjectShortName">reset_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/SPI_Data_out_Internal" type="array">
+      <obj_property name="ElementShortName">SPI_Data_out_Internal[9:0]</obj_property>
+      <obj_property name="ObjectShortName">SPI_Data_out_Internal[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/Data_Ready_Internal" type="logic">
+      <obj_property name="ElementShortName">Data_Ready_Internal</obj_property>
+      <obj_property name="ObjectShortName">Data_Ready_Internal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Full_Sys_tb/dut/Channel_1_SPI/CS" type="logic">
+      <obj_property name="ElementShortName">CS</obj_property>
+      <obj_property name="ObjectShortName">CS</obj_property>
+   </wvobject>
+</wave_config>

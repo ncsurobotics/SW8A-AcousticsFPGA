@@ -29,8 +29,12 @@ module COMMAND_READER_DATA_PATH(
     input [9:0] Max_Value,
     input [1:0] Word_To_Send_sel,
     input [1:0] Timer_sel,
+    input Set_Frequency_sel,
+    input Set_Threshold_sel,
     
     output reg [7:0] Word_To_Send,
+    output reg [15:0] Threshold,
+    output reg [5:0] Frequency,
     output [2:0] Channel_sel,
     output Timeout
 
@@ -41,8 +45,6 @@ module COMMAND_READER_DATA_PATH(
         MAX_VALUE = 2'b01,
         TRUE = 2'b10,
         FALSE = 2'b11;
-    
-
     
     reg [7:0] Next_Word_To_Send;
     
@@ -77,17 +79,63 @@ module COMMAND_READER_DATA_PATH(
             end
         endcase
     end
+
+    // Frequency
+    always@(posedge clk or negedge reset_b) begin
+        if(!reset_b) begin
+            Frequency<=6'd16;
+        end
+        else begin
+            Frequency <= Set_Frequency_sel ? Command[3:0] : Frequency;
+        end
+    end
+
+    // Threshold
+    always@(posedge clk or negedge reset_b)begin 
+        if(!reset_b) begin
+            Threshold <= 16'h16;
+        end
+        else begin
+            Threshold <= Set_Threshold_sel ? {9'b0, Command[6:0]} : Threshold;
+        end
+    end
     
+    // CDC handling for Timeout
+    wire timeout_int;
+    xpm_cdc_single #(
+        .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
+        .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+        .SIM_ASSERT_CHK(1), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+        .SRC_INPUT_REG(1)   // DECIMAL; 0=do not register input, 1=register input
+    )
+    xpm_cdc_single_inst (
+        .dest_out(Timeout), // 1-bit output: src_in synchronized to the destination clock domain. This output is
+                               // registered.
+
+        .dest_clk(clk), // 1-bit input: Clock signal for the destination clock domain.
+        .src_clk(slow_clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
+        .src_in(timeout_int)      // 1-bit input: Input signal to be synchronized to dest_clk domain.
+    );
+    
+    // CDC for timer_sel
+    (* ASYNC_REG = "TRUE" *)reg [1:0] timer_sel_100;
+    always @ (posedge clk) timer_sel_100 <= Timer_sel;
+
+    integer i;
+    (* ASYNC_REG = "TRUE" *) reg [1:0] timer_sel_sync [0:3];
+    always @ (posedge slow_clk) begin
+        for (i=3; i>0; i=i-1) timer_sel_sync[i] <= timer_sel_sync[i-1];
+        timer_sel_sync[0] <= timer_sel_100;
+    end
+
+    // 4 second timer to get out of trigger_detect state -- 23040000 / 5760000 = 4
     GENERAL_COUNTER  #(.COUNT_VAL(23040000), . COUNT_BIT_WIDTH(25)) Timer (
         .clk(slow_clk),
         .reset_b(reset_b),
-        .Count_sel(Timer_sel),
-        .Count_Reached(Timeout)
+        .Count_sel(timer_sel_sync[3]),
+        .Count_Reached(timeout_int) // timeout internal --> CDC 
     );
-    
-    
-    
-    
-    
+
+
 
 endmodule

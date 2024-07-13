@@ -21,7 +21,7 @@
 
 module SPI_DATAPATH #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     
-    input clk,
+    //input clk,
     input SPI_clk,
     input reset_b,
     input SPI_Data_in,
@@ -49,14 +49,14 @@ module SPI_DATAPATH #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     );
     
     
-    always@(posedge clk or negedge reset_b) begin
+    /*always@(posedge clk or negedge reset_b) begin
         if(!reset_b) begin
             SPI_Data_out_reg <= 0;
         end
         else begin
             SPI_Data_out_reg <= SPI_Data_out_next;
         end
-    end
+    end*/
     
     always@(*) begin
         if(Data_Ready) begin
@@ -78,6 +78,7 @@ module SPI_DATAPATH #(parameter WIDTH=10, parameter TOTAL_BITS=14) (
     
     ); 
 
-    assign SPI_Data_out = SPI_Data_out_reg;
+    //assign SPI_Data_out = SPI_Data_out_reg;
+    assign SPI_Data_out = SPI_Shift_Register_out;
 
 endmodule
