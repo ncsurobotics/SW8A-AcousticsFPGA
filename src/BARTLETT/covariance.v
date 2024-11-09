@@ -1,14 +1,28 @@
+// TODO: Change state machine such that if a new ping's data comes in while waiting for ack, 
+//      the new data is processed instead of ignored
+
+// TODO: Fix these numbers based on actual FFT core
+parameter TOTAL_INPUT_DATA_SIZE = 32; // real and imaginary
+parameter OUTPUT_DATA_SIZE = 38;
+
+// accumulate_sel
+parameter [1:0]
+    HOLD_ACC = 2'b00,
+    COUNT_ACC = 2'b01,
+    RESET_ACC = 2'b11;
+
 module covariance #(FFT_SIZE = 128) (
     input clk, reset_b,
     
-    input tvalid_1, tvalid_2, tvalid_3, tvalid_4, 
-    input tlast_1, tlast_2, tlast_3, tlast_4,
-    input [31:0] tdata_1, tdata_2, tdata_3, tdata_4,
-    output tready,
+    // TODO: fix data sizes
+    input fft_valid_1, fft_valid_2, fft_valid_3, fft_valid_4, 
+    input fft_last_1, fft_last_2, fft_last_3, fft_last_4,
+    input [TOTAL_INPUT_DATA_SIZE-1:0] tdata_1, tdata_2, tdata_3, tdata_4,
+    output ready_for_fft,
 
     output valid_out,
     input  ack,
-    output reg [37:0] re11, re12, re13, re14,
+    output [OUTPUT_DATA_SIZE-1:0] re11, re12, re13, re14,
                             re22, re23, re24,
                                   re33, re34,
                                         re44,
@@ -17,9 +31,50 @@ module covariance #(FFT_SIZE = 128) (
                                   im33, im34,
                                         im44;
 );
+
+endmodule
+
+module covariance_ctrl #(FFT_SIZE = 128) (
+    input clk, reset_b, 
+    input mult_valid, mult_last,
+    output reg valid_out,
+    output reg accumulate_sel
+);
+
+localparam [1:0] // states
+    IDLE_S = 2'b00,
+    HOLD_S = 2'b10,
+    RESET_S = 2'b11;
+
+reg [1:0] state, next_state;
+
+always @ (posedge clk or negedge reset_b) begin
+    if (!reset_b) state <= IDLE_S;
+    else state <= next_state;
+end
+
+always @ (*) begin
+    case (state)
+        IDLE_S: begin
+            accumulate_sel = mult_valid ? COUNT_ACC : RESET_ACC;
+        end 
+        default: 
+    endcase
+end
+
+endmodule
+
+module covariance_dp #(FFT_SIZE = 128) (
+    input clk, reset_b,
     
+
+);
+    
+
+// TODO: add flow control for startup, including a clock enable. For now, I am assuming that the Hilbert transform will complete
+//      well after the multipliers are ready. 
 // Stop operation until all complex multipliers & all FFT cores are ready
-assign tready = tvalid_1 & tvalid_2 & tvalid_3 & tvalid_4;
+//assign tready = tvalid_1 & tvalid_2 & tvalid_3 & tvalid_4;
 
 // instantiate complex multipliers
 wire [319:0] a_data_array, b_data_array; // TODO: truncate the lsb not the msb - really probably not necessary so not doing it rn
@@ -58,6 +113,23 @@ endgenerate
 
 
 // accumulators
+always @ (*) begin
+    case (accumulate_sel)
+        RESET: begin
+            
+        end
+        ACCUMULATE:
+        HOLD: 
+        default: 
+    endcase
+end
+
+// reset accumulators at beginning of transaction
+reg state, next_state;
+always @ (posedge clk or negedge reset_b) begin
+    if (!)
+end
+
 
 
 endmodule
