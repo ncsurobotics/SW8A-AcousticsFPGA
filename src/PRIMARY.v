@@ -178,7 +178,24 @@ RING_BUFFER RING_BUFFER_channel_4_inst(
 
 );
 */
-                                  
+
+CC_MODULE CC_MODULE_inst(
+	.clk(clk),
+	.slow_clk(UART_clk),
+	.SPI_clk(SPI_clk),
+	.reset_b(reset_b),
+	.Trigger(Trigger),
+	.tx_ready(tx_ready),
+	.Channel_X_Ring_Buffer_in(Channel_1_Ring_Buffer_out),
+	.Channel_Y_Ring_Buffer_in(Channel_2_Ring_Buffer_out),
+	.CC_TX_en(CC_TX_en),
+	.Channel_X_Send_Frame(CC_ChX_Send_Frame),
+	.Channel_Y_Send_Frame(Channel_2_Send_Frame),
+	.Index_out(CC_Block_Word_To_Send),
+	.SPI_en(SPI_en),
+	.Trigger_Persistant(Trigger_Persistant)
+	);
+/*                                 
 CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .clk(clk),
     .slow_clk(UART_clk),
@@ -196,8 +213,18 @@ CC_PIPELINE_CONTROLLER cc_pipeline_controller_inst(
     .SPI_en(SPI_en)
 );
 
- 
-
+CC_BLOCK cc_block_inst(
+    .clk(clk),
+    .reset_b(reset_b),
+    .Start_CC(Start_CC),
+    .Channel_X_Ring_Buffer_in(Channel_1_Ring_Buffer_out),
+    .Channel_Y_Ring_Buffer_in(Channel_2_Ring_Buffer_out),
+    .Channel_X_Send_Frame(CC_ChX_Send_Frame), // OR'd with Trigger_Send_Frame
+    .Channel_Y_Send_Frame(Channel_2_Send_Frame), // directly into Ring Buffer
+    .Index_out(CC_Block_Word_To_Send),
+    .CC_Done(CC_Done)
+);
+*/
 TRIGGER_FFT_v2 trigger_fft_inst(
 
     .clk(clk),
@@ -218,17 +245,7 @@ TRIGGER_FFT_v2 trigger_fft_inst(
     .tb_trigger_fft_tvalid(tb_trigger_fft_tvalid)
 );  
 
-CC_BLOCK cc_block_inst(
-    .clk(clk),
-    .reset_b(reset_b),
-    .Start_CC(Start_CC),
-    .Channel_X_Ring_Buffer_in(Channel_1_Ring_Buffer_out),
-    .Channel_Y_Ring_Buffer_in(Channel_2_Ring_Buffer_out),
-    .Channel_X_Send_Frame(CC_ChX_Send_Frame), // OR'd with Trigger_Send_Frame
-    .Channel_Y_Send_Frame(Channel_2_Send_Frame), // directly into Ring Buffer
-    .Index_out(CC_Block_Word_To_Send),
-    .CC_Done(CC_Done)
-);
+
 
 //button handler to remedy bounce on reset signal button
 button_handler reset_signal(    
@@ -242,7 +259,7 @@ button_handler reset_signal(
 //assign reset_b = 1'b1;
 
 assign data_ready = ADC_CH1_Ready;
-
+/*
 SPI Channel_1_SPI (
 
     .clk(clk),
@@ -299,8 +316,20 @@ SPI Channel_4_SPI (
     .CS(cs4)
     
 
-);
+);*/
 
+SPI_WRAPPER SPI_WRAPPER_inst(
+    .clk(clk),
+    .SPI_clk(SPI_clk),
+    .reset_b(reset_b),
+    .data_in({adc4,adc3,adc2,adc1}),
+    .SPI_en(SPI_en),
+    .CS({cs4,cs3,cs2,cs1}),
+	.Data_Ready({ADC_CH4_Ready,ADC_CH3_Ready,ADC_CH2_Ready,ADC_CH1_Ready}),
+    .SPI_Data_out({ADC_Channel_4,ADC_Channel_3,ADC_Channel_2,ADC_Channel_1})
+);
+    
+	
 
 
 
