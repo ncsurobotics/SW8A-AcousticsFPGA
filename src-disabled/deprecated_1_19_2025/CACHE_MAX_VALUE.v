@@ -1,3 +1,7 @@
+/*
+	Module not instantiated anywhere. The "MAX_VALUE" logic seems to be inside the Command Reader
+*/
+
 module CACHE_MAX_VALUE (
     input clk,
     input reset_b,

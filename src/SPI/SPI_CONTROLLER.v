@@ -38,10 +38,10 @@ module SPI_CONTROLLER (
         ZERO            =   1'b0,
         INCREMENT       =   1'b1;
     parameter 
-        HOLD = 1'b0,
-        SHIFT = 1'b1;
+        HOLD 			= 	1'b0,
+        SHIFT			= 	1'b1;
     parameter
-        FALSE            =   1'b0,
+        FALSE           =   1'b0,
         TRUE            =   1'b1;
         
     parameter [1:0]

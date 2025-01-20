@@ -1,9 +1,9 @@
-module SIPO(
+module SIPO( //Serial in Parallel out shift register
     input clk,
-    input data_in,
-    input reset_b,
-    input data_logging,
-    output wire[9:0] data_out   
+    input data_in, //serial in
+    input reset_b, //async active low
+    input data_logging, //enable
+    output wire[9:0] data_out   //parallel out
 );
 
     reg [9:0]  data_buffer;
@@ -24,3 +24,4 @@ module SIPO(
     assign data_out = data_buffer;
 
 endmodule
+

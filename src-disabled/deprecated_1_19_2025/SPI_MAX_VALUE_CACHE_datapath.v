@@ -1,3 +1,8 @@
+/*
+	Module not instantiated anywhere. The "MAX_VALUE" logic seems to be inside the Command Reader
+*/
+
+
 module SPI_MAX_VALUE_CACHE_datapath #(
     parameter WORD_SIZE=16777215,
     parameter WORD_SIZE_WIDTH=24

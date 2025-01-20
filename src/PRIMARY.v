@@ -318,15 +318,20 @@ SPI Channel_4_SPI (
 
 );*/
 
-SPI_WRAPPER SPI_WRAPPER_inst(
+SPI_WRAPPER SPI_WRAPPER_inst( //contains 4 parallelized SPI channels.
     .clk(clk),
     .SPI_clk(SPI_clk),
     .reset_b(reset_b),
-    .data_in({adc4,adc3,adc2,adc1}),
-    .SPI_en(SPI_en),
-    .CS({cs4,cs3,cs2,cs1}),
-	.Data_Ready({ADC_CH4_Ready,ADC_CH3_Ready,ADC_CH2_Ready,ADC_CH1_Ready}),
-    .SPI_Data_out({ADC_Channel_4,ADC_Channel_3,ADC_Channel_2,ADC_Channel_1})
+    .data_in({adc4, adc3, adc2, adc1}), //From outside FPGA
+    .SPI_en(SPI_en), //From CC controller 
+    .CS({cs4,cs3,cs2,cs1}), //Outputs out of FPGA
+	.Data_Ready({ADC_CH4_Ready, ADC_CH3_Ready, ADC_CH2_Ready, ADC_CH1_Ready}), // ADC_CH0_Ready goes into TRIGGER_FFT, RING_BUFFER_channel_1, and out of the FPGA.
+	// ADC_CH1_Ready goes into RING_BUFFER_channel_2. the rest are unconnected
+    .SPI_Data_out({ADC_Channel_4, ADC_Channel_3, ADC_Channel_2, ADC_Channel_1})
+	// ADC_Channel_1 -> RING_BUFFER_channel_1.Input_Data | [9:2] -> display_spi_reg
+	// ADC_Channel_2 -> RING_BUFFER_channel_2.Input_Data
+	// ADC_Channel_3 -> 
+	// ADC_Channel_1 -> 
 );
     
 	
@@ -338,8 +343,8 @@ wire[2:0] Max_Value_Channel_sel;
 wire[9:0] Max_Value;
 assign Max_Value = 10'b0;
 reg[7:0] OP_Code;
-
-/* SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
+/*
+ SPI_MAX_VALUE_CACHE_datapath CACHE_dp_inst(
     .clk(clk),
     .Slow_clk(UART_clk),
     .reset_b(reset_b),
@@ -350,7 +355,8 @@ reg[7:0] OP_Code;
     .Max_Value_Channel_sel(Max_Value_Channel_sel),
 
     .Max_Value(Max_Value)
-); */
+); 
+*/
 
 
 

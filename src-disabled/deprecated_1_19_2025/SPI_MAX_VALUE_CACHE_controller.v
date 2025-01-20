@@ -1,3 +1,7 @@
+/*
+	Module not instantiated anywhere. The "MAX_VALUE" logic seems to be inside the Command Reader
+*/
+
 module SPI_MAX_VALUE_CACHE_controller(
     input clk,
     input reset_b,

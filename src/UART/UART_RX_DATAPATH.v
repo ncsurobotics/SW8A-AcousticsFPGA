@@ -1,4 +1,4 @@
-`include "params.v"
+`include "../include/params.v"
 
 module UART_RX_DATAPATH #(parameter WORD_SIZE=8, parameter WORD_SIZE_WIDTH=4)(
 

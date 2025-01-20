@@ -1,4 +1,5 @@
 // top level module for testing new UART w/ CDCs
+// Moved from src to srcsim 1/19/2025. It seems to have been inactive for over a year.
 
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
