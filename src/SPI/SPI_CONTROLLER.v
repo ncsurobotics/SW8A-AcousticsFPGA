@@ -65,7 +65,7 @@ module SPI_CONTROLLER (
     always@(*) begin
         case(current_state)
             IDLE: begin
-                Bit_Counter_sel     <=      ZERO;
+                Bit_Counter_sel     <=      ZERO; 
                 Data_Ready          <=      FALSE;
                 RX_Shift_Register_sel <=    HOLD;
                 CS                  <=      1'b1;

@@ -325,8 +325,8 @@ SPI_WRAPPER SPI_WRAPPER_inst( //contains 4 parallelized SPI channels.
     .data_in({adc4, adc3, adc2, adc1}), //From outside FPGA
     .SPI_en(SPI_en), //From CC controller 
     .CS({cs4,cs3,cs2,cs1}), //Outputs out of FPGA
-	.Data_Ready({ADC_CH4_Ready, ADC_CH3_Ready, ADC_CH2_Ready, ADC_CH1_Ready}), // ADC_CH0_Ready goes into TRIGGER_FFT, RING_BUFFER_channel_1, and out of the FPGA.
-	// ADC_CH1_Ready goes into RING_BUFFER_channel_2. the rest are unconnected
+	.Data_Ready({ADC_CH4_Ready, ADC_CH3_Ready, ADC_CH2_Ready, ADC_CH1_Ready}), // ADC_CH1_Ready goes into TRIGGER_FFT, RING_BUFFER_channel_1, and out of the FPGA.
+	// ADC_CH2_Ready goes into RING_BUFFER_channel_2. the rest are unconnected
     .SPI_Data_out({ADC_Channel_4, ADC_Channel_3, ADC_Channel_2, ADC_Channel_1})
 	// ADC_Channel_1 -> RING_BUFFER_channel_1.Input_Data | [9:2] -> display_spi_reg
 	// ADC_Channel_2 -> RING_BUFFER_channel_2.Input_Data
