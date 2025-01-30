@@ -19,6 +19,11 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+// Commands
+//SET_THRESHOLD good 
+//SET_FREQUENCY probably good
+//read command. dump RAM into UART
+//run algo command
 
 module COMMAND_READER_CONTROLLER(
 
@@ -90,7 +95,7 @@ module COMMAND_READER_CONTROLLER(
     end  
         
     always@(*)begin   
-        if(Timeout) begin
+        if(Timeout) begin //TODO fix
             next_state <= WRITE_FALSE;
             Timer_sel <= COUNT;
             Word_To_Send_sel <= ZERO;
@@ -250,7 +255,7 @@ module COMMAND_READER_CONTROLLER(
             TX_EN:begin 
                 //if(RsTx) next_state <= TX_EN;     // ** This has been changed to support the new UART.
                 //else next_state <= TX_SEND;       // ** When Tx_Ready is high, the data is taken in in 1 clock cycle.
-                if (Tx_Ready) next_state <= IDLE;
+                if (Tx_Ready) next_state <= IDLE; //change next_state logic to allow for more words to be sent over UART
                 else next_state <= TX_EN;
                 Timer_sel <= ZERO;
                 Word_To_Send_sel <= HOLD_VALUE;

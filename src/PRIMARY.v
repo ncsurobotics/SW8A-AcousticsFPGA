@@ -1,6 +1,6 @@
 
 `timescale 1ns / 1ps
-
+//TODO logic to controler vga on single channels. detect clipping then lower gain
 module PRIMARY (
                 input clk, btnU, btnC, SPI_clk, UART_clk,
 
@@ -8,7 +8,7 @@ module PRIMARY (
                 input adc2,
                 input adc3,
                 input adc4,
-                input reset_b,
+                input reset_b, //active low async reset
                 output data_ready,
                 output cs1,cs2,cs3,cs4,
                 input RsRx,
@@ -331,12 +331,19 @@ SPI_WRAPPER SPI_WRAPPER_inst( //contains 4 parallelized SPI channels.
 	// ADC_Channel_1 -> RING_BUFFER_channel_1.Input_Data | [9:2] -> display_spi_reg
 	// ADC_Channel_2 -> RING_BUFFER_channel_2.Input_Data
 	// ADC_Channel_3 -> 
-	// ADC_Channel_1 -> 
+	// ADC_Channel_4 -> 
 );
-    
+
+SPI_TRIGGER #(.THRESHOLD(950),.WINDOW(16),.WAITTIME(32))
+	SPI_TRIGGER_inst( //Looks at SPI data, goes high after 2 peaks are received
+	.SPI_data_in(ADC_Channel_2),
+	.data_ready(ADC_CH2_Ready),
+	.reset_n(reset_b),
+	.clk(clk),
+	.trigger()
+	);
 	
-
-
+    
 
 
 wire[2:0] Max_Value_Channel_sel;

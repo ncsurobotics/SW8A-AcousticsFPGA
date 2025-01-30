@@ -19,7 +19,8 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//TODO If there is an issue with the ADC, pull up resistor to make Z -> 1, detect falling edge.
+//TODO test ad2->adc->spi->uart->pc to ensure it works
 module SPI_CONTROLLER (
 
     input clk,

@@ -1,0 +1,10 @@
+TODO list:
+
+SW8A-AcousticsFPGA.gen/sources_1/ip/xfft_cc/xfft_cc_sim_netlist.v
+
+	494 	ieycVkKZgvqqITODOzrXQL3jo1AF7J8/9LvO2w0SnzHSNrfcvhCC3yCKAF0M1XsGuZfQoKGGTgam
+	6533 	nh2Xw1PSbFF0SyhX+MN4BNP4DJD8EZOlGL6k138CUDOC2aoSvNtHj6ts1qLTHjTITODOy6MHKIzk
+
+src/CC/CC_MODULE.v
+
+	3 	module CC_MODULE( //TODO
