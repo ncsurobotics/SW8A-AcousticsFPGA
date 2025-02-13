@@ -8,3 +8,20 @@ SW8A-AcousticsFPGA.gen/sources_1/ip/xfft_cc/xfft_cc_sim_netlist.v
 src/CC/CC_MODULE.v
 
 	3 	module CC_MODULE( //TODO
+
+src/COMMAND_READER/COMMAND_READER_CONTROLLER.v
+
+	98 	        if(Timeout) begin //TODO fix
+
+src/PRIMARY.v
+
+	3 	//TODO logic to controler vga on single channels. detect clipping then lower gain
+
+src/SPI/SPI_CONTROLLER.v
+
+	22 	//TODO If there is an issue with the ADC, pull up resistor to make Z -> 1, detect falling edge.
+	23 	//TODO test ad2->adc->spi->uart->pc to ensure it works
+
+src/io.v
+
+	2 	module button_handler ( //TODO remove

@@ -334,13 +334,13 @@ SPI_WRAPPER SPI_WRAPPER_inst( //contains 4 parallelized SPI channels.
 	// ADC_Channel_4 -> 
 );
 
-SPI_TRIGGER #(.THRESHOLD(950),.WINDOW(16),.WAITTIME(32))
-	SPI_TRIGGER_inst( //Looks at SPI data, goes high after 2 peaks are received
+SPI_trigger #(.THRESHOLD(950),.WINDOW(16),.WAITTIME(32))
+	SPI_trigger_inst( //Looks at SPI data, goes high after 2 peaks are received
 	.SPI_data_in(ADC_Channel_2),
 	.data_ready(ADC_CH2_Ready),
 	.reset_n(reset_b),
 	.clk(clk),
-	.trigger()
+	.trigger(Trigger)
 	);
 	
     
