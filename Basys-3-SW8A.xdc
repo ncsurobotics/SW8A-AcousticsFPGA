@@ -83,21 +83,21 @@ set_property -dict {PACKAGE_PIN J1 IOSTANDARD LVCMOS33} [get_ports data_ready]
 ##Pmod Header JB
 #set_property -dict { PACKAGE_PIN A14   IOSTANDARD LVCMOS33 } [get_ports {RsTx}];#Sch name = JB1
 set_property -dict {PACKAGE_PIN A16 IOSTANDARD LVCMOS33} [get_ports spi_clk_out4]
-set_property -dict {PACKAGE_PIN B15 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc4] #Pullup resistor
+set_property -dict {PACKAGE_PIN B15 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc4]; ##Pullup resistor
 set_property -dict {PACKAGE_PIN B16 IOSTANDARD LVCMOS33} [get_ports cs4]
 #set_property -dict { PACKAGE_PIN A15   IOSTANDARD LVCMOS33 } [get_ports {JB[4]}];#Sch name = JB7
 set_property -dict {PACKAGE_PIN A17 IOSTANDARD LVCMOS33} [get_ports spi_clk_out3]
-set_property -dict {PACKAGE_PIN C15 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc3] #Pullup resistor
+set_property -dict {PACKAGE_PIN C15 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc3]; ##Pullup resistor
 set_property -dict {PACKAGE_PIN C16 IOSTANDARD LVCMOS33} [get_ports cs3]
 
 ##Pmod Header JC
 #set_property -dict { PACKAGE_PIN K17   IOSTANDARD LVCMOS33 } [get_ports {JC[0]}];#Sch name = JC1
 set_property -dict {PACKAGE_PIN M18 IOSTANDARD LVCMOS33} [get_ports spi_clk_out1]
-set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc1] #Pullup resistor
+set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc1]; ##Pullup resistor
 set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS33} [get_ports cs1]
 #set_property -dict { PACKAGE_PIN L17   IOSTANDARD LVCMOS33 } [get_ports {JC[4]}];#Sch name = JC7
 set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports spi_clk_out2]
-set_property -dict {PACKAGE_PIN P17 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc2] #Pullup resistor
+set_property -dict {PACKAGE_PIN P17 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports adc2]; ##Pullup resistor
 set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS33} [get_ports cs2]
 
 ##Pmod Header JXADC
